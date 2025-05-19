@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Using Jupyter (Need) – Python in Physics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../styles/specific-optimisations.css">
+<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../../../styles/styles_quarto.css">
+<link rel="stylesheet" href="../../../styles/py_css.css">
+<link rel="stylesheet" href="../../../styles/styles-tables.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Python in Physics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../docs/about/overview.html" aria-current="page"> 
+<span class="menu-text">What to expect?</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 1</strong></li><li class="breadcrumb-item">(B) Python (Basics)</li><li class="breadcrumb-item"><a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html">1. Using Jupyter</a></li><li class="breadcrumb-item"><a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html">Using Jupyter (Need)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Info</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/about/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What to expect?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Day 1</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">(A) Setting up</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/setting-up/setup_jupyter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello, Jupyter! (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/setting-up/setup_environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vir. Environments (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/setting-up/setup_github.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello, GitHub! (Nice)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">(B) Python (Basics)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">1. Using Jupyter</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using Jupyter (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Jupyter (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">2. Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/02_basics/1_basics_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fundamentals (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/02_basics/1_basics_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/02_basics/2_basics_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fundamentals (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/02_basics/2_basics_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/02_basics/3_basics_nice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fundamentals (Nice)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">3. Storing Data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/03_storing-data/1_storing-data_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Storing Data (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/03_storing-data/1_storing-data_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/03_storing-data/2_storing-data_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Storing Data (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">4. Loops</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/04_loops/1_loops_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Loops (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/04_loops/1_loops_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/04_loops/2_loops_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Loops (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/04_loops/2_loops_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/04_loops/3_loops_nice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Loops (Nice)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">5. Functions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/05_functions/1_functions_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/05_functions/1_functions_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/05_functions/2_functions_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/05_functions/2_functions_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/05_functions/3_functions_nice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions (Nice)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">6. OS</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/06_this-n-that/1_os_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Files, Folders &amp; OS (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/06_this-n-that/1_os_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">7. Plotting</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/07_plotting/1_plotting_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/07_plotting/1_plotting_need_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/07_plotting/2_plotting_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-basics/07_plotting/2_plotting_good_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">(C) Python (Basics+)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-optimised/efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. All About Efficiency</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/python-optimised/concurrency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Concurrent Proccessing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">3. OOPS</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/classes/classes_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classes 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/classes/classes_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classes 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/classes/classes_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Classes 3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">4. Image Analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/knowledge-lake/image_analysis/1_images_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image Analysis (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/knowledge-lake/image_analysis/2_images_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image Analysis (Good)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">5. Pandas</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/knowledge-lake/pandas/1_pandas_need.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas (Need)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/knowledge-lake/pandas/2_pandas_good.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas (Good)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/knowledge-lake/pandas/3_pandas_nice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pandas (Nice)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+ <span class="menu-text">(D) Exercises &amp; Problems</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/exercises_not-so-simple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Seven Not So Simple Exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
+ <span class="menu-text">2. Simpler Problems</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/about-plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About Plotting*</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/bisection_question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bisection Method*</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/vibrot-spectrum_question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vibrational Rotational Spectrum of HCl*</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/researchers-frustration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Researcher’s Frustration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/humpty-dumpty-ir-spectra_question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Humpty Dumpty IR Spectra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/pool-sampling_question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pool Sampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/jcamp-jdx_question.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parsing JCAMP-JDX files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/yz-trapezium.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Integrals &amp; Areas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/yz-streamplots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">All about plotting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/analysing-graduate-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Graduate Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../docs/problems/about-a-pendulum.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About a Pendulum</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-to-expect-in-this-chapter" id="toc-what-to-expect-in-this-chapter" class="nav-link active" data-scroll-target="#what-to-expect-in-this-chapter">What to expect in this chapter</a></li>
+  <li><a href="#getting-ready" id="toc-getting-ready" class="nav-link" data-scroll-target="#getting-ready"><span class="header-section-number">1</span> Getting ready</a></li>
+  <li><a href="#getting-started-with-jupyter" id="toc-getting-started-with-jupyter" class="nav-link" data-scroll-target="#getting-started-with-jupyter"><span class="header-section-number">2</span> Getting started with Jupyter</a>
+  <ul class="collapse">
+  <li><a href="#it-is-all-about-running-cells" id="toc-it-is-all-about-running-cells" class="nav-link" data-scroll-target="#it-is-all-about-running-cells"><span class="header-section-number">2.1</span> It is all about running cells</a></li>
+  <li><a href="#a-traditional-start" id="toc-a-traditional-start" class="nav-link" data-scroll-target="#a-traditional-start"><span class="header-section-number">2.2</span> A traditional start</a></li>
+  </ul></li>
+  <li><a href="#all-about-markdown" id="toc-all-about-markdown" class="nav-link" data-scroll-target="#all-about-markdown"><span class="header-section-number">3</span> All about Markdown</a>
+  <ul class="collapse">
+  <li><a href="#rendering-markdown-cells" id="toc-rendering-markdown-cells" class="nav-link" data-scroll-target="#rendering-markdown-cells"><span class="header-section-number">3.1</span> Rendering Markdown cells</a></li>
+  <li><a href="#some-basic-syntax" id="toc-some-basic-syntax" class="nav-link" data-scroll-target="#some-basic-syntax"><span class="header-section-number">3.2</span> Some basic syntax</a></li>
+  <li><a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings"><span class="header-section-number">3.3</span> Headings</a></li>
+  <li><a href="#displaying-code" id="toc-displaying-code" class="nav-link" data-scroll-target="#displaying-code"><span class="header-section-number">3.4</span> Displaying Code</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links"><span class="header-section-number">3.5</span> Links</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images"><span class="header-section-number">3.6</span> Images</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="header-section-number">3.7</span> Tables</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">3.8</span> Lists</a></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">3.9</span> Equations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 1</strong></li><li class="breadcrumb-item">(B) Python (Basics)</li><li class="breadcrumb-item"><a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html">1. Using Jupyter</a></li><li class="breadcrumb-item"><a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html">Using Jupyter (Need)</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Using Jupyter (Need)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hidden">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/Users/chammika/miniconda3/envs/quarto/bin/python3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://bollwyvl.github.io/jupyter.github.io/images/jupyter-sq-text.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="200"></p>
+</figure>
+</div>
+<section id="what-to-expect-in-this-chapter" class="level1 unnumbered">
+<h1 class="unnumbered">What to expect in this chapter</h1>
+<p>Jupyter is an interactive environment that allows you to have a (sort of) conversation with Python. I will show you how to get this to work. I will also show you features like Markdown, allowing you to ‘add value’ to your code.</p>
+<p>Incidentally, Jupyter works so that you can ask it to do something, and it immediately shows you the result. In fact, the older name for Jupyter Notebooks was ‘<strong>I</strong>Python notebooks’, meaning ‘<strong>interactive</strong> Python notebooks’.</p>
+</section>
+<section id="getting-ready" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Getting ready</h1>
+<ol type="1">
+<li><p>Use the terminal to navigate to the folder <code>Using Jupyter</code> in your Learning Portfolio.</p></li>
+<li><p>Start Jupyter notebooks through the terminal. Please refer to the previous chapter if you have forgotten how to do this.</p></li>
+<li><p>Use the button <span class="button">New</span> to create a new <code>Python 3 (ipykernel)</code> notebook.</p></li>
+<li><p>Click the <code>Untitled</code> at the top (next to the Jupiter logo) and rename the file to <code>using-jupyter_need</code>.</p></li>
+</ol>
+</section>
+<section id="getting-started-with-jupyter" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Getting started with Jupyter</h1>
+<section id="it-is-all-about-running-cells" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="it-is-all-about-running-cells"><span class="header-section-number">2.1</span> It is all about running cells</h2>
+<p>The basic unit of a Jupyter Notebook is a <strong>cell</strong>. A cell can either accept Python code or text in a format called <span class="glossary">Markdown</span>.</p>
+<p>A cell ready to accept Python is called a <strong>code cell</strong>, while one ready for Markdown is called a <strong>Markdown cell</strong>. To ‘get things done’, we <strong>Run</strong> a cell by using the Run button or the keyboard shortcut <code>CTRL + ENTER</code> (or <code>CMD + ENTER</code>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://problemsolvingwithpython.com/02-Jupyter-Notebooks/images/run_cell.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
+<p>Running a code cell invokes Python while running a Markdown cell <strong>renders</strong> (i.e., makes it look pretty) your Markdown text. You will see how all this works in a bit, so don’t worry if things sound a tad cryptic at the moment.</p>
+</section>
+<section id="a-traditional-start" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="a-traditional-start"><span class="header-section-number">2.2</span> A traditional start</h2>
+<p>Let’s follow a programming tradition and use Jupyter to print <code>Hello World!</code>.</p>
+<ol type="1">
+<li><p>Select a cell and convert it into a code cell.<br>Actually, all new cells are, by default, code cells.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://problemsolvingwithpython.com/02-Jupyter-Notebooks/images/code_cell.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div></li>
+<li><p>Then type the following and run the command (i.e., pass the instruction to Python) by pressing the run button or using the keyboard shortcut <code>CTRL + ENTER</code> (or <code>CMD + ENTER</code>).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hello World!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Surprise, surprise! You should see the words <code>Hello World!</code> as the output.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello world!</code></pre>
+</div>
+</div>
+<p>You will also see that the number before your code cell changes. This number is used to keep track of the history of the commands you have issued. It helps keep track of which input corresponds to which output.</p></li>
+</ol>
+</section>
+</section>
+<section id="all-about-markdown" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> All about Markdown</h1>
+<p>Markdown is a minimalist ‘language’ that helps you to format your writing. Despite being lightweight, it is very powerful and gives fantastic results. Because it is simple and distraction-free, I often prefer to use Markdown when I write, as it helps me focus on the content.</p>
+<p>Let me now quickly take you through some basic Markdown, which will suffice for 73.</p>
+<section id="rendering-markdown-cells" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="rendering-markdown-cells"><span class="header-section-number">3.1</span> Rendering Markdown cells</h2>
+<p>To render your text:</p>
+<ol type="1">
+<li>Select a cell and convert it to a Markdown cell (If you like, you can use the keyboard shortcut <code>ESC + M</code>),</li>
+<li>Input your text and</li>
+<li>Run.</li>
+</ol>
+<p>To start, copy and paste the following (from the Guide<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) and run the cell.</p>
+<p><code>The ships hung in the sky in much the same way that bricks don’t.</code></p>
+<p>You should see the text rendered.</p>
+</section>
+<section id="some-basic-syntax" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="some-basic-syntax"><span class="header-section-number">3.2</span> Some basic syntax</h2>
+<p>The table shows some basic Markdown syntax to modify how some text is rendered.</p>
+<div class="my-table-200">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Style</th>
+<th style="text-align: center;">Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bold</td>
+<td style="text-align: center;"><code>** **</code> or <code>__ __</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Italic</td>
+<td style="text-align: center;"><code>* *</code> or <code>_ _</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All bold and italic</td>
+<td style="text-align: center;"><code>*** ***</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subscript</td>
+<td style="text-align: center;"><code>&lt;sub&gt; &lt;/sub&gt;</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Superscript</td>
+<td style="text-align: center;"><code>&lt;sup&gt; &lt;/sup&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s use it to modify our previous text as follows. (By the way, no more copying and pasting!)</p>
+<p><code>The ships *hung in the sky* in much the same way that **bricks don’t.**&lt;sup&gt;1&lt;/sup&gt;&lt;sub&gt;QUOTE&lt;/sub&gt;</code></p>
+<p>This will be rendered as:</p>
+<p>The ships <em>hung in the sky</em> in much the same way that <strong>bricks don’t.</strong><sup>1</sup><sub>QUOTE</sub></p>
+</section>
+<section id="headings" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="headings"><span class="header-section-number">3.3</span> Headings</h2>
+<p>Markdown uses <code>#</code> for headings as follows.</p>
+<pre><code># The largest heading
+
+## The second-largest heading
+
+### The third-largest heading
+
+#### The smallest heading</code></pre>
+</section>
+<section id="displaying-code" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="displaying-code"><span class="header-section-number">3.4</span> Displaying Code</h2>
+<p>If you want to mention code inline, you can enclose it between two backticks (<code>`</code>), like <code>`print('Hello World')`</code>. This will be rendered as <code>print('Hello World!')</code>.</p>
+<p>You can also have a block of code by using the following syntax.</p>
+<pre><code>```python
+print('Hello World!')
+```</code></pre>
+<p>This will be rendered as:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hello World!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="links" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="links"><span class="header-section-number">3.5</span> Links</h2>
+<p>Creating links with Markdown is trivial. You just enclose the display text in <code>[ ]</code> followed by the link-address in <code>( )</code> like</p>
+<p><code>[SP2273 Website](https://sps.nus.edu.sg/sp2273)</code></p>
+<p>This will be rendered as <a href="https://sps.nus.edu.sg/sp2273">SP2273 Website</a>. Things won’t work if you don’t include the <code>https://</code> part. So, be careful.</p>
+</section>
+<section id="images" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="images"><span class="header-section-number">3.6</span> Images</h2>
+<p>Markdown also lets you easily include images from your computer or the web. The syntax is similar to links, except there is a <code>!</code> in front.</p>
+<p>Let me show you by inserting the NUS logo from the University’s front page (You can get the link to any image by right-clicking and copying the image address).</p>
+<p>The syntax is:</p>
+<pre><code>![](https://nus.edu.sg/images/default-source/base/logo.png)</code></pre>
+<p>This will give you:</p>
+<p><img src="https://nus.edu.sg/images/default-source/base/logo.png" class="img-fluid"></p>
+<p>You can also similarly include images on your computer. Just put the filename instead of the address. Again, you need to give enough information (full or relative path, see chapter os) for Jupyter to be able to find the file.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A fly in the ointment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sometimes, you might have to copy the image file to the folder/directory containing the <code>.ipynb</code> to successfully include local images.</p>
+<p>I think this happens mainly for Windows users. I am sorry<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+</div>
+</div>
+</section>
+<section id="tables" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="tables"><span class="header-section-number">3.7</span> Tables</h2>
+<p>Markdown following syntax to create tables:</p>
+<pre><code>| A    |  B   |    C |
+| :--- | :--: | ---: |
+| a1   |  b1  |   c1 |
+| a2   |  b2  |   c2 |
+| a3   |  b3  |   c3 |</code></pre>
+<p>Which will be rendered as:</p>
+<div class="my-table-300">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: right;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a1</td>
+<td style="text-align: center;">b1</td>
+<td style="text-align: right;">c1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a2</td>
+<td style="text-align: center;">b2</td>
+<td style="text-align: right;">c2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">a3</td>
+<td style="text-align: center;">b3</td>
+<td style="text-align: right;">c3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In my experience, tables are the most annoying things to create and format in a document<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. So I find it easier to organise the information in Excel or Sheets and then use a web tool like <a href="https://www.tablesgenerator.com/">Table Generator</a> to create the tables.</p>
+</section>
+<section id="lists" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="lists"><span class="header-section-number">3.8</span> Lists</h2>
+<p>You can have numbered or unnumbered lists in Markdown. Below are a few examples. I have shown the code first and then what it will look like when rendered.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Numbered</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Unnumbered</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Numbered-numbered</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Numbered-unnumbered</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<pre><code>1. Master Yoda
+1. Luke Skywalker
+1. Anakin Skywalker</code></pre>
+</div>
+<div class="my-text quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ol type="1">
+<li>Master Yoda</li>
+<li>Luke Skywalker</li>
+<li>Anakin Skywalker</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<pre><code>- Master Yoda
+- Luke Skywalker
+- Anakin Skywalker</code></pre>
+</div>
+<div class="my-text quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ul>
+<li>Master Yoda</li>
+<li>Luke Skywalker</li>
+<li>Anakin Skywalker</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<pre><code>1. Master Yoda
+   1. Was a Jedi
+   1. Was a bit green
+1. Luke Skywalker
+   1. Was a Jedi
+   1. Is Anakin's son.
+1. Anakin Skywalker
+   1. Was a Jedi then became a baddie
+   1. Is famous for saying 'Luke, I am your father'</code></pre>
+</div>
+<div class="my-text quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ol type="1">
+<li>Master Yoda
+<ol type="1">
+<li>Was a Jedi</li>
+<li>Was a bit green</li>
+</ol></li>
+<li>Luke Skywalker
+<ol type="1">
+<li>Was a Jedi</li>
+<li>Is Anakin’s son.</li>
+</ol></li>
+<li>Anakin Skywalker
+<ol type="1">
+<li>Was a Jedi then became a baddie</li>
+<li>Is famous for saying ‘Luke, I am your father’</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<pre><code>1. Master Yoda
+   - Was a Jedi
+   - Was a bit green
+1. Luke Skywalker
+   - Was a Jedi
+   - Is Anakin's son.
+1. Anakin Skywalker
+   - Was a Jedi then, became a baddie
+   - Is famous for saying, _'Luke, I am your father'_.</code></pre>
+</div>
+<div class="my-text quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<ol type="1">
+<li>Master Yoda
+<ul>
+<li>Was a Jedi</li>
+<li>Was a bit green</li>
+</ul></li>
+<li>Luke Skywalker
+<ul>
+<li>Was a Jedi</li>
+<li>Is Anakin’s son.</li>
+</ul></li>
+<li>Anakin Skywalker
+<ul>
+<li>Was a Jedi then, became a baddie</li>
+<li>Is famous for saying, <em>‘Luke, I am your father’</em>.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="equations" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="equations"><span class="header-section-number">3.9</span> Equations</h2>
+<p>Markdown can produce phenomenal math equations<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<ul>
+<li><p>If you want to have inline math use two $ signs like <code>$\sqrt{b^2-4ac}$</code>, which will be rendered as <span class="math inline">\(\sqrt{b^2-4ac}\)</span>.</p></li>
+<li><p>If you want a math block, you can use the following:</p>
+<pre><code>$$
+x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}
+$$</code></pre>
+<p>Which will be rendered as:</p></li>
+</ul>
+<p><span class="math display">\[
+x = \dfrac{-b \pm \sqrt{b^2-4ac}}{2a}
+\]</span></p>
+<p>Here are some helpful math commands that you can use. For more details, refer to the <a href="https://www.overleaf.com/learn/latex/Mathematical_expressions">mathematical documentation at Overleaf</a>.</p>
+<div class="my-table-900">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 40%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">Input</th>
+<th style="text-align: center;">Rendered</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fraction</td>
+<td style="text-align: left;"><code>$\dfrac{y}{x}$</code></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{y}{x}\)</span></td>
+</tr>
+<tr class="even">
+<td>Subscript</td>
+<td style="text-align: left;"><code>$x_{a}$</code></td>
+<td style="text-align: center;"><span class="math inline">\(x_{a}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Power</td>
+<td style="text-align: left;"><code>$x^{(y+z)}$</code></td>
+<td style="text-align: center;"><span class="math inline">\(x^{(y+z)}\)</span></td>
+</tr>
+<tr class="even">
+<td>Squareroot</td>
+<td style="text-align: left;"><code>$\sqrt{a+b+c}$</code></td>
+<td style="text-align: center;"><span class="math inline">\(\sqrt{a+b+c}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Sum</td>
+<td style="text-align: left;"><code>$\sum_{n=1}^{n=\infty} x_n$</code></td>
+<td style="text-align: center;"><span class="math inline">\(\sum_{n=1}^{n=\infty} x_n\)</span></td>
+</tr>
+<tr class="even">
+<td>Integral</td>
+<td style="text-align: left;"><code>$\int_{x=1}^{x=\infty} f(x)dx$</code></td>
+<td style="text-align: center;"><span class="math inline">\(\int_{x=1}^{x=\infty} f(x)dx\)</span></td>
+</tr>
+<tr class="odd">
+<td>Not equal</td>
+<td style="text-align: left;"><code>a \ne b</code></td>
+<td style="text-align: center;"><span class="math inline">\(a \ne b\)</span></td>
+</tr>
+<tr class="even">
+<td>Less than</td>
+<td style="text-align: left;"><code>$a \lt b$</code></td>
+<td style="text-align: center;"><span class="math inline">\(a \lt b\)</span></td>
+</tr>
+<tr class="odd">
+<td>Less than or equal to</td>
+<td style="text-align: left;"><code>$a \leq b$</code></td>
+<td style="text-align: center;"><span class="math inline">\(a \leq b\)</span></td>
+</tr>
+<tr class="even">
+<td>Greater than</td>
+<td style="text-align: left;"><code>$a \gt b$</code></td>
+<td style="text-align: center;"><span class="math inline">\(a \gt b\)</span></td>
+</tr>
+<tr class="odd">
+<td>Greater than or equal to</td>
+<td style="text-align: left;"><code>$a \geq b$</code></td>
+<td style="text-align: center;"><span class="math inline">\(a \geq b\)</span></td>
+</tr>
+<tr class="even">
+<td>Greek letters</td>
+<td style="text-align: left;"><code>$\alpha, \beta, \gamma, \pi, \lambda$</code></td>
+<td style="text-align: center;"><span class="math inline">\(\alpha, \beta, \gamma, \pi, \lambda\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>You and I will have problems if you do not know about <strong>The Hitchhiker’s Guide to the Galaxy</strong>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>that you are using Windows.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><strong>especially</strong> with doubly annoying software like Word<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Using a <span class="math inline">\(\LaTeX\)</span> engine called MathJax<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

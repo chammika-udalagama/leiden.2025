@@ -1,0 +1,130 @@
+#my-flow-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#my-flow-table td:last-child,
+#my-flow-table th:last-child {
+    display: none
+}
+
+#my-flow-table th:nth-child(1) {
+    width: 75px;
+}
+
+#my-flow-table th:nth-child(4) {
+    width: 300px;
+}
+
+#my-flow-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    /* To center the content vertically */
+    background-color: #f2f2f2;
+}
+
+#my-flow-table tr:nth-child(1) {
+    border-bottom: 2px solid black;
+}
+
+#my-flow-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#my-flow-table tr {
+    height: 50px;
+    /* Uniform row height */
+}
+
+#my-flow-table a {
+    text-decoration: none;
+}
+
+#my-flow-table td {
+    text-align: left;
+}
+
+#my-flow-table th {
+    text-align: center;
+}
+
+#my-flow-table td:first-child {
+    text-align: center;
+}
+
+#my-flow-table tr:nth-child(4)>td:nth-child(1),
+#my-flow-table tr:nth-child(5)>td:nth-child(1),
+#my-flow-table tr:nth-child(9)>td:nth-child(1),
+#my-flow-table tr:nth-child(10)>td:nth-child(1),
+#my-flow-table tr:nth-child(13)>td:nth-child(1) {
+    text-align: left;
+
+}
+
+#my-flow-table td:last-child {
+    text-align: center;
+}
+
+/* ------------------------------- */
+
+#my-schedule-table tr {
+    border-bottom: 1px solid lightgray;
+}
+
+#my-schedule-table tr:nth-child(odd) {
+    border-bottom: 1px solid darkgray;
+}
+
+#my-schedule-table {
+    width: 800px;
+    border-collapse: collapse;
+    border-bottom: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#my-schedule-table td {
+    text-align: center;
+    padding: 8px;
+    height: 20px;
+
+}
+
+#my-schedule-table tr {
+    text-align: center;
+    padding: 8px;
+}
+
+#my-schedule-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    /* To center the content vertically */
+    background-color: #f2f2f2;
+    color: #000;
+}
+
+#my-schedule-table tr:nth-child(1) {
+    border-bottom: 2px solid black;
+}
+
+#my-schedule-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#my-holiday {
+    color: darkorange;
+}
+
+#recess td {
+    background-color: lightblue;
+}
