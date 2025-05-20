@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storing Data (Good) Exercises – Python in Physics</title>
+<title>Group Mini Project – Python in Physics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,59 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,11 +68,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../../styles/specific-optimisations.css">
+<link rel="stylesheet" href="../../styles/specific-optimisations.css">
 <link rel="stylesheet" href="styles/styles.css">
-<link rel="stylesheet" href="../../../styles/styles_quarto.css">
-<link rel="stylesheet" href="../../../styles/py_css.css">
-<link rel="stylesheet" href="../../../styles/styles-tables.css">
+<link rel="stylesheet" href="../../styles/styles_quarto.css">
+<link rel="stylesheet" href="../../styles/py_css.css">
+<link rel="stylesheet" href="../../styles/styles-tables.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -116,10 +82,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Python in Physics</span>
     </a>
   </div>
@@ -130,11 +96,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../../docs/about/overview.html" aria-current="page"> 
+    <a class="nav-link active" href="../../docs/about/overview.html" aria-current="page"> 
 <span class="menu-text">What to expect?</span></a>
   </li>  
 </ul>
@@ -148,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 1</strong></li><li class="breadcrumb-item">(B) Python (Basics)</li><li class="breadcrumb-item"><a href="../../../docs/python-basics/03_storing-data/1_storing-data_need.html">3. Storing Data</a></li><li class="breadcrumb-item"><a href="../../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/about/overview.html"><strong>Info</strong></a></li><li class="breadcrumb-item"><a href="../../docs/about/project.html">Group Mini Project</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -179,19 +145,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/about/overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/about/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">What to expect?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/about/project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/about/project.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Group Mini Project</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/resources.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Resources</span></a>
   </div>
 </li>
@@ -217,19 +183,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/setting-up/setup_jupyter.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_jupyter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, Jupyter! (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/setting-up/setup_environments.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_environments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vir. Environments (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/setting-up/setup_github.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, GitHub! (Nice)</span></a>
   </div>
 </li>
@@ -237,13 +203,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">(B) Python (Basics)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
@@ -255,25 +221,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using Jupyter (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/1_using-jupyter_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/2_using-jupyter_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using Jupyter (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/2_using-jupyter_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
@@ -290,31 +256,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/02_basics/1_basics_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/1_basics_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/02_basics/1_basics_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/1_basics_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/02_basics/2_basics_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/2_basics_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/02_basics/2_basics_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/2_basics_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/02_basics/3_basics_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/3_basics_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Nice)</span></a>
   </div>
 </li>
@@ -322,34 +288,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">3. Storing Data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/03_storing-data/1_storing-data_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/1_storing-data_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storing Data (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/03_storing-data/1_storing-data_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/1_storing-data_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/03_storing-data/2_storing-data_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/2_storing-data_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storing Data (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
@@ -366,31 +332,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/04_loops/1_loops_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/1_loops_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/04_loops/1_loops_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/1_loops_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/04_loops/2_loops_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/2_loops_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/04_loops/2_loops_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/2_loops_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/04_loops/3_loops_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/3_loops_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Nice)</span></a>
   </div>
 </li>
@@ -407,31 +373,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/05_functions/1_functions_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/1_functions_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/05_functions/1_functions_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/1_functions_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/05_functions/2_functions_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/2_functions_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/05_functions/2_functions_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/2_functions_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/05_functions/3_functions_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/3_functions_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Nice)</span></a>
   </div>
 </li>
@@ -448,13 +414,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/06_this-n-that/1_os_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/06_this-n-that/1_os_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Files, Folders &amp; OS (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/06_this-n-that/1_os_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/06_this-n-that/1_os_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
@@ -471,25 +437,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/07_plotting/1_plotting_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/1_plotting_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/07_plotting/1_plotting_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/1_plotting_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/07_plotting/2_plotting_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/2_plotting_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-basics/07_plotting/2_plotting_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/2_plotting_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
@@ -508,13 +474,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-optimised/efficiency.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-optimised/efficiency.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. All About Efficiency</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/python-optimised/concurrency.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-optimised/concurrency.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Concurrent Proccessing</span></a>
   </div>
 </li>
@@ -529,19 +495,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/classes/classes_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/classes/classes_02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/classes/classes_03.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 3</span></a>
   </div>
 </li>
@@ -558,13 +524,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/knowledge-lake/image_analysis/1_images_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/image_analysis/1_images_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Image Analysis (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/knowledge-lake/image_analysis/2_images_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/image_analysis/2_images_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Image Analysis (Good)</span></a>
   </div>
 </li>
@@ -581,19 +547,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/knowledge-lake/pandas/1_pandas_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/1_pandas_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/knowledge-lake/pandas/2_pandas_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/2_pandas_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/knowledge-lake/pandas/3_pandas_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/3_pandas_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Nice)</span></a>
   </div>
 </li>
@@ -612,7 +578,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/exercises_not-so-simple.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/exercises_not-so-simple.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Seven Not So Simple Exercises</span></a>
   </div>
 </li>
@@ -627,67 +593,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/about-plotting.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/about-plotting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About Plotting*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/bisection_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/bisection_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bisection Method*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/vibrot-spectrum_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/vibrot-spectrum_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vibrational Rotational Spectrum of HCl*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/researchers-frustration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/researchers-frustration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Researcher’s Frustration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/humpty-dumpty-ir-spectra_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/humpty-dumpty-ir-spectra_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Humpty Dumpty IR Spectra</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/pool-sampling_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/pool-sampling_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pool Sampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/jcamp-jdx_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/jcamp-jdx_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Parsing JCAMP-JDX files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/yz-trapezium.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/yz-trapezium.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrals &amp; Areas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/yz-streamplots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/yz-streamplots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">All about plotting</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/analysing-graduate-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/analysing-graduate-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Graduate Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/about-a-pendulum.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/about-a-pendulum.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About a Pendulum</span></a>
   </div>
 </li>
@@ -717,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/boltzmann.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/boltzmann.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Maxwell-Boltzmann</span></a>
   </div>
 </li>
@@ -734,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../docs/problems/roberts-gray-golgi_question_v02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/roberts-gray-golgi_question_v02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A picture is worth thousands of data points</span></a>
   </div>
 </li>
@@ -747,15 +713,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-the-group-mini-project-about" id="toc-what-is-the-group-mini-project-about" class="nav-link active" data-scroll-target="#what-is-the-group-mini-project-about">What is the Group Mini Project about?</a></li>
+  <li><a href="#objective-of-the-group-mini-project" id="toc-objective-of-the-group-mini-project" class="nav-link" data-scroll-target="#objective-of-the-group-mini-project">Objective of the Group Mini Project</a></li>
+  <li><a href="#why-is-the-group-mini-project-good-for-you" id="toc-why-is-the-group-mini-project-good-for-you" class="nav-link" data-scroll-target="#why-is-the-group-mini-project-good-for-you">Why is the Group Mini Project good for you</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 1</strong></li><li class="breadcrumb-item">(B) Python (Basics)</li><li class="breadcrumb-item"><a href="../../../docs/python-basics/03_storing-data/1_storing-data_need.html">3. Storing Data</a></li><li class="breadcrumb-item"><a href="../../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/about/overview.html"><strong>Info</strong></a></li><li class="breadcrumb-item"><a href="../../docs/about/project.html">Group Mini Project</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Storing Data (Good) Exercises<img src="exerise_icon.png" class="exercise-icon-in-title img-fluid"></h1>
+<h1 class="title">Group Mini Project</h1>
 </div>
 
 
@@ -772,75 +746,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="hidden">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/Users/chammika/miniconda3/envs/quarto/bin/python3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="exr-x" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1 (Total recall)</strong></span> <span style="font-size:large;">☻</span></p>
-<p>Purely from memory, write short descriptions of the following terms:</p>
-<div class="my-table-600">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Term</th>
-<th>Brief description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Subsetting</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Indexing</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Slicing</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Masking</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>If you cannot recall the answers, please refer to the notes and put this information you could not recall in <em><em>italics</em></em>.</p>
-</div>
-<div id="exr-x" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2 (Show me the ‘odd’ letters)</strong></span> <span style="font-size:large;">☻</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np_array_2d <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="st">"A"</span>], [<span class="dv">3</span>, <span class="st">"C"</span>], [<span class="dv">2</span>, <span class="st">"B"</span>], [<span class="dv">4</span>, <span class="st">"D"</span>],</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">5</span>, <span class="st">"E"</span>], [<span class="dv">7</span>, <span class="st">"G"</span>], [<span class="dv">6</span>, <span class="st">"F"</span>], [<span class="dv">8</span>, <span class="st">"H"</span>],</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">10</span>, <span class="st">"J"</span>], [<span class="dv">9</span>, <span class="st">"I"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Use masking to subset the letters that correspond to the odd numbers. I.e., get the result <code>[A, C, E, G, I]</code>.</p>
-<p>This is a slightly tricky problem because arrays are fussy about type. So, let me give you a recipe to solve this problem.</p>
+<section id="what-is-the-group-mini-project-about" class="level1">
+<h1>What is the Group Mini Project about?</h1>
+<p>In the real world, computational tools are integral for learning, understanding, and applying scientific principles. The Group Mini Project aims to demonstrate how computers, specifically Python, can be utilised for these purposes. Your task is to select a scientific topic that interests you and your group members. You must then create a presentation to communicate this topic to your classmates. However, the presentation must incorporate computational tools (such as plotting, modelling, simulations, animations, etc.) developed using Python. Please note that the Python code should be prepared and submitted separately in a Jupyter Notebook format. <!-- The presentation will contribute 15% to your overall grade, while the Python code will account for 10%.  --></p>
+</section>
+<section id="objective-of-the-group-mini-project" class="level1">
+<h1>Objective of the Group Mini Project</h1>
+<p>To clarify, the objectives are as follows:</p>
 <ol type="1">
-<li>Subset all the first elements.
-<ul>
-<li>You should get <code>array(['1', '3', '2', ..., '10', '9'])</code></li>
-</ul></li>
-<li>Convert this to integers using <code>astype(int)</code>
-<ul>
-<li>You must look up how <code>astype()</code> works.</li>
-</ul></li>
-<li>Use <code>%</code> to get the remainder for division by <code>2</code>.
-<ul>
-<li>You should get <code>array([1, 1, 0, ..., 0, 1])</code>.</li>
-</ul></li>
-<li>Use the previous result to create a mask that checks if the remainder is zero or not
-<ul>
-<li>You should get <code>array([True, True, False, ..., False, True])</code>.</li>
-<li>Now you have identified the locations of the odd numbers.</li>
-</ul></li>
-<li>Use the mask and extract the corresponding second elements.</li>
+<li><p><strong>Share the science with a 20 minute presentation</strong> Your presentation should be designed to educate your classmates, who may not be specialists, about the basics of your chosen topic. Explaining the fundamental scientific concepts related to the topic and articulating why it is significant and worth learning is crucial. Additionally, you should highlight how and when Python was utilised in your presentation without sharing the actual code.</p></li>
+<li><p><strong>Share the code in a Jupyter Notebook</strong> The content of your presentations must be developed in your shared GitHub repository using Python in a separate Jupyter Notebook. Your code must be well-documented and accessible to your classmates in terms of understanding. It would help if you also emphasised how programming, specifically Python, enhances the appreciation and understanding of the topic.</p></li>
 </ol>
-</div>
+</section>
+<section id="why-is-the-group-mini-project-good-for-you" class="level1">
+<h1>Why is the Group Mini Project good for you</h1>
+<p>The Group Mini Project is authentic in that it mirrors how computational tools are used in real life. By choosing a topic that interests you, you are deepening your understanding of the subject and honing your skills in gathering, analysing, and synthesising information. This project will also enhance your critical thinking skills by identifying and solving problems related to your chosen topic. Additionally, your freedom in this project allows for innovative uses of Python, such as simulations, animations, and data visualisation. These activities will encourage a deeper level of analytical thinking as you develop and explain your code.</p>
+<p>In presenting these ideas to an audience, you will develop public speaking skills and the ability to convey technical information clearly and accessibly. This skill is essential in the scientific community, as effective communication is key to making your work valuable and accessible. It will also help you make a name for yourself.</p>
+<p>Finally, working and collaborating in a team setting will foster effective communication, task delegation, and collective goal achievement. These are crucial skills in any teamwork environment, further preparing you for the adventures beyond the University.</p>
+<p><strong>Manage Expectations</strong>: You will have approximately 1 day to work on the mini project. This timeframe is relatively short, so it is crucial to set realistic goals. Try not to overextend yourselves by taking on too much. Focus on achievable objectives that allow you to effectively demonstrate your understanding and skills within the given period. Please use the rubrics often to make sure you are on track.</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
