@@ -728,6 +728,90 @@
     ]
   },
   {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#a-simple-graphical-test",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#a-simple-graphical-test",
+    "title": "Random Numbers (Need)",
+    "section": "3.1 A simple graphical test",
+    "text": "3.1 A simple graphical test\nAlternatively, we can convince ourselves of the uniformity of the PRNG by plotting the numbers as a scatter plot or a histogram.\n\n\n\n\n\nHere is the code.\n\nn = 10000\nrandom_numbers = np.random.rand(n)\n\nfig, ax = plt.subplots(nrows=1, ncols=2)\n\naxis = ax[0]\naxis.hist(random_numbers, bins=100, alpha=.25)\naxis.set_xlabel(\"Value of random number\")\naxis.set_ylabel(\"Frequency\")\n\naxis = ax[1]\naxis.scatter(range(n), random_numbers, alpha=.25)\naxis.set_xlabel(\"Position in the random number list\")\naxis.set_ylabel(\"Value of random number\")\n\nPlease stop for a moment and make sure you understand what the plots are and what each is telling you. You should talk to someone if you are not sure.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#uniformly-beyond-01",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#uniformly-beyond-01",
+    "title": "Random Numbers (Need)",
+    "section": "3.2 Uniformly beyond \\([0,1)\\)",
+    "text": "3.2 Uniformly beyond \\([0,1)\\)\nOften we need random numbers distributed over a range other than 0 and 1. We can use np.random.uniform() for this. Let’s generate a large set of random numbers in the interval \\([50,100]\\) using np.random.uniform() and create a histogram and scatter plot as we did earlier.\nI don’t need to show the code for plotting again. So, here is the most essential part.\nn = 10000\nrandom_numbers = np.random.uniform(low=50, high=100, size=n)\n\n\n\n\n\nNotice that the numbers are now between 50 and 100!",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#seeding-a-prng",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#seeding-a-prng",
+    "title": "Random Numbers (Need)",
+    "section": "3.3 ‘seeding’ a PRNG",
+    "text": "3.3 ‘seeding’ a PRNG\nSometimes, we need PRNG to generate the same set of numbers. For example, when we are debugging some code. You can achieve this by specifying a seed, the integer number that ‘kicks off’ the PRNG algorithm. You do not usually have to seed the PRNG. Instead, it does it automatically by using ‘some’ number (e.g. the number of milliseconds since January 1970) internally.\nYou will better understand what the seed does with the following code.\n\nnp.random.randint(0, 100, 10)     # Ten integers between 0 and 100\n\narray([49, 56,  3, 35, 76, 21, 94, 43, 21, 60])\n\n\n\nnp.random.randint(0, 100, 10)     # Another ten integers between 0 and 100\n\narray([84, 91, 42, 50, 40, 98, 43, 59, 93, 72])\n\n\n\nnp.random.seed(1234)              # Specifying a seed\nnp.random.randint(0, 100, 10)     # Ten integers between 0 and 100\n\narray([47, 83, 38, 53, 76, 24, 15, 49, 23, 26])\n\n\n\nnp.random.seed(1234)\nnp.random.randint(0, 100, 10)     # Same ten integers between 0 and 100\n\narray([47, 83, 38, 53, 76, 24, 15, 49, 23, 26])\n\n\nThat’s enough basic stuff. Let’s start using random numbers!",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#simulating-a-magic-8-ball",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#simulating-a-magic-8-ball",
+    "title": "Random Numbers (Need)",
+    "section": "4.1 Simulating a Magic-8 Ball",
+    "text": "4.1 Simulating a Magic-8 Ball\nLet me show you some examples of using random numbers. I want to start with a simple, frivolous one that simulates a Magic-8 ball.\nI will put my simulation in a function called shake_magic_8() as shown below. I borrowed the information on the 20 options of the original Magic-8 ball from the relevant Wikipedia page.\n\ndef shake_magic_8():\n    '''\n    Function to simulate a Magic-8 ball!\n    '''\n    options = ['It is certain.', 'It is decidedly so.',\n               'Without a doubt.', 'Yes definitely.',\n               'You may rely on it.', 'As I see it, yes.',\n               'Most likely.', 'Outlook good.',\n               'Yes.', 'Signs point to yes.',\n               'Reply hazy, try again.', 'Ask again later.',\n               'Better not tell you now.', 'Cannot predict now.',\n               'Concentrate and ask again.', 'Don\\'t count on it.',\n               'My reply is no.', 'My sources say no.',\n               'Outlook not so good.', 'Very doubtful.']\n\n    return np.random.choice(options)\n\nLet’s see if it works.\n\nquestions = ['Will I be pretty?',\n             'Will I be rich?',\n             'Will I be in trouble?']\n\nfor question in questions:\n    print(f'Q: {question}')\n    print(f'A: {shake_magic_8()}\\n')\n\nQ: Will I be pretty?\nA: Outlook not so good.\n\nQ: Will I be rich?\nA: Don't count on it.\n\nQ: Will I be in trouble?\nA: Yes.\n\n\nAlthough the outlook does not look too good for me, I hope you understand what is going on. np.random.choice() picks one of the options randomly. So, getting each is equally likely.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#flipping-coins",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#flipping-coins",
+    "title": "Random Numbers (Need)",
+    "section": "4.2 Flipping Coins",
+    "text": "4.2 Flipping Coins\nNow let us look at flipping coins.\n\nA fair coin\nI can simulate a flip of a fair coin by:\n\nnp.random.choice(['Head', 'Tails'])\n\nnp.str_('Head')\n\n\nIf I want 10 flips:\n\nno_of_coins = 10\nnp.random.choice(['Head', 'Tails'], no_of_coins)\n\narray(['Head', 'Head', 'Head', 'Head', 'Tails', 'Tails', 'Head', 'Head',\n       'Head', 'Tails'], dtype='&lt;U5')\n\n\nAlternatively, if you and I agree to consider any number in (0, .5] to be Tails and any number in (.5, 1) to be Heads, then the following works too.\n\ndef flip_coins(no_of_coins=1, probability=.5):\n    '''\n    Returns the number of values greater that \n    `probability` (considered as 'Heads').\n    '''\n    results = np.random.rand(no_of_coins)\n    no_of_heads = np.sum(results &gt; probability)\n    return no_of_heads\n\n\nno_of_coins = 1_000\nno_of_heads = flip_coins(no_of_coins)\nprint(f'Number of heads: {no_of_heads/no_of_coins*100:.2f}%')\n\nNumber of heads: 50.80%\n\n\nSince I plan to flip coins a bit more, I have created a function that gives me the number of heads. I have also used probability=.5 because we are dealing with a fair coin.\n\n\nA biased coin\nThe advantage of the second way of simulating coins is that we can easily simulate a biased coin simply by messing with probability. For example, let’s say I want a probability of .7 for a Head. Since we need to increase the chance of a number being considered a Head, we have to make probability=.3. Please make sure this makes sense to you or have a chat with someone to convince yourself.\n\nno_of_coins = 1_000\nno_of_heads = flip_coins(no_of_coins, probability = .3)\nprint(f'Number of heads: {no_of_heads/no_of_coins*100:.2f}%')\n\nNumber of heads: 72.10%\n\n\n\n\nA flipping experiment\nAccess to a good PRNG will allow you to run quick experiments. These will help you gain insights into more theoretical models of the same experiments. So, you can start using computers to better understand science and sometimes even see how the cogs tick in the machine.\nLet me demonstrate this with a simple experiment. Say we flip 10 fair coins in one go. What is the probability that 7 of them will come out Heads? There is an elegant theoretical answer to this question; I will come to that later. But first, let’s see if we can get a solution using our PRNG.\nWe can get an answer if we flip 10 coins several thousand times and count the number of heads. I.e. use flip_coins(10) many times and keep score.\n\nno_of_repeats = 10_000\nresult = [flip_coins(no_of_coins=10) for _ in range(no_of_repeats)]\nno_of_heads, heads_counts = np.unique(result, return_counts=True)\n\nnp.unique() with return_counts=True returns the unique values (of Heads) in the list and how many times they occur. We can get the probabilities by dividing the array with the counts by the number of repeats.\n\nheads_probability = heads_counts/no_of_repeats\n\nLet’s plot this data.\nplt.rcParam['figure.figsize'] = (10,5)\nplt.bar(no_of_heads, heads_counts);\nplt.xlabel('No of heads')\nplt.ylabel(f'Frequency out of {no_of_repeats}')\nplt.table([no_of_heads, heads_counts, heads_probability],\n          rowLabels=['No of Heads', 'Frequency', 'PRNG Probability'],\n          loc='bottom',\n          bbox=[0, -0.5, 1, 0.3])\n\n\n\n\n\nAs you can see, I have also included the various numbers in a Matplotlib table below (I adjusted the bbox values by trial and error.)\nThe theoretical explanation of how many times each head should appear is described by the binomial distribution. Understanding the basics of distributions (i.e. what they are and how to use them) is a critical bit of knowledge for anyone in a university.\nSciPy has various functions to calculate many of these important distributions. Let me show you how to do that now. First, let’s import the machinery for the binomial distribution.\n\nfrom scipy.stats import binom\n\nThe binomial distribution is discrete (i.e. because you have Heads or Tails, no half or quarter Heads). For such distributions, you get the various probabilities using the distribution’s pmf() (probability mass function or discrete density function). Don’t get distracted by the funky names; the pmf() just gives the probabilities for the various possibilities of the discrete distributions.\nThe probability we want is:\n\nbinom.pmf(k=7, n=10, p=.5)\n\nnp.float64(0.11718750000000004)\n\n\nI will repeat: the binomial distribution gives us the probability of getting 7 heads when you throw 10 fair (p=.5) coins.\nFor the same completion, I will also calculate the rest of the values. This is absurdly easy:\n\nbinomial_probabilities = binom.pmf(k=no_of_heads, n=10, p=.5)\n\nLet me include these values in the plot to complete the story1",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/need/1_random_need.html#footnotes",
+    "href": "docs/knowledge-lake/random_numbers/need/1_random_need.html#footnotes",
+    "title": "Random Numbers (Need)",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIf you like to know how, please look for Matplotlib table().↩︎",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Need)"
+    ]
+  },
+  {
     "objectID": "docs/knowledge-lake/numerical/2_numerical_good.html",
     "href": "docs/knowledge-lake/numerical/2_numerical_good.html",
     "title": "Numerical Solutions (Good)",
@@ -1854,7 +1938,13 @@
     "href": "docs/problems/monte-carlo-radioactivity.html",
     "title": "MC Radioactivity",
     "section": "",
-    "text": "Introduction\nIn this problem, we will use random numbers to create a simple simulation of radioactive decay. Let’s start with some basic observations:\n\nA given (unstable) nucleus has a fixed probability of decaying in a given time interval. This probability is different for nuclei of different elements. For example, the probability of decaying (for a fixed time interval) for a U nucleus is (much) smaller than for a Th nucleus. This is characterized by the decay constant(\\(\\tau\\)) or half-life (\\(\\lambda\\)).\nSo the longer we have a sample, the greater the probability of its nuclei decaying. For example, the probability of decaying within 2s is greater than within 1s.\nThese probabilities do not scale linearly (i.e., the likelihood for 2s is not twice that for 1 s).\n\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\nIt has been observed that the probability of nuclei decaying in a given time interval \\(\\Delta t\\) is \\(\\dfrac{1}{6}\\). This means after a time \\(\\Delta t\\)=1, about one-sixth of the nuclei would have disintegrated.\n\nSimulate and plot the change in the number of nuclei with time. Start with 10, 000 nuclei. You should see a plot like the one below.\n\n\n\n\n\n\n\n\n\nRedo the previous task but this time adjust your parameters so that you are simulating the decay of Thorium-232.\nCompare your results with the exact solution: \\[\nN(t) = N_0 e^{-\\lambda t}\n\\]\n\n\n\n\nUse all the tricks you know (including Numba) to make your code go faster. Then gradually increase the number of initial nuclides until you reach a billion.\n\n\n\n\n\n\n\n Back to top"
+    "text": "Introduction\nIn this problem, we will use random numbers to create a simple simulation of radioactive decay. Let’s start with some basic observations:\n\nA given (unstable) nucleus has a fixed probability of decaying in a given time interval. This probability is different for nuclei of different elements. For example, the probability of decaying (for a fixed time interval) for a U nucleus is (much) smaller than for a Th nucleus. This is characterized by the decay constant(\\(\\tau\\)) or half-life (\\(\\lambda\\)).\nSo the longer we have a sample, the greater the probability of its nuclei decaying. For example, the probability of decaying within 2s is greater than within 1s.\nThese probabilities do not scale linearly (i.e., the likelihood for 2s is not twice that for 1 s).\n\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\nIt has been observed that the probability of nuclei decaying in a given time interval \\(\\Delta t\\) is \\(\\dfrac{1}{6}\\). This means after a time \\(\\Delta t\\)=1, about one-sixth of the nuclei would have disintegrated.\n\nSimulate and plot the change in the number of nuclei with time. Start with 10, 000 nuclei. You should see a plot like the one below.\n\n\n\n\n\n\n\n\n\nRedo the previous task but this time adjust your parameters so that you are simulating the decay of Thorium-232.\nCompare your results with the exact solution: \\[\nN(t) = N_0 e^{-\\lambda t}\n\\]\n\n\n\n\nUse all the tricks you know (including Numba) to make your code go faster. Then gradually increase the number of initial nuclides until you reach a billion.\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "2. Radioactivity"
+    ]
   },
   {
     "objectID": "docs/problems/exercises_not-so-simple.html",
@@ -1888,21 +1978,39 @@
     "href": "docs/problems/ising-model.html",
     "title": "Ising Model for Ferromagnetism",
     "section": "",
-    "text": "Almost everyone has heard of the famous Ising Model, used to model ferromagnetism. It also allows you to see how a system of interacting particles responds to a change in temperature and leads to the observation of collective phenomena like phase transitions.\nIn this problem, we use a Monte Carlo method called the Metropolis-Hastings algorithm to see how a 2D Ising system achieves equilibrium. We then calculate various parameters to observe the phase transitions.\n\n\nThe Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.\n\n\n\n\n\n\nWhen an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution."
+    "text": "Almost everyone has heard of the famous Ising Model, used to model ferromagnetism. It also allows you to see how a system of interacting particles responds to a change in temperature and leads to the observation of collective phenomena like phase transitions.\nIn this problem, we use a Monte Carlo method called the Metropolis-Hastings algorithm to see how a 2D Ising system achieves equilibrium. We then calculate various parameters to observe the phase transitions.\n\n\nThe Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.\n\n\n\n\n\n\nWhen an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
   },
   {
     "objectID": "docs/problems/ising-model.html#what-is-the-ising-model",
     "href": "docs/problems/ising-model.html#what-is-the-ising-model",
     "title": "Ising Model for Ferromagnetism",
     "section": "",
-    "text": "The Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin."
+    "text": "The Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
   },
   {
     "objectID": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
     "href": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
     "title": "Ising Model for Ferromagnetism",
     "section": "",
-    "text": "When an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution."
+    "text": "When an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
   },
   {
     "objectID": "docs/problems/temp-html-text.html",
@@ -1944,7 +2052,13 @@
     "href": "docs/problems/monte-carlo-integration.html",
     "title": "MC Integration",
     "section": "",
-    "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So, what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top"
+    "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So, what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "3. Integration"
+    ]
   },
   {
     "objectID": "docs/problems/pool-sampling_question.html",
@@ -3804,6 +3918,174 @@
     "title": "Numerical Solutions (Need)",
     "section": "2.4 A quick summary",
     "text": "2.4 A quick summary\nYet, again, I draw your attention to the strategy we use to solve the differential equation.\n\nRewrite the equation in an approximate form that connects the changes of one variable to another. i.e. \\[\n\\dfrac{dN}{dt}=- \\lambda N \\Rightarrow \\Delta N \\approx - \\lambda N \\Delta t\n\\]\nPick starting values for the variables.\nStep the control variable (time in the previous case) and calculate the corresponding changes in the other variables.\nUpdate the variables\nRepeat until you reach the desired end.\nMake the step size smaller if you want greater accuracy.\n\nThis method you have been using is named the Euler Method (pronounced o-e-le).\n\n\n\n\n\n\nRemember\n\n\n\nRemember that the easiest (although not necessarily the best) way to solve a differential equation is using the Euler method."
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html",
+    "title": "Random Numbers (Good)",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#random-numbers-from-the-normal-distribution",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#random-numbers-from-the-normal-distribution",
+    "title": "Random Numbers (Good)",
+    "section": "2.1 Random numbers from the Normal distribution",
+    "text": "2.1 Random numbers from the Normal distribution\n\n\n\n\n\nBefore we draw random numbers from a Normal distribution (also known as a Gaussian distribution), let’s remind ourselves what the Normal distribution is. With the characteristic shape shown in the plots above (that I borrowed from Wikipedia), the Normal distribution is defined by two parameters. The mean \\(\\mu\\) and the standard deviation \\(\\sigma\\). The mean decides the centre’s location and the standard deviation decides the chubbiness. A feature of the Normal distribution (as indicated in the image above) is that 68% of the points lie between \\(\\mu\\pm\\sigma\\). The mathematical form of this distribution is:\n\\[\nf(x)=\\dfrac{1}{\\sigma \\sqrt{2\\pi}}{\\large e}^{-\\dfrac{1}{2}\\left(\\dfrac{x-\\mu}{\\sigma}\\right)^2}\n\\]\nThe function we need to draw normal random samples is np.random.normal(loc=, scale=, size=). loc is used to specify the mean and scale the standard deviation. For example:\n\nnp.random.normal(loc=5, scale=2, size=10)\n\narray([6.23467679, 5.69110152, 6.2548526 , 4.91412283, 5.26087859,\n       6.01631475, 3.54998986, 3.3420698 , 7.65130615, 6.00569723])",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#visualising-the-random-numbers",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#visualising-the-random-numbers",
+    "title": "Random Numbers (Good)",
+    "section": "2.2 Visualising the random numbers",
+    "text": "2.2 Visualising the random numbers\nIt isn’t easy to see that the above numbers are from a Normal distribution. However, it is easier if we plot the data, as we did before.\n\n\n\n\n\n\nn = 1_000_0\nrandom_numbers = np.random.normal(loc=5, scale=2, size=n)\n\nfig, ax = plt.subplots(nrows=1, ncols=2)\n\naxis = ax[0]\naxis.hist(random_numbers, bins=100, alpha=.25)\naxis.set_xlabel(\"Value of random number\")\naxis.set_ylabel(\"Frequency\")\n\naxis = ax[1]\naxis.scatter(range(n), random_numbers, alpha=.25)\naxis.set_xlabel(\"Position in the random number list\")\naxis.set_ylabel(\"Value of random number\")\n\nI hope this visualisation will help you understand what I meant by drawing a number from a Normal distribution.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#section",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#section",
+    "title": "Random Numbers (Good)",
+    "section": "2.3 68%?",
+    "text": "2.3 68%?\nLet’s check if the Normal random numbers given to us satisfy the 68% condition?\n\nn = 10_000\nmean, sd = 5, 2\nrandom_numbers = np.random.normal(loc=mean, scale=sd, size=n)\n\nmask = (random_numbers &gt;= mean - sd) & (random_numbers &lt;= mean + sd)\n\nprint(f'% of points between 1 std.dev. from the mean: {np.sum(mask)/n*100:.2f}%')\n\n% of points between 1 std.dev. from the mean: 68.43%",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-scenario",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-scenario",
+    "title": "Random Numbers (Good)",
+    "section": "3.1 The scenario",
+    "text": "3.1 The scenario\nLet’s simulate a simple random walk1 in 1D. The scenario is such that a particle is restricted to moving in 1D (i.e. only along a line). It moves in steps, either one unit to the left or one to the right. The choice of left or right is selected randomly. Let’s take the probability of going right as \\(p\\), and going left is \\(q\\) (\\(=1-p\\)).",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-simulation",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-simulation",
+    "title": "Random Numbers (Good)",
+    "section": "3.2 The simulation",
+    "text": "3.2 The simulation\nI can encapsulate the above information as a function as follows:\ndef brown_1d(prob_right=.5, no_of_steps=10000):\n    ''' \n        This function returns the final position of the particle \n        after the number of steps.\n        prob_right is the probability of going right.\n    '''\n\n    step_size = 1    \n    x = 0                               # starting x position\n\n    for _ in range(no_of_steps):\n        if rnd.random() &lt; prob_right:   # Go right?\n            x += step_size\n        else:\n            x -= step_size\n\n    return x\nBefore going ahead, I am tired of having to type np.random.! Time to get lazy by:\n\nimport numpy.random as rnd\n\nNow I can just use rnd! So, back to the main story…\nEach time I run this function, I will get a different value. However, I like to see if there is a pattern. Let me repeat an experiment of 1000 steps 10,000 times to see what I get.\nno_of_steps, p = 1_000, .5\nrepeats = 10_000\nresults = [brown_1d(prob_right=p, no_of_steps=no_of_steps)\n           for _ in range(repeats)]\n\nplt.hist(results, bins=25, density=True)\nplt.xlabel(f'Distance from the origin after {no_of_steps} steps')\nplt.title(f'Probability distribution for 1D Random walk with p={p}')\nNote that I have put density=True to ask Matplotlib to normalise the area under the curve to 1.\n\n\n\n\n\nInteresting; the distribution looks familiar since \\(p=.5\\) is symmetrical about the starting position. I am curious to see what happens if I increase the probability \\(p\\) to 0.6. Then, the curve should shift to the right. Let’s see if this happens. I will not show the code because it is the same as above.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#what-does-theory-say",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#what-does-theory-say",
+    "title": "Random Numbers (Good)",
+    "section": "3.3 What does theory say?",
+    "text": "3.3 What does theory say?\nA theoretical analysis of 1D random walks predicts that the distribution of positions should have a mean of \\(N(p - q)\\) and a standard deviation of \\(\\sqrt{4N pq}\\) (where \\(N\\) is the total number of steps). The distribution is actually Binomial, but since we have a large number of steps, it approximates a Gaussian. So, let’s overlay a Normal distribution over our previous plots to see how well our simulation agrees with the theory.\nHere is the function I used for the Normal distribution, which is the equation I showed you earlier.\ndef normal(x, m=0, s=1):\n    '''\n    Probability density function for the\n    Gaussian distribution.\n    '''\n    s2 = s**2\n    output = np.exp(-(x-m)**2/(2*s2))\n    output /= np.sqrt(2*np.pi*s2)\n    return output\nI can use the following code to overlay this on my histogram:\nprob_left = 1 - prob_right                       # q = 1 -p\nmean = no_of_steps * (prob_right - prob_left)    # mean = N(p - q)\nsd = np.sqrt(4*no_of_steps*prob_right*prob_left) # sd = sqrt(4 N p q)\nx = np.unique(results)                           # Numbers that form \n                                                 # the x-axis\nplt.plot(x, normal(x, mean, sd), label='Theoretical')\nHere is what I got.\n \nNeat!\nBy the way, techniques such as the above that involve random numbers are called Monte Carlo methods. This is because random numbers are associated with gambling, and the city of Monte Carlo is famous for the latter.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-method",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#the-method",
+    "title": "Random Numbers (Good)",
+    "section": "4.1 The method",
+    "text": "4.1 The method\n\nConsider a circle inscribed on a square surface, as shown above. Let’s take the radius of the circle to be 1. Then, if we throw a large number (\\(N_{total}\\)) of grains of sand randomly onto this surface, the number of grains landing on the green, the circular area will be related to the number on the total area by:\n\\[\n\\begin{align*}\\frac{N_{green}}{N_{total}}\\approx \\frac{\\text{Area of green region}}{\\text{Area of square}}\n\\end{align*}\n\\]\nBut we know the formulae for the areas! So,\n\\[\n\\begin{align*}\n\\frac{\\text{Area of green region}}{\\text{Area of square}}&= \\frac{\\pi (1)^2}{2\\times 2}=\\frac{1}{4}\\pi \\quad\\Rightarrow \\quad\\pi  = 4\\left(\\frac{\\text{Area of green region}}{\\text{Area of square}}\\right)\n\\end{align*}\n\\]\n\\[\n\\text{i.e.}\\qquad\\pi  \\approx 4\\left(\\frac{N_{green}}{N_{total}}\\right)\n\\]\nWe can simulate this experiment by randomly ‘creating’ points (to represent where a grain of sand will land) by using NumPy’s PRNG. We can then decide if this grain of sand is inside or outside to get \\(N_{green}\\) and then go on to get an estimate for \\(\\pi\\)!",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-poor-but-intuitive-solution",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-poor-but-intuitive-solution",
+    "title": "Random Numbers (Good)",
+    "section": "4.2 A poor but intuitive solution",
+    "text": "4.2 A poor but intuitive solution\nLet me start with a (poor) but intuitive solution by throwing one grain at a time.\n\nN_total = 100_000                             # Yes, Python allows the _\nN_green = 0\n\nfor _ in range(N_total):\n    x = rnd.uniform(low=-1, high=1, size=1)     \n    y = rnd.uniform(low=-1, high=1, size=1)\n    r = np.sqrt(x**2 + y**2)                   # Distance from the origin\n\n    if r &lt;= 1:\n        N_green += 1                           # In or out of the circle\n\n4 * N_green / N_total                          # Estimate for pi\n\n3.13552\n\n\nThis solution is slow because of the way we are drawing out the random number, one at a time",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-better-solution",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-better-solution",
+    "title": "Random Numbers (Good)",
+    "section": "4.3 A better solution",
+    "text": "4.3 A better solution\nHere is a better solution that generates multiple random numbers at once.\n\nN_total=1_000_000\nx=rnd.uniform(low=-1, high=1, size=N_total)\ny=rnd.uniform(low=-1, high=1, size=N_total)\nN_green= np.sum((x**2+y**2) &lt;= 1)                # Oh! the ease of NumPy!\n\n4 * (N_green / N_total)\n\nnp.float64(3.145332)",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-smarter-solution",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#a-smarter-solution",
+    "title": "Random Numbers (Good)",
+    "section": "4.4 A smarter solution",
+    "text": "4.4 A smarter solution\nThere is room to improve our algorithm. Notice that if we limit our experiment to only the first quadrant of the circle and the related square, our equation remains the same!\n\\[\\begin{align*}\n\\frac{\\text{Area of green region}}{\\text{Area of square}}&= \\frac{\\pi (1)^2\\color{darkorange}{/4}}{2\\times 2\\color{darkorange}{/4}}=\\frac{1}{4}\\pi \\quad\\Rightarrow \\quad\\pi  = 4\\left(\\frac{\\text{Area of green region}}{\\text{Area of square}}\\right)\n\\end{align*}\\]\nHowever, the range for \\(x\\) and \\(y\\) becomes \\([0,1)\\). So, our statistics have improved drastically! We can now use the faster, simpler rand().\n\nN_total=1_000_000\nx=rnd.rand(N_total)\ny=rnd.rand(N_total)\nN_green=np.sum((x**2+y**2) &lt;= 1)\n\n4 * (N_green / N_total)\n\nnp.float64(3.140268)",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
+  },
+  {
+    "objectID": "docs/knowledge-lake/random_numbers/good/2_random_good.html#footnotes",
+    "href": "docs/knowledge-lake/random_numbers/good/2_random_good.html#footnotes",
+    "title": "Random Numbers (Good)",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nRandom walks are important in many branches of science. For example, see here.↩︎",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "1. Introduction",
+      "Random Numbers (Good)"
+    ]
   },
   {
     "objectID": "docs/knowledge-lake/image_analysis/2_images_good.html",
