@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Numerical Solutions (Need) – Python in Physics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../styles/specific-optimisations.css">
+<link rel="stylesheet" href="styles/styles.css">
+<link rel="stylesheet" href="../../../styles/styles_quarto.css">
+<link rel="stylesheet" href="../../../styles/py_css.css">
+<link rel="stylesheet" href="../../../styles/styles-tables.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Python in Physics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../docs/about/overview.html"> 
+<span class="menu-text">What to expect?</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-to-expect-in-this-chapter" id="toc-what-to-expect-in-this-chapter" class="nav-link active" data-scroll-target="#what-to-expect-in-this-chapter">What to expect in this chapter</a></li>
+  <li><a href="#a-bucket-of-water" id="toc-a-bucket-of-water" class="nav-link" data-scroll-target="#a-bucket-of-water"><span class="header-section-number">1</span> A Bucket of water</a>
+  <ul class="collapse">
+  <li><a href="#getting-a-feel" id="toc-getting-a-feel" class="nav-link" data-scroll-target="#getting-a-feel"><span class="header-section-number">1.1</span> Getting a feel</a></li>
+  <li><a href="#an-overflowing-bucket" id="toc-an-overflowing-bucket" class="nav-link" data-scroll-target="#an-overflowing-bucket"><span class="header-section-number">1.2</span> An overflowing bucket</a></li>
+  <li><a href="#a-leaky-bucket" id="toc-a-leaky-bucket" class="nav-link" data-scroll-target="#a-leaky-bucket"><span class="header-section-number">1.3</span> A leaky bucket</a></li>
+  <li><a href="#lets-turn-off-the-tap" id="toc-lets-turn-off-the-tap" class="nav-link" data-scroll-target="#lets-turn-off-the-tap"><span class="header-section-number">1.4</span> Let’s turn off the tap</a>
+  <ul class="collapse">
+  <li><a href="#using-while" id="toc-using-while" class="nav-link" data-scroll-target="#using-while">Using <code>while</code></a></li>
+  </ul></li>
+  <li><a href="#a-quick-summary" id="toc-a-quick-summary" class="nav-link" data-scroll-target="#a-quick-summary"><span class="header-section-number">1.5</span> A quick summary</a></li>
+  <li><a href="#we-just-solved-a-differential-equation" id="toc-we-just-solved-a-differential-equation" class="nav-link" data-scroll-target="#we-just-solved-a-differential-equation"><span class="header-section-number">1.6</span> We just solved a differential equation!</a></li>
+  </ul></li>
+  <li><a href="#simulating-radioactivity" id="toc-simulating-radioactivity" class="nav-link" data-scroll-target="#simulating-radioactivity"><span class="header-section-number">2</span> Simulating Radioactivity</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a></li>
+  <li><a href="#approximating-the-differential-equation" id="toc-approximating-the-differential-equation" class="nav-link" data-scroll-target="#approximating-the-differential-equation"><span class="header-section-number">2.2</span> Approximating the differential equation</a>
+  <ul class="collapse">
+  <li><a href="#getting-a-feel-1" id="toc-getting-a-feel-1" class="nav-link" data-scroll-target="#getting-a-feel-1">Getting a feel</a></li>
+  </ul></li>
+  <li><a href="#lets-write-some-code" id="toc-lets-write-some-code" class="nav-link" data-scroll-target="#lets-write-some-code"><span class="header-section-number">2.3</span> Let’s write some code</a>
+  <ul class="collapse">
+  <li><a href="#some-things-to-note-about-the-code" id="toc-some-things-to-note-about-the-code" class="nav-link" data-scroll-target="#some-things-to-note-about-the-code">Some things to note about the code</a></li>
+  </ul></li>
+  <li><a href="#a-quick-summary-1" id="toc-a-quick-summary-1" class="nav-link" data-scroll-target="#a-quick-summary-1"><span class="header-section-number">2.4</span> A quick summary</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Numerical Solutions (Need)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hidden">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/Users/chammika/miniconda3/envs/quarto/bin/python3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://i.ytimg.com/vi/kHocP8jZUVQ/maxresdefault.jpg" class="img-fluid figure-img" width="600"></p>
+<figcaption>The (chaotic) Lorentz Attractor is a solution to a set of differential equations. See <a href="https://en.wikipedia.org/wiki/Lorenz_system">Wikipedia</a> for more information, and <a href="http://computationalcyril.blogspot.com/2012/07/fun-with-lorenz-attractor-and-python.html">here</a> for an example of a Pythonic solution.</figcaption>
+</figure>
+</div>
+<section id="what-to-expect-in-this-chapter" class="level1 unnumbered">
+<h1 class="unnumbered">What to expect in this chapter</h1>
+<p>One of science’s triumphs is its ability to mathematically model the world around us. In addition to giving us insights into how the various systems work, it also provides us with the ability to predict what can happen. But unfortunately, we cannot derive the solutions to the equations related to most natural systems in closed form. Instead, we have to use approximate techniques to get numerical solutions.</p>
+<p>Examples of dynamical systems can be as diverse as how planets move, viruses spread, or populations rise and fall. We can use many numerical strategies to understand or model dynamic systems. This part will focus on simple techniques that involve modelling and solving differential equations.</p>
+</section>
+<section id="a-bucket-of-water" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> A Bucket of water</h1>
+<section id="getting-a-feel" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="getting-a-feel"><span class="header-section-number">1.1</span> Getting a feel</h2>
+<p>Let us start with a simple system consisting of a bucket filled with a faucet. Let’s say the tap provides water at a rate of 5 L/mins. I can get a feel for the dynamics of this system by creating a table like this.</p>
+<div class="my-table-800">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 21%">
+<col style="width: 17%">
+<col style="width: 9%">
+<col style="width: 28%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">#</th>
+<th style="text-align: center;">Time Step<br>(<span class="math inline">\(\Delta t\)</span>)</th>
+<th style="text-align: center;">Elasped Time<br>(<span class="math inline">\(t\)</span>)</th>
+<th style="text-align: center;">Rate<br>(<span class="math inline">\(R\)</span>)</th>
+<th style="text-align: center;">Change in Volume<br>(<span class="math inline">\(\Delta V\)</span>)</th>
+<th style="text-align: center;">Total Volume<br>(<span class="math inline">\(V\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">0.0 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.0 L</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">0.5 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">2.5 L</td>
+<td style="text-align: center;">2.5 L</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">1.0 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">2.5 L</td>
+<td style="text-align: center;">5.0 L</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">1.5 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">2.5 L</td>
+<td style="text-align: center;">7.5 L</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">2.0 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">2.5 L</td>
+<td style="text-align: center;">10.0 L</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">.5 mins</td>
+<td style="text-align: center;">2.5 mins</td>
+<td style="text-align: center;">5 L/min</td>
+<td style="text-align: center;">2.5 L</td>
+<td style="text-align: center;">12.5 L</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(R\)</span> is the rate and <span class="math inline">\(\Delta V\)</span> is the change in volume that corresponds to a time step of <span class="math inline">\(\Delta V\)</span>. I.e.</p>
+<p><span class="math display">\[
+\Delta V = R \Delta t
+\]</span></p>
+<p>Let me do all this in Python.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.5</span>                          <span class="co"># Time step (mins)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Rate (L/min)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>all_time <span class="op">=</span> np.arange(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span>max_time, step<span class="op">=</span>dt)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> time <span class="kw">in</span> all_time:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    all_volume.append(volume)    <span class="co"># Record volume</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    dV <span class="op">=</span> rate <span class="op">*</span> dt               <span class="co"># Calculate change in volume</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    volume <span class="op">+=</span> dV                 <span class="co"># Update the new volume</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Because we can...</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_volume)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_bucket_basic.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<p>You might think I have overly complicated something simple that can be done in a spreadsheet. However, once I have this basic structure in place, I can start having fun imagining other realities.</p>
+</section>
+<section id="an-overflowing-bucket" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="an-overflowing-bucket"><span class="header-section-number">1.2</span> An overflowing bucket</h2>
+<p>Let’s imagine that our bucket has a maximum volume of 9 L. We can impose this condition with a simple <code>if</code> statement.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.5</span>                          <span class="co"># Time step (mins)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Rate (L/min)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>bucket_capacity <span class="op">=</span> <span class="dv">9</span>              <span class="co"># L</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>all_time <span class="op">=</span> np.arange(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span>max_time, step<span class="op">=</span>dt)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> time <span class="kw">in</span> all_time:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    all_volume.append(volume)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    dV <span class="op">=</span> rate <span class="op">*</span> dt</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> volume <span class="op">&lt;=</span> bucket_capacity:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        volume <span class="op">+=</span> dV             <span class="co"># Update the new volume</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_volume)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.hlines(bucket_capacity, <span class="dv">0</span>, max_time, colors<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_bucket_capacity.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<p>Oh no, the bucket still seems to fill beyond <span class="math inline">\(9\)</span> L before it stops increasing. The problem here is that my timestep is too large. So let’s make it smaller. Since I don’t know what will work best, I will try a few with a <code>for</code> loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.5</span>                          <span class="co"># Time step (mins)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Rate (L/min)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>bucket_capacity <span class="op">=</span> <span class="dv">9</span>              <span class="co"># L</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dt <span class="kw">in</span> [<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span>, <span class="fl">0.001</span>]:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    all_time <span class="op">=</span> np.arange(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span>max_time, step<span class="op">=</span>dt)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> time <span class="kw">in</span> all_time:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        all_volume.append(volume)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        dV <span class="op">=</span> rate <span class="op">*</span> dt</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> volume <span class="op">&lt;=</span> bucket_capacity:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            volume <span class="op">+=</span> dV</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    plt.plot(all_time, all_volume, label<span class="op">=</span><span class="ss">f'dt=</span><span class="sc">{</span>dt<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>plt.hlines(bucket_capacity, <span class="dv">0</span>, max_time, colors<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'dashed'</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I hope you are following what I have done. Since I want to change <code>dt</code> I have pushed everything that depends on it under the <code>for</code> loop. The way I initially set up the code with variables defined at the top and reused elsewhere makes it easy to make quick adjustments. If I run this code, I end up with:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_bucket_capacity-many-times.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<p>Looks like a timestep of 0.01 or 0.001 works best. I am going to pick 0.01 because this means the <code>for</code> loop runs fewer times.</p>
+</section>
+<section id="a-leaky-bucket" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="a-leaky-bucket"><span class="header-section-number">1.3</span> A leaky bucket</h2>
+<p>Now, let’s imagine a hole in the bucket is causing it to leak at a rate of 1.5 L/min.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.001</span>                        <span class="co"># Time step (mins)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Filling rate (L/min)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>leak_rate <span class="op">=</span> <span class="fl">1.5</span>                  <span class="co"># L/min</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>bucket_capacity <span class="op">=</span> <span class="dv">9</span>              <span class="co"># L</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>all_time <span class="op">=</span> np.arange(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span>max_time, step<span class="op">=</span>dt)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> time <span class="kw">in</span> all_time:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    all_volume.append(volume)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    dV <span class="op">=</span> rate <span class="op">*</span> dt</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    leak_volume <span class="op">=</span> leak_rate <span class="op">*</span> dt</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    volume <span class="op">-=</span> leak_volume</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> volume <span class="op">&lt;=</span> bucket_capacity:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        volume <span class="op">+=</span> dV             <span class="co"># Update the new volume</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_volume)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.hlines(bucket_capacity, <span class="dv">0</span>, max_time, colors<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_bucket_leaky.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<p>Notice how it now takes longer for the bucket to fill up. But, even then, once it is filled, the inflow is sufficient to offset the leak and keep the bucket full.</p>
+</section>
+<section id="lets-turn-off-the-tap" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="lets-turn-off-the-tap"><span class="header-section-number">1.4</span> Let’s turn off the tap</h2>
+<p>What will happen if we turn off the tap after 3 mins? I can impose this by simply modifying the <code>if</code> condition!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tap_off_time <span class="op">=</span> <span class="dv">3</span>                 <span class="co"># When the tap goes off</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.001</span>                        <span class="co"># Time step (mins)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Filling rate (L/min)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>leak_rate <span class="op">=</span> <span class="fl">1.5</span>                  <span class="co"># L/min</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>bucket_capacity <span class="op">=</span> <span class="dv">9</span>              <span class="co"># L</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>all_time <span class="op">=</span> np.arange(start<span class="op">=</span><span class="dv">0</span>, stop<span class="op">=</span>max_time, step<span class="op">=</span>dt)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> time <span class="kw">in</span> all_time:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    all_volume.append(volume)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    dV <span class="op">=</span> rate <span class="op">*</span> dt</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    leak_volume <span class="op">=</span> leak_rate <span class="op">*</span> dt</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    volume <span class="op">-=</span> leak_volume</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (volume <span class="op">&lt;=</span> bucket_capacity) <span class="kw">and</span> (time <span class="op">&lt;</span> tap_off_time):</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        volume <span class="op">+=</span> dV             </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_volume)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.hlines(bucket_capacity, <span class="dv">0</span>, max_time, colors<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_bucket_tap-off.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<section id="using-while" class="level3">
+<h3 class="anchored" data-anchor-id="using-while">Using <code>while</code></h3>
+<p>Before we move on let me show you how to use a <code>while</code> statement to run the same simulation. I prefer <code>while</code> for such cases because all variables (e.g.&nbsp;time and volume) are treated equally. Let me show you what I mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tap_off_time <span class="op">=</span> <span class="dv">3</span>                 <span class="co"># When the tap goes off</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>max_time <span class="op">=</span> <span class="dv">5</span>                     <span class="co"># Maximum time (mins)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.001</span>                        <span class="co"># Time step (mins)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="dv">5</span>                         <span class="co"># Filling rate (L/min)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>leak_rate <span class="op">=</span> <span class="fl">1.5</span>                  <span class="co"># L/min</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>bucket_capacity <span class="op">=</span> <span class="dv">9</span>              <span class="co"># L</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>all_volume <span class="op">=</span> []                  <span class="co"># To keep track of all volumes</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>all_time <span class="op">=</span> []                    <span class="co"># To keep track of all times</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>volume <span class="op">=</span> <span class="dv">0</span>                       <span class="co"># Starting volume</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> time <span class="op">&lt;=</span> max_time:</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    all_time.append(time)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    all_volume.append(volume)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    dV <span class="op">=</span> rate <span class="op">*</span> dt</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    leak_volume <span class="op">=</span> leak_rate <span class="op">*</span> dt</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    volume <span class="op">-=</span> leak_volume</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (volume <span class="op">&lt;=</span> bucket_capacity) <span class="kw">and</span> (time <span class="op">&lt;</span> tap_off_time):</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        volume <span class="op">+=</span> dV    </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    time <span class="op">+=</span> dt             </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_volume)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Volume(L)'</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(mins)'</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>plt.hlines(bucket_capacity, <span class="dv">0</span>, max_time, colors<span class="op">=</span><span class="st">'grey'</span>, ls<span class="op">=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="a-quick-summary" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="a-quick-summary"><span class="header-section-number">1.5</span> A quick summary</h2>
+<p>We started with a bucket and slowly added more details to our story. I hope you noticed how little our code had to be altered to add these details. Also, you can easily see the ‘story’ just by looking at the code. Here you have a glimpse of the power of programming (with Python) over other methods (such as spreadsheets): simplicity of syntax, transparency of the processes and ease of making changes.</p>
+<p>I also like to point out that irrespective of how complicated the system or problem is, the strategy you need to adopt will be the same, simple one:</p>
+<ol type="1">
+<li>Establish a relationship that connects the changes of the variables.</li>
+<li>Pick a starting value</li>
+<li>Take a step, and calculate the changes.</li>
+<li>Update the variables</li>
+<li>Keep on going until you have the desired number of points.</li>
+<li>If you want to improve accuracy, take smaller steps.</li>
+</ol>
+<p>I will remind you of this again after the next example.</p>
+</section>
+<section id="we-just-solved-a-differential-equation" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="we-just-solved-a-differential-equation"><span class="header-section-number">1.6</span> We just solved a differential equation!</h2>
+<p>The example with the bucket is actually one related to a simple differential equation. Namely:</p>
+<p><span class="math display">\[
+\dfrac{dV}{dt} = R
+\]</span></p>
+<p>Most mathematical equations are succinct ways of telling a story. For example, the above says that how fast the volume (<span class="math inline">\(V\)</span>) changes as time passes equals a constant <span class="math inline">\(R\)</span>. More accurately, the symbol on the LHS reads as ‘rate of change of <span class="math inline">\(V\)</span> with respect to <span class="math inline">\(t\)</span>’.</p>
+<p>We can <strong>approximate</strong> this relationship as the following fraction:</p>
+<p><span class="math display">\[
+\dfrac{\Delta V}{\Delta t} \approx \dfrac{dV}{dt} = R
+\]</span></p>
+<p>As you noticed earlier, the approximation becomes more accurate the smaller we make <span class="math inline">\(\Delta t\)</span>.</p>
+<p>Rearranging the above equation, we end up with:</p>
+<p><span class="math display">\[
+\Delta V = R \Delta t
+\]</span></p>
+<p>Which is where we started everything about the bucket.</p>
+</section>
+</section>
+<section id="simulating-radioactivity" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Simulating Radioactivity</h1>
+<section id="introduction" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
+<!-- In a previous chapter, I showed you how to simulate radioactive decay using random numbers. In this section, let's use a differential equation to simulate.  -->
+<p>Let’s solve the differential equation related to radioactive decay in this section. The experimentally observed mathematical relationship that governs the decay of a sample of radioactive material is given by:</p>
+<p><span class="math display">\[
+\dfrac{dN}{dt}=- \lambda N
+\]</span></p>
+<p><span class="math inline">\(N\)</span> is the number of radioactive nuclei and <span class="math inline">\(\lambda\)</span> is a characteristic number (called the ‘<strong>decay constant</strong>’) of the radioactive species. For example, <span class="math inline">\(\lambda = 142\)</span> per million year for <span class="math inline">\(^{87}\)</span>Rb.</p>
+</section>
+<section id="approximating-the-differential-equation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="approximating-the-differential-equation"><span class="header-section-number">2.2</span> Approximating the differential equation</h2>
+<p>Let’s follow our recipe and recast the differential equation in an approximate form:</p>
+<p><span class="math display">\[
+\begin{align*}
+\dfrac{\Delta N}{ \Delta t}&amp;\approx- \lambda N \\[10pt] \Rightarrow \Delta N &amp;\approx-\lambda N \Delta t
+\end{align*}
+\]</span></p>
+<section id="getting-a-feel-1" class="level3">
+<h3 class="anchored" data-anchor-id="getting-a-feel-1">Getting a feel</h3>
+<div class="my-table-600">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 29%">
+<col style="width: 18%">
+<col style="width: 24%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Step</th>
+<th style="text-align: left;">Time</th>
+<th style="text-align: center;">N(t) <span class="math inline">\((\times 10^9)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\Delta t\)</span> (million years)</th>
+<th style="text-align: center;"><span class="math inline">\(\Delta N\)</span> (<span class="math inline">\(\times10^9\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: left;"><span class="math inline">\(t_0 = 0\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-0.142\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><span class="math inline">\(t_1 = t_0 + \Delta t  = 0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><span class="math inline">\(t_2 = t_1 + \Delta t =?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><span class="math inline">\(t_3 = t_2 + \Delta t  =?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><span class="math inline">\(t_4 = t_3 + \Delta t  =?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><span class="math inline">\(t_5 = t_4 + \Delta t  =?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><span class="math inline">\(t_6 = t_5 + \Delta t  =?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.001\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(?\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We will re-create this data using Python in a bit. But, for the moment, if you are still not yet very confident about how we solve differential equations, try to complete the <span class="math inline">\(?\)</span> of the table by hand.</p>
+</section>
+</section>
+<section id="lets-write-some-code" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="lets-write-some-code"><span class="header-section-number">2.3</span> Let’s write some code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>decay_constant <span class="op">=</span> <span class="dv">142</span>       <span class="co"># For 85 Rb (per Myr)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stop_fraction <span class="op">=</span> <span class="fl">1E-3</span>       <span class="co"># stop when the sample has shrunk to</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># this fraction of the starting value</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>N0 <span class="op">=</span> <span class="dv">1</span>                     <span class="co"># Starting value of N (in billions of atoms)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">.001</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>time, N <span class="op">=</span> <span class="dv">0</span>, N0            <span class="co"># Starting values</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>all_N, all_time <span class="op">=</span> [], []</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    all_time.append(time)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    all_N.append(N)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    dN <span class="op">=</span> <span class="op">-</span>decay_constant<span class="op">*</span>N<span class="op">*</span>dt</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    N <span class="op">+=</span> dN</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> N <span class="op">&lt;</span> N0<span class="op">*</span>stop_fraction:</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    time <span class="op">+=</span> dt</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>plt.plot(all_time, all_N)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$N$'</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time(Millions of years)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img_tmp/numerical_need_radioactivity.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
+</figure>
+</div>
+<section id="some-things-to-note-about-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="some-things-to-note-about-the-code">Some things to note about the code</h3>
+<p>I want to draw your attention to how I am using a <code>True</code> condition with the <code>while</code> loop. So, it will run until the end of The Universe until I <code>break</code> out on my own. To break out, I check if the <span class="math inline">\(N\)</span> has been reduced to a negligible amount, which I have defined using <code>stop_fraction</code>.</p>
+</section>
+</section>
+<section id="a-quick-summary-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="a-quick-summary-1"><span class="header-section-number">2.4</span> A quick summary</h2>
+<p>Yet, again, I draw your attention to the strategy we use to solve the differential equation.</p>
+<ol type="1">
+<li>Rewrite the equation in an approximate form that connects the changes of one variable to another. i.e.&nbsp;<span class="math display">\[
+\dfrac{dN}{dt}=- \lambda N \Rightarrow \Delta N \approx - \lambda N \Delta t
+\]</span></li>
+<li>Pick starting values for the variables.</li>
+<li>Step the control variable (time in the previous case) and calculate the corresponding changes in the other variables.</li>
+<li>Update the variables</li>
+<li>Repeat until you reach the desired end.</li>
+<li>Make the step size smaller if you want greater accuracy.</li>
+</ol>
+<p>This method you have been using is named the <span class="glossary">Euler Method</span> (pronounced <em>o-e-le</em>).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remember
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember that the easiest (although not necessarily the best) way to solve a differential equation is using the Euler method.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
