@@ -1974,575 +1974,32 @@
     ]
   },
   {
-    "objectID": "docs/problems/ising-model.html",
-    "href": "docs/problems/ising-model.html",
-    "title": "Ising Model for Ferromagnetism",
-    "section": "",
-    "text": "Almost everyone has heard of the famous Ising Model, used to model ferromagnetism. It also allows you to see how a system of interacting particles responds to a change in temperature and leads to the observation of collective phenomena like phase transitions.\nIn this problem, we use a Monte Carlo method called the Metropolis-Hastings algorithm to see how a 2D Ising system achieves equilibrium. We then calculate various parameters to observe the phase transitions.\n\n\nThe Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.\n\n\n\n\n\n\nWhen an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 4</strong>",
-      "Random Numbers",
-      "4. Ising Model"
-    ]
-  },
-  {
-    "objectID": "docs/problems/ising-model.html#what-is-the-ising-model",
-    "href": "docs/problems/ising-model.html#what-is-the-ising-model",
-    "title": "Ising Model for Ferromagnetism",
-    "section": "",
-    "text": "The Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 4</strong>",
-      "Random Numbers",
-      "4. Ising Model"
-    ]
-  },
-  {
-    "objectID": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
-    "href": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
-    "title": "Ising Model for Ferromagnetism",
-    "section": "",
-    "text": "When an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 4</strong>",
-      "Random Numbers",
-      "4. Ising Model"
-    ]
-  },
-  {
-    "objectID": "docs/problems/temp-html-text.html",
-    "href": "docs/problems/temp-html-text.html",
-    "title": "Python in Physics",
-    "section": "",
-    "text": "basic_monthly_median\n\n\n\n\n\n\n\n\ncount\n\n\nmin\n\n\nmax\n\n\nmean\n\n\nstd\n\n\n\n\nyear\n\n\nuniversity\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2021\n\n\nSIT\n\n\n33\n\n\n2500.0\n\n\n5000.0\n\n\n3556.061\n\n\n499.337\n\n\n\n\nSMU\n\n\n12\n\n\n3400.0\n\n\n5600.0\n\n\n4369.417\n\n\n783.333\n\n\n\n\nSUSS\n\n\n8\n\n\n3000.0\n\n\n3800.0\n\n\n3328.750\n\n\n258.094\n\n\n\n\nSUTD\n\n\n4\n\n\n3801.0\n\n\n4800.0\n\n\n4275.250\n\n\n457.001\n\n\n\n\n2022\n\n\nNTU\n\n\n41\n\n\n3100.0\n\n\n6000.0\n\n\n4110.439\n\n\n689.419\n\n\n\n\nNUS\n\n\n38\n\n\n3350.0\n\n\n6500.0\n\n\n4404.842\n\n\n827.763\n\n\n\n\nSIT\n\n\n35\n\n\n2450.0\n\n\n5500.0\n\n\n3914.086\n\n\n593.001\n\n\n\n\nSMU\n\n\n12\n\n\n3800.0\n\n\n6338.0\n\n\n4711.000\n\n\n860.401\n\n\n\n\nSUSS\n\n\n8\n\n\n3100.0\n\n\n4500.0\n\n\n3670.625\n\n\n415.301\n\n\n\n\nSUTD\n\n\n4\n\n\n4100.0\n\n\n5000.0\n\n\n4437.500\n\n\n415.080\n\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "docs/problems/analysing-graduate-data.html",
-    "href": "docs/problems/analysing-graduate-data.html",
-    "title": "Graduate Data",
-    "section": "",
-    "text": "The Singapore government maintains and publicly shares various datasets at Data.gov.sg. In this question, we will analyse the median salaries of graduates from the different universities in Singapore.\n\n\nThis question heavily utilises the package called Pandas. Pandas is the de facto package for all things related to data analysis. You must familiarise yourself (see the Knowledge Lake) with how to use Pandas to work on this problem.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Graduate Data"
-    ]
-  },
-  {
-    "objectID": "docs/problems/analysing-graduate-data.html#you-need-pandas",
-    "href": "docs/problems/analysing-graduate-data.html#you-need-pandas",
-    "title": "Graduate Data",
-    "section": "",
-    "text": "This question heavily utilises the package called Pandas. Pandas is the de facto package for all things related to data analysis. You must familiarise yourself (see the Knowledge Lake) with how to use Pandas to work on this problem.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Graduate Data"
-    ]
-  },
-  {
-    "objectID": "docs/problems/monte-carlo-integration.html",
-    "href": "docs/problems/monte-carlo-integration.html",
-    "title": "MC Integration",
-    "section": "",
-    "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So, what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 4</strong>",
-      "Random Numbers",
-      "3. Integration"
-    ]
-  },
-  {
-    "objectID": "docs/problems/pool-sampling_question.html",
-    "href": "docs/problems/pool-sampling_question.html",
-    "title": "Pool Sampling",
-    "section": "",
-    "text": "Introduction\nLet’s investigate a medical testing strategy that proved invaluable in coping with the huge number of COVID-19 tests required in the past pandemic. Specifically, we will be studying the strategy called Group or Pool sampling (Wikipedia). It was first proposed by the economist Robert Dorfman in 1943 to test syphilis in soldiers!\nTo get started, please download the following two files:\n\ntest_kit.py\n\nThis file contains a python function test(genome) that accepts a genome as a string (e.g., ATGAGAAT…) and returns True if there is an infection or False if not.\nThis function can only test one sample at a time.\nThere are no false positives.\nThe test is 100% accurate.\n\nperson-files.zip\n\nThis file contains (simulated ) genomics data for 500 people.\nThe files are named in the format person_###.txt where ### is a identifying number.\nJust for your information, each person’s file contains a million bases.\n\n\n\n\nTasks\n\nTask 1Task 2Task 3Task 4Task 5\n\n\n\nGetting started\n\nTo get started, import the function test() from test_kit.py.\ntest() is a straightforward function. However, you are not meant to understand how this function works. You just need to be able to use it. So, you can treat the function test() as a black-box.\nConfirm that Person 27 is infected and that person 17 and 37 are not infected. To use test() on a person, you need to:\n\nRead the person’s genomics data from her file and\nPass this genomics data into test()\n\n\n\n\n\n\nCreate a function\n\nCreate a function get_genome(person_id) that will take an (integer) person_id as input and return the corresponding genome data as output.\nUse get_genome() to apply test() to the first 100 people. (I.e. from person_00000.txt to person_00099.txt) You should see persons 1, 7, 8, 27, 47, 57, 62, 63, and 78 show infections.\n\n\n\n\n\nRandom testing\n\nUse test() on 100 random people to estimate the infection rate in this population. Print your result as a percentage.\n\n\n\n\n\nPool Sampling\n\nWrite some Python code to join/combine the genomics data of person 1 and person 2. I.e. given genome_1 and genome_2, you should end up with genome_1genome_2 What we are trying to simulate here is the mixing of blood samples.\nWrite a function called pool(list_of_id) that accepts a list of integers and returns (a string) of the joined genomes of the people identified by the integers.\nApply test() to the combined genomes of 20 and 21 and 21 and 22. Are the results as expected?\nFor the first 100 persons, use pool and test in groups of 10 to determine those infected. Please keep track of the number of tests you have performed and print it at the end.\nRepeat the previous part with groups of 5.\n\n\n\n\n\nOptimisation\nLet’s try to detect as many infections as possible using the least number of tests. Pick any grouping you like, and apply pool sampling to determine the number of infected people in the population of 500. Keep track of the number of tests you have performed.\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Pool Sampling"
-    ]
-  },
-  {
-    "objectID": "docs/problems/humpty-dumpty-ir-spectra_question.html",
-    "href": "docs/problems/humpty-dumpty-ir-spectra_question.html",
-    "title": "Humpty Dumpty IR Spectra",
-    "section": "",
-    "text": "Scenario\nYou are part of a large team of (idiosyncratic) scientists whose passion is to measure IR spectra of chemical compounds. They have just finished collecting the data for Toluene, 1-Octene and Ethanol. Unfortunately, in their abundant enthusiasm, many factions have used the same instrument to make multiple measurements. You can access a zip file of all the data collected at humpty-dumpty-ir-data.zip.\n\n\nTasks\n\nTask 1Task 2\n\n\n\nConsolidate the data\nYour role in the team is to consolidate all the data. Here are some things you need to be aware of:\n\nEach file name starts with a random number.\nDifferent files may have different delimiters.\nDifferent files for a given compound can contain overlapping data, so you must ensure that each data point is only included once.\nFor a given compound, measured values of transmittance for a given wavenumber are consistent across all files.\nFor some weird reason, the scientists thought it was neat to write the names of the compounds using a mixture of uppercase and lowercase letters!\n\nNote:\n\nYou can only use basic Python and the packages Numpy, glob, and os. You cannot use any other specialised packages or software.\nDo not modify the original files.\n\n\n\n\n\nTime to plot\nOnce you have consolidated your data, generate a plot similar to the following.\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Humpty Dumpty IR Spectra"
-    ]
-  },
-  {
-    "objectID": "docs/problems/about-a-pendulum.html",
-    "href": "docs/problems/about-a-pendulum.html",
-    "title": "About a Pendulum",
-    "section": "",
-    "text": "Introduction\nIn this question, we will use our knowledge of segmentation analysis to develop tools for tracking motion. We will work with a simple video of a pendulum (pendulum.mp4) captured using my handphone. Once we track (i.e., extract its position-time information) the pendulum’s motion, we can plot and apply a more mathematical analysis to understand the motion better.\n\nOops: As you can see, the orientation of the video is wrong, sorry. Guess you will have to do something about that.\n\n\nTasks\n\nFigure out a way to extract the individual frames of the video.There are many ways (e.g., Python, ImageJ, ImageMagick, …) to do this so pick one that you like.Please indicate what you used.\nUsing either a ‘low-level’ approach using basic Numpy arrays or a ‘high-level’ approach using a package (e.g., scikit-image) extract the \\((t,x,y)\\) information of the pendulum bob and plot them.\nUse the SciPy functioncurve_fit() to fit a function of the form \\(A \\sin(2\\pi f t + \\alpha)\\) to your tracking data. The results should look like the red line of the plot shown below.\n\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "About a Pendulum"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html",
-    "href": "docs/problems/vibrot-spectrum_question.html",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "We know from our basic chemistry lessons that atoms have energy levels. For example, the hydrogen atom’s ground state (\\(n=1\\)) has an energy of -13.6 eV, and the next excited state (\\(n=2\\)) has an energy of -3.4 eV. We also know that electrons can get excited to higher energy levels and spontaneously decay to a lower energy level. In this process, the electron will emit energy corresponding to the difference in energy levels. So, an electron making the transition \\(n=2 \\rightarrow 1\\) will emit a photon of energy 10.2 eV. This corresponds to a wavelength of 121.6 nm. These electronic transitions lead to what we refer to as atomic spectra.\nMolecules, too, have electronic energy levels. However, they also have rotational and vibrational energy levels. However, the energy levels corresponding to these types of motions are lower than electronic levels. Hence, the corresponding emissions are related to the infrared and microwave parts of the electromagnetic spectrum.\nYou can obtain the wavelength corresponding to a photon using the formula \\(E = \\dfrac{hc}{\\lambda}\\). \\(h\\) is Planck’s constant, \\(6.626 \\times 10^{-34}\\) Js and \\(c\\) is \\(2.998\\times 10^8\\) m/s, the speed of light in vacuum.\n\n\n\nThe rotational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{ROT,$J$} = BJ(J+1)  \n\\tag{1}\\]\n\\(J = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(B\\) is called the Rotational constant and is given by:\n\\[\nB = \\dfrac{h^2}{8\\pi^2 I}   \n\\tag{2}\\]\nWhere \\(I\\) is the moment of inertia of the molecule about its centre-of-mass given by:\n\\[\nI = \\mu r^2_\\text{bond length}  \n\\tag{3}\\]\nWhere:\n\\[\n\\mu = \\dfrac{m_1 m_2}{m_1 + m_2}\n\\tag{4}\\]\nand \\(m_1\\) and \\(m_2\\) are the massess of the atoms and \\(r_\\text{bond length}\\) is the bond length.\nThe rules of quantum mechanics restrict the transitions between rotational energy levels in a molecule, which are specified by selection rules. The selection rule is a consequence of the conservation of angular momentum in the molecule. The selection rule for rotational transitions for a diatomic system is:\n\\[\n\\Delta J = \\pm 1\n\\tag{5}\\]\nThis means that the change in the rotational quantum number (\\(J\\)) between the initial and final states of the transition can only be plus or minus one.\n\n\n\nThere are multiple ways for a molecule to rotate. This is reflected in quantum mechanics by a concept called degeneracy, meaning that a given energy state can exist in multiple ways. The number of ways is called the degeneracy of the system.\nRotational states have a degeneracy given by:\n\\[\n\\text{Rotational degeneracy} = 2J +1\n\\]{#eq-x)\n\n\n\nA photon will be emitted whenever there is a transition between two allowed \\(J\\) values. The more transitions there are, the greater the number of photons emitted. Therefore, the intensity or brightness of the corresponding spectral line depends on how many transitions occur. Two factors determine this number of transitions.\nOne is how many molecules are in the initial and final energy (\\(J\\)) states. This is determined by the temperature of the system and is given by the famous Boltzmann distribution:\n\\[\n\\dfrac{N_m}{N_n} = e^{-\\left(\\dfrac{E_m - E_n}{k_b T}\\right)}   \n\\tag{6}\\]\nThe second is the degeneracy of the states.\n\n\n\nThe vibrational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{VIB,$\\nu$} = \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}\n\\tag{7}\\]\n\\(\\nu = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(\\omega_\\text{osc}\\) is the natural angular frequency (radians/second) of the oscillations and is given by:\n\\[\n\\omega_\\text{osc}   = \\dfrac{1}{2\\pi}\\sqrt{\\dfrac{k}{\\mu}}  \n\\tag{8}\\]\n\\(k\\) represents the strength of the bond.\nThe selection rules for vibrational transitions are:\n\\[\n\\Delta \\nu = \\pm 1, \\pm 2, \\pm 3, \\ldots    \n\\tag{9}\\]\n\n\n\nIn reality, a molecule both rotates and vibrates. So, the energy levels of a molecule are more accurately described by:\n\\[\nE_\\text{VIB-ROT,$J, \\nu$} = BJ(J+1) + \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}  \n\\tag{10}\\]\nThe energy transitions follow both transition rules:\n\\[\\begin{align}\n\\Delta J &= \\pm 1 \\\\\n\\Delta \\nu &= \\pm 1, \\pm 2, \\pm 3, \\ldots   \n\\end{align}\\]\n\n\n\n\n\n\nQuantity\nValue\n\n\n\n\nMass of \\(^{1}\\)H\n\\(1.673 \\times 10^{−27}\\) kg\n\n\nMass of \\(^{35}\\)Cl\n\\(58.06 \\times 10^{−27}\\) kg\n\n\nBond length (\\(r_\\text{bond length}\\))\n\\(0.127\\) nm\n\n\nBond strength (\\(k\\))\n\\(516\\) Nm\\(^{-1}\\)",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#energy-levels",
-    "href": "docs/problems/vibrot-spectrum_question.html#energy-levels",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "We know from our basic chemistry lessons that atoms have energy levels. For example, the hydrogen atom’s ground state (\\(n=1\\)) has an energy of -13.6 eV, and the next excited state (\\(n=2\\)) has an energy of -3.4 eV. We also know that electrons can get excited to higher energy levels and spontaneously decay to a lower energy level. In this process, the electron will emit energy corresponding to the difference in energy levels. So, an electron making the transition \\(n=2 \\rightarrow 1\\) will emit a photon of energy 10.2 eV. This corresponds to a wavelength of 121.6 nm. These electronic transitions lead to what we refer to as atomic spectra.\nMolecules, too, have electronic energy levels. However, they also have rotational and vibrational energy levels. However, the energy levels corresponding to these types of motions are lower than electronic levels. Hence, the corresponding emissions are related to the infrared and microwave parts of the electromagnetic spectrum.\nYou can obtain the wavelength corresponding to a photon using the formula \\(E = \\dfrac{hc}{\\lambda}\\). \\(h\\) is Planck’s constant, \\(6.626 \\times 10^{-34}\\) Js and \\(c\\) is \\(2.998\\times 10^8\\) m/s, the speed of light in vacuum.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#rotational-energy-levels",
-    "href": "docs/problems/vibrot-spectrum_question.html#rotational-energy-levels",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "The rotational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{ROT,$J$} = BJ(J+1)  \n\\tag{1}\\]\n\\(J = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(B\\) is called the Rotational constant and is given by:\n\\[\nB = \\dfrac{h^2}{8\\pi^2 I}   \n\\tag{2}\\]\nWhere \\(I\\) is the moment of inertia of the molecule about its centre-of-mass given by:\n\\[\nI = \\mu r^2_\\text{bond length}  \n\\tag{3}\\]\nWhere:\n\\[\n\\mu = \\dfrac{m_1 m_2}{m_1 + m_2}\n\\tag{4}\\]\nand \\(m_1\\) and \\(m_2\\) are the massess of the atoms and \\(r_\\text{bond length}\\) is the bond length.\nThe rules of quantum mechanics restrict the transitions between rotational energy levels in a molecule, which are specified by selection rules. The selection rule is a consequence of the conservation of angular momentum in the molecule. The selection rule for rotational transitions for a diatomic system is:\n\\[\n\\Delta J = \\pm 1\n\\tag{5}\\]\nThis means that the change in the rotational quantum number (\\(J\\)) between the initial and final states of the transition can only be plus or minus one.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#degeneracy-of-states",
-    "href": "docs/problems/vibrot-spectrum_question.html#degeneracy-of-states",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "There are multiple ways for a molecule to rotate. This is reflected in quantum mechanics by a concept called degeneracy, meaning that a given energy state can exist in multiple ways. The number of ways is called the degeneracy of the system.\nRotational states have a degeneracy given by:\n\\[\n\\text{Rotational degeneracy} = 2J +1\n\\]{#eq-x)",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#intensity-of-the-spectrums",
-    "href": "docs/problems/vibrot-spectrum_question.html#intensity-of-the-spectrums",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "A photon will be emitted whenever there is a transition between two allowed \\(J\\) values. The more transitions there are, the greater the number of photons emitted. Therefore, the intensity or brightness of the corresponding spectral line depends on how many transitions occur. Two factors determine this number of transitions.\nOne is how many molecules are in the initial and final energy (\\(J\\)) states. This is determined by the temperature of the system and is given by the famous Boltzmann distribution:\n\\[\n\\dfrac{N_m}{N_n} = e^{-\\left(\\dfrac{E_m - E_n}{k_b T}\\right)}   \n\\tag{6}\\]\nThe second is the degeneracy of the states.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#vibrational-energy-levels",
-    "href": "docs/problems/vibrot-spectrum_question.html#vibrational-energy-levels",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "The vibrational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{VIB,$\\nu$} = \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}\n\\tag{7}\\]\n\\(\\nu = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(\\omega_\\text{osc}\\) is the natural angular frequency (radians/second) of the oscillations and is given by:\n\\[\n\\omega_\\text{osc}   = \\dfrac{1}{2\\pi}\\sqrt{\\dfrac{k}{\\mu}}  \n\\tag{8}\\]\n\\(k\\) represents the strength of the bond.\nThe selection rules for vibrational transitions are:\n\\[\n\\Delta \\nu = \\pm 1, \\pm 2, \\pm 3, \\ldots    \n\\tag{9}\\]",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#rotational-vibrational-energy-levels",
-    "href": "docs/problems/vibrot-spectrum_question.html#rotational-vibrational-energy-levels",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "In reality, a molecule both rotates and vibrates. So, the energy levels of a molecule are more accurately described by:\n\\[\nE_\\text{VIB-ROT,$J, \\nu$} = BJ(J+1) + \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}  \n\\tag{10}\\]\nThe energy transitions follow both transition rules:\n\\[\\begin{align}\n\\Delta J &= \\pm 1 \\\\\n\\Delta \\nu &= \\pm 1, \\pm 2, \\pm 3, \\ldots   \n\\end{align}\\]",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/vibrot-spectrum_question.html#data-for-hcl",
-    "href": "docs/problems/vibrot-spectrum_question.html#data-for-hcl",
-    "title": "Vibrational Rotational Spectrum of HCl*",
-    "section": "",
-    "text": "Quantity\nValue\n\n\n\n\nMass of \\(^{1}\\)H\n\\(1.673 \\times 10^{−27}\\) kg\n\n\nMass of \\(^{35}\\)Cl\n\\(58.06 \\times 10^{−27}\\) kg\n\n\nBond length (\\(r_\\text{bond length}\\))\n\\(0.127\\) nm\n\n\nBond strength (\\(k\\))\n\\(516\\) Nm\\(^{-1}\\)",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Vibrational Rotational Spectrum of HCl*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/butterfly.html",
-    "href": "docs/problems/butterfly.html",
-    "title": "The Butterfly Effect",
-    "section": "",
-    "text": "Introduction\n\n\n\n\n\nI am sure you would have heard of the ‘butterfly effect’. This term is related to a phenomenon called (deterministic) chaos, where some systems exhibit strong variations in behaviour despite only minute changes in the outputs. In other words, chaotic systems are super sensitive to their input parameters.\nThe first chaotic system discovered is the Lorentz Attractor, which is related to a simple weather model created by Edward Lorentz. The system is governed by three coupled differential equations:\n\\[\n\\begin{align}\n\\dfrac{dx}{dt}&=\\sigma(y-x)\\\\\n\\dfrac{dy}{dt}&=x(\\rho-z)-y\\\\\n\\dfrac{dz}{dt}&=xy-\\beta z\\\\\n\\end{align}\n\\] Lorentz had used the values \\(\\sigma=10\\), \\(\\beta=8/3\\) and \\(\\rho=28\\).\n\n\nTasks\n\nSolve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect.\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "docs/problems/random-problems.html",
-    "href": "docs/problems/random-problems.html",
-    "title": "Random Problems",
-    "section": "",
-    "text": "I am sure you would have heard of the ‘butterfly effect’. This term is related to a phenomenon called (deterministic) chaos, where some systems exhibit strong variations in behaviour despite only minute changes in the outputs. In other words, chaotic systems are super sensitive to their input parameters.\nThe first chaotic system discovered is the Lorentz Attractor, which is related to a simple weather model created by Edward Lorentz. The system is governed by three coupled differential equations:\n\\[\n\\begin{align}\n\\dfrac{dx}{dt}&=\\sigma(y-x)\\\\\n\\dfrac{dy}{dt}&=x(\\rho-z)-y\\\\\n\\dfrac{dz}{dt}&=xy-\\beta z\\\\\n\\end{align}\n\\] Lorentz had used the values \\(\\sigma=10\\), \\(\\beta=8/3\\) and \\(\\rho=28\\).\n\n\n\nSolve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method, RK4 and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect."
-  },
-  {
-    "objectID": "docs/problems/random-problems.html#tasks",
-    "href": "docs/problems/random-problems.html#tasks",
-    "title": "Random Problems",
-    "section": "",
-    "text": "Solve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method, RK4 and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect."
-  },
-  {
-    "objectID": "docs/problems/random-problems.html#task",
-    "href": "docs/problems/random-problems.html#task",
-    "title": "Random Problems",
-    "section": "2.1 Task",
-    "text": "2.1 Task\nSolve the Predator-Prey model for the values shown below and generate the plots shown above.\n\n\n\n\n\\(\\alpha\\)\n2\n\n\n\\(\\beta\\)\n2\n\n\n\\(\\delta\\)\n3\n\n\n\\(\\gamma\\)\n3"
-  },
-  {
-    "objectID": "docs/problems/roberts-gray-golgi_question.html",
-    "href": "docs/problems/roberts-gray-golgi_question.html",
-    "title": "2. A picture is worth thousands of data points",
-    "section": "",
-    "text": "Introduction\nA lot of data goes into creating an image. Or, put another way, we can extract many details by analysing an image. matplotlib allows you to do this quite easily. In this question, we will use matplotlib to quickly explore the topic of image analysis. For this, please download the zip file golgi-movie_robert_frames_gray.zip, which contains 17 fluorescence images collected by Dr Robert Lieu. The 17 images are a time series of the variation of a fluorescence marker protein.\nThe original images have been converted to grayscale (black & white) images to simplify this discussion.\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\n\nLock and Load\n\nUse the following code to import and display one of the images. The cmap specifies the false-colour, colour scheme used to display the data.\nimg_data = plt.imread(file-name)\nplt.imshow(img_data, cmap='jet')\nplt.colorbar()\n\n\n\n\nHow is the data stored?\nHow is the image information stored by matplotlib? Let’s find out.\nDetermine the following:\n\nType of img_data.\nShape of img_data.\nValues of maximum, minimum and sum of img_data. What do these numbers represent?\nA histogram of all the values of img_data.\nThe total counts of the image.\n\nHints:\n\nflatten() might be useful.\n\n\n\n\n\nPlotting a trend\nWrite a snippet of Python code to produce the following plot that shows the variation of the total fluorescence intensity over time for the images provided.\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "docs/problems/grid-laplace.html",
-    "href": "docs/problems/grid-laplace.html",
+    "objectID": "docs/problems/monte-carlo-ising.html",
+    "href": "docs/problems/monte-carlo-ising.html",
     "title": "12| Monte Carlo Integration",
     "section": "",
     "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "docs/classes/classes_02.html",
-    "href": "docs/classes/classes_02.html",
-    "title": "Classes 2",
+    "objectID": "docs/problems/researchers-frustration.html",
+    "href": "docs/problems/researchers-frustration.html",
+    "title": "A Researcher’s Frustration",
     "section": "",
-    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")\n\n\n\n\n1 Cleaning up with Loops\nIn my previous discussion on classes, I introduced a class called CParticle1D. I also mentioned how inefficient some of the code was. Now that we know loops, I can quickly clean up my code. Here is a comparison.\n\nBefore (No Loops)Now (With Loops)\n\n\n\n\n\n\nclass CParticle1D:\n    mass = None\n    position = None\n    radius = None\n\n\n# Make all the particles identical\nCParticle1D.mass = 99\nCParticle1D.radius = .01\n\n# Create a list of particles\nall_particles = [CParticle1D()]\nall_particles += [CParticle1D()]\nall_particles += [CParticle1D()]\n\n# Initialise with a random position\ni = 0\nall_particles[i].position = np.random.rand()\n\ni += 1\nall_particles[i].position = np.random.rand()\n\ni += 1\nall_particles[i].position = np.random.rand()\n\n\ni = 0\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 0: mass=99, position= 0.715.\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 1: mass=99, position= 0.885.\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 2: mass=99, position= 0.469.\n\n\n\n\n\n\n\nclass CParticle1D:\n    mass = None\n    position = None\n    radius = None\n\n\n# Make all the particles identical\nCParticle1D.mass = 99\nCParticle1D.radius = .01\n\n# Create a list of particles\nno_of_particles = 3\nall_particles = [CParticle1D() for _ in range(no_of_particles)]\n\n# Initialise with a random position\nfor particle in all_particles:\n    particle.position = np.random.rand()\n\n# Print stuff to check\nfor count, particle in enumerate(all_particles):\n    print(f'Particle {count}: mass={particle.mass}, position= {particle.position:.3f}.')\n\nParticle 0: mass=99, position= 0.715.\nParticle 1: mass=99, position= 0.885.\nParticle 2: mass=99, position= 0.469.\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 2"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_03.html",
-    "href": "docs/classes/classes_03.html",
-    "title": "Classes 3",
-    "section": "",
-    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")\n\n\n\n\n1 __init()__ Method\nA better way to setup your class is by including an __init()__ method that will be called whenever you create an instance. This way you can update or add features that apply only to the instance.\n\nclass CParticle1D:\n    # Class variables\n    mass=None\n    position=None\n    radius=None\n\n    def __init__(self, position) -&gt; None:\n        # Object variables\n        self.position = position\n        pass\n\nThings can get a bit confusing here because there is a distinction between class and object variables. - mass, position and radius are class variables. There is another variable position that belongs only to the object. - When you want to access the object variable position use self.position. There are also variables mass and radius avaialbe to the object. If you change these (e.g. self.mass=10) then the class variable and object variables will have different values.\n\n\n2 Methods\nYou can also create functions (technically called methods) that operate on your objects.\nIn the code below I have included a method called move().\n\nclass CParticle1D:\n    # Class variables\n    mass = None\n    position = None\n    radius = None\n\n    def __init__(self, position) -&gt; None:\n        # Object variables\n        self.position = position\n        pass\n\n    def move(self, displacement):\n        self.position += displacement\n\nYou use move() like:\n\nparticle = CParticle1D(position=10)\nparticle.move(3)\nprint(f'{particle.position=}')\n\nparticle.position=13\n\n\nPlease note that the definition of move() must contain self. This will be automatically supplied by Python when you call the method.\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 3"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_01.html",
-    "href": "docs/classes/classes_01.html",
-    "title": "Classes 1",
-    "section": "",
-    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 1"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_01.html#setting-up-a-simple-class",
-    "href": "docs/classes/classes_01.html#setting-up-a-simple-class",
-    "title": "Classes 1",
-    "section": "2.1 Setting up a simple class",
-    "text": "2.1 Setting up a simple class\nLet’s create a class to represent a particle. We will use this later to simulate it bouncing off a wall. To keep things simple, I will start with a 1D geometry. A particle typically has a mass, a radius (assuming it’s spherical) and a velocity. So, I can do the following.\n\nclass CParticle1D:\n    mass=None\n    position=None\n    radius=None",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 1"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_01.html#using-the-class",
-    "href": "docs/classes/classes_01.html#using-the-class",
-    "title": "Classes 1",
-    "section": "2.2 Using the class",
-    "text": "2.2 Using the class\nNow, let me use this class to create two particles.\n\nparticle_0=CParticle1D()        # Create a new particle\nparticle_0.mass=10             # Set mass for particle 0 \nparticle_0.position=.5         # Set position of particle 0\nparticle_0.radius=.01          # Set the radius of particle 0\n\nparticle_1=CParticle1D()        # Create another particle\nparticle_1.mass=20             # Set mass for particle 1 \nparticle_1.position=.1         # Set position of particle 1\nparticle_1.radius=.01          # Set the radius of particle 1\n\nIn the above snippet, particle_0 and particle_1 are instances of the class CParticle1D. particle_0 and particle_1 are also called objects of the type CParticle1D. This is similar to 1 being an object of the class int.\n\n\n\n\n\n\nRemember\n\n\n\nRemember that objects are instances of a class.\n\n\nOnce you have created your objects, you can use them in your other code. A trivial example is:\n\nprint(f'Particle 0 has mass {particle_0.mass} and is at position {particle_0.position}.')\n\nParticle 0 has mass 10 and is at position 0.5.\n\nprint(f'Particle 1 has mass {particle_1.mass} and is at position {particle_1.position}.')\n\nParticle 1 has mass 20 and is at position 0.1.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 1"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_01.html#class-vs-object-variables",
-    "href": "docs/classes/classes_01.html#class-vs-object-variables",
-    "title": "Classes 1",
-    "section": "2.3 Class vs Object variables",
-    "text": "2.3 Class vs Object variables\nLet’s say we want all the particles we create to be identical (i.e., same mass and size). Classes allow us to quickly implement this by adjusting the variable at the class level. These adjustments will then be visible to all the objects that are created.\nLet’s see this in action.\n\nCParticle1D.mass = 99           # Set the class variable mass\nCParticle1D.radius = .01        # Set the class variable radius\n\nparticle_0=CParticle1D()        # Create a new particle\nparticle_0.position=.5         # Set position of particle 0\n                               # This is the position variable\n                               # of object 0\n\nparticle_1=CParticle1D()        # Create another particle\nparticle_1.position=.1         # Set position of particle 1\n                               # This is the position variable\n                               # of object 1\n\nNow, let’s redo our trivial usage:\n\nprint(f'Particle 0 has mass {particle_0.mass} and is at position {particle_0.position}.')\n\nParticle 0 has mass 99 and is at position 0.5.\n\nprint(f'Particle 1 has mass {particle_1.mass} and is at position {particle_1.position}.')\n\nParticle 1 has mass 99 and is at position 0.1.\n\n\nNotice the distinction between class variables and object variables. When you want to access the class variable, you use the . with the class name. Instead, if you wish to use the object variable, use the . with the object. What you do with the object does not affect the class or other objects (particles, in our case). However, there are subtleties to this that I don’t want to go into now. Let’s discover them later.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 1"
-    ]
-  },
-  {
-    "objectID": "docs/classes/classes_01.html#making-it-more-scalable",
-    "href": "docs/classes/classes_01.html#making-it-more-scalable",
-    "title": "Classes 1",
-    "section": "2.4 Making it more scalable",
-    "text": "2.4 Making it more scalable\nTypically we want to be able to expand a simulation to a more significant number of particles. Unfortunately, the previous way of creating particles is not very scalable. Here is a slightly better way.\n\n# Make all the particles identical\nCParticle1D.mass=99\nCParticle1D.radius=.01\n\n# Create a list of particles\nall_particles=[CParticle1D()]\nall_particles+=[CParticle1D()]\nall_particles+=[CParticle1D()]\n\n# Initialise with a random position\ni = 0\nall_particles[i].position=np.random.rand()\n\ni += 1\nall_particles[i].position=np.random.rand()\n\ni += 1\nall_particles[i].position=np.random.rand()\n\nHere, I have used NumPy to create a random position.\nLet’s see if it worked:\n\ni = 0\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 0: mass=99, position= 0.715.\n\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 1: mass=99, position= 0.885.\n\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 2: mass=99, position= 0.469.\n\n\nThis is still grossly inefficient for a lazy person like me because it requires lots of typing. It can be made a lot simpler and less error-prone by using loops. I will show this to you later.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(C) Python (Basics+)",
-      "3. OOPS",
-      "Classes 1"
-    ]
-  },
-  {
-    "objectID": "docs/problems/daisyworld.html",
-    "href": "docs/problems/daisyworld.html",
-    "title": "Daisyworld",
-    "section": "",
-    "text": "Introduction\n\n\\[\n\\newcommand\\a[1]{\\alpha_{#1}}\n\\]\n\nIn this problem we will work on the Daisyworld model that highlights the interdisciplinary nature of our world. This is a nice, simple example of how the principles of Physics can be used to understand how biological systems react to changes in their environment.\nThe following instructions are based on the article:\n\nWatson, A. J., & Lovelock, J. E. (1983). Biological homoeostasis of the global environment: the parable of Daisyworld. Tellus Ser. B–Chem. Phys. Meteorol., 35(4), 284–289.\n\n\n\n1 What is Daisyworld?\nDaisyworld is a flatland that has two types of daisies (black and white). Not all the area is covered by daisies; there is non-fertile ground (where no daisies can grow) so there is bare, fertile ground where they can grow. The growth and death of the daisies are governed by the following equations:\n\nDifferential equations\n\\[\n\\begin{align}\n  \\begin{split}\n  \\dfrac{d\\a{w}}{dt} &= \\a{w}(x\\beta - \\gamma)\\\\\n  \\dfrac{d\\a{b}}{dt} &= \\a{b}(x\\beta - \\gamma)\n  \\end{split}\n\\end{align}\n\\tag{1}\\]\n\n\nArea\n\\[\n\\a{w} + \\a{b} + x = p\n\\tag{2}\\]\n\n\nGrowth rates\n\\[\n\\beta_{b,w} = 1 - 0.003265\\,(22.5 - T_{b,w})^2\n\\tag{3}\\]\n\n\nAlbedo\n\\[\nA = \\sum_i A_i = \\a{g}A_{g}+\\a{b}A_{b}+\\a{w}A_{w}\n\\tag{4}\\]\n\\[\n\\a{g} = 1 - (\\a{b} + \\a{w})\n\\tag{5}\\]\n\n\nEnergy balance of the planet\n\\[\n\\sigma(T_e + 273)^4 = SL(1-A)\n\\tag{6}\\]\n\n\nLocal Temperature\n\\[\n(T_i+273)^4 = q(A-A_i) + (T_e+273)^4\n\\]\n\n\\(q\\) here represents the transfer of energy between the various daisies and daisies and the ground. It is set up to preserve the energy balance between the sun and Daisyworld while making the white daises cooler and the black daises warmer!\nIf \\(q=0\\) there is perfect conduction and all local temperatures are the same as the mean temperature.\nIf \\(q=\\dfrac{SL}{\\sigma}\\) there is perfect insulation causing the local temperatures to be different and independently in balance with the solar radiation.\n\nSince everyday temperatures are usually small compared to 273, we linearise the above equation, to arrive at \\[\nT_i = q'(A-A_i) + T_e\n\\tag{7}\\]\nwhere \\[\nq' = \\dfrac{q}{4}(273+22.5)^3\n\\tag{8}\\]\n\n\n\n\n\n\n\n\n\nVariable\nMeaning\nNote\n\n\n\n\n\\(\\a{w}, \\a{b}\\)\nFraction of the planetary area covered by white (black) daisies\n\n\n\n\\(x\\)\nFraction of the planetary area not covered by daisies\n\n\n\n\\(\\beta\\)\nGrowth rate of daisies\nSee Equation 3\n\n\n\\(\\gamma\\)\nDeath rate of daisies\n\\(0.3\\)\n\n\n\\(p\\)\nFraction of the planetary area that is fertile\n\n\n\n\\(T_{b, w, g}\\)\nLocal temperature of the white (w), black (b), ground (g) or the radiative temperature of the planet (e).\n\n\n\n\\(\\sigma\\)\nStefan’s constant\n\\(5.670367\\times 10^{-8}\\)\n\n\n\\(L\\)\nDimensionless measure of the luminosity of the daisyworld’s sun\n\n\n\n\\(A_{b, w, g}\\)\nAlbedo of the white (w), black (b) daises or ground (g)\n\n\n\n\\(A\\)\nAlbedo of the planet\n\n\n\n\\(S\\)\nSolar constant\n917\n\n\n\\(q\\)\nRepresents the efficiency of the flow of energy across the planet\n\\(0.2\\times\\dfrac{SL}{\\sigma}\\)\n\n\n\n\n\n\n\n2 Tasks\n\nSteady states of DaisyworldDaisyworld’s response to increasing \\(L\\)Hysteresis of Daisyworld\n\n\nStarting with areas \\(\\a{w}=.7\\) and \\(\\a{b} = .3\\) simulate the dynamics of Daisyworld for \\(L = 1.2\\). Run your simulation until the temperatures stabalise and then produce the following plots.\nJust use Euler; you can use RK4 later, if there is a need.\n\n\n\n\n\n\n\nWe want to simulate the sun increasing in brightness. So, run your simulation of Daisyworld for increasing values of \\(L\\) to produce the following plots.\n\n\n\n\n\nNotice how the biota is ‘fighting’ to keep the planet’s temperature stable.\n\n\nRun your simulation for a situation where the luminosity first increases and then decreases to its original state. Your simulation should show hysteresis as shown in the plots below:\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 3</strong>",
-      "Differential Equations",
-      "3. Daisyworld"
-    ]
-  },
-  {
-    "objectID": "docs/problems/monte-carlo-electrons.html",
-    "href": "docs/problems/monte-carlo-electrons.html",
-    "title": "MC Electron Propagation",
-    "section": "",
-    "text": "The problem involves implementing a Monte Carlo simulation of electrons travling into matter using the recipe provided in Chapter 3: ‘The Single Scattering Model’ of the book ‘Monte Carlo modeling for electron microscopy and microanalysis’ by David C. Joy. You can find the chapter here.\nNote: I like to highlight that I am not infringing any copyright of the author by sharing this content as it is within the single chapter/10% allowance that is legally allowed.\nYou should present the simulation results for 10 and 100 keV electrons into carbon (C, density= 1.70 g/cm22) and PMMA (polymethyl methacrylate, C5O2H8C5O2H8, density= 1.18 g/cm22), including the spatial plots of electron trajectories.\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_{n} + step \\cos(\\alpha)\\\\\ny_{n+1} &= y_{n} + step \\cos\\left(\\frac{\\pi}{2}-A\\right)\n\\end{align}\n\\]\n\n\n\n\n\n\\[\n\\sigma_E = 5.21\\times10^{-21}\\dfrac{Z^2}{E^2}\\dfrac{4\\pi}{\\alpha(1+\\alpha)}\\left(\\dfrac{E+511}{E+1024}\\right)^2   \\qquad\\text{cm$^2$/atom}\n\\]\n\\[\n\\alpha = 3.4\\times10^{-3}\\dfrac{Z^{0.67}}{E}\n\\]\n\n\n\n\\[\n\\lambda = \\dfrac{A}{N_a\\rho\\,\\sigma_E}\\qquad{\\text{(cm)}}\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(N_a\\)\nAvogardro number\n\n\n\\(\\rho\\)\nDensity (g/cm\\(^3\\))\n\n\n\\(A\\)\nAtomic weight in g/mole\n\n\n\n\n\n\\[\ns = -\\lambda\\ln(1-RND)\n\\]\n\n\n\n\n\\[\nE_{n+1} = E_n  -s\\cdot\\rho \\cdot \\frac{dE}{ds}\n\\] where,\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(L\\)\nFree flight length\n\n\n\\(E\\)\nEnergy of the particle,\n\n\n\\(\\Delta E\\)\nTotal energy lost in traversing L\n\n\n$ $\nRate of energy loss with path length,\n\n\n\n\\[\n\\dfrac{dE}{dS} = -78500 \\dfrac{Z}{AE}\\ln\\left[\\dfrac{1.166(E+0.85I)}{I}\\right]\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(Z\\)\nAtomic number\n\n\n\\(A\\)\nAtomic Mass\n\n\n\\(I\\)\nMean ionisation energy\n\n\n\n\\[\nI = \\left[9.67Z + \\dfrac{58.5}{Z^{0.19}}\\right]\\times 10^{-3} \\qquad\\text{(keV)}\n\\]\n\n\n\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleI}\n\\begin{array}{ccc}\n\\displaystyle R =  \\frac{\\displaystyle \\int_{0}^{\\theta}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}\n{\\displaystyle \\int_{0}^{\\pi}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleII}\n\\begin{array}{ccc}\n\\displaystyle \\cos \\phi  = 1 - \\frac{2 \\alpha R}{1 + \\alpha - R}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\psi=2\\pi.RND\n\\]\n\n\n\n\n\n\\[\n\\begin{align*}\nR_{x} &= (R_{x0} \\cdot \\cos \\phi) + (V1 \\cdot V3) + (R_{y0}\\cdot\nV2 \\cdot V4) \\\\\n\\\\\nR_{y} &= (R_{y0} \\cdot \\cos \\phi) + [V4 \\cdot (R_{z0} \\cdot V1 - R_{x0} \\cdot V2) ] \\\\\n\\\\\nR_{z} &= (R_{z0} \\cdot \\cos \\phi) + (V2 \\cdot V3) - (R_{y0}\\cdot\nV1 \\cdot V4) \\\\\n\\end{align*}\n\\] where\n\\[\n\\begin{align*}\n    V1 &= AN \\cdot \\sin \\phi \\\\\n    \\\\\n    V2 &= AN \\cdot AM \\cdot \\sin \\phi \\\\\n    \\\\\n    V3 &= \\cos \\psi \\\\\n    \\\\\n    V4 &= \\sin \\psi\n\\end{align*}\n\\] \\[\n\\begin{align*}\n    \\\\\n    \\\\\n    AM &= - \\frac{R_{x0}}{R_{z0}}\n    \\\\\n    AN &= \\frac{1}{\\sqrt{1+ AM \\cdot AM}} \\\\\n    \\\\\n    \\\\\n\\end{align*}\n\\]\n\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_n + step\\cdot R_x\\\\\ny_{n+1} &= y_n + step\\cdot R_y\\\\\nz_{n+1} &= z_n + step\\cdot R_z\\\\\n\\end{align}\n\\]\n\n\n\n\nSimulate 1 particle in 2D (Brownian motion)\nSimulate 1 particle in 3D (Brownian motion)\n\nStarting direction cosines [0,0, 1] (vertically in)\n\nChange path length based just on a random number and \\(s = -\\lambda\\ln(1-RND)\\).\n\nLet \\(\\lambda\\) be 1\n\nIncorporate Energy loss (\\(\\dfrac{dE}{ds}\\))\nGet \\(\\lambda working\\)."
-  },
-  {
-    "objectID": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-2d",
-    "href": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-2d",
-    "title": "MC Electron Propagation",
-    "section": "",
-    "text": "\\[\n\\begin{align}\nx_{n+1} &= x_{n} + step \\cos(\\alpha)\\\\\ny_{n+1} &= y_{n} + step \\cos\\left(\\frac{\\pi}{2}-A\\right)\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-3d",
-    "href": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-3d",
-    "title": "MC Electron Propagation",
-    "section": "",
-    "text": "\\[\n\\sigma_E = 5.21\\times10^{-21}\\dfrac{Z^2}{E^2}\\dfrac{4\\pi}{\\alpha(1+\\alpha)}\\left(\\dfrac{E+511}{E+1024}\\right)^2   \\qquad\\text{cm$^2$/atom}\n\\]\n\\[\n\\alpha = 3.4\\times10^{-3}\\dfrac{Z^{0.67}}{E}\n\\]\n\n\n\n\\[\n\\lambda = \\dfrac{A}{N_a\\rho\\,\\sigma_E}\\qquad{\\text{(cm)}}\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(N_a\\)\nAvogardro number\n\n\n\\(\\rho\\)\nDensity (g/cm\\(^3\\))\n\n\n\\(A\\)\nAtomic weight in g/mole\n\n\n\n\n\n\\[\ns = -\\lambda\\ln(1-RND)\n\\]\n\n\n\n\n\\[\nE_{n+1} = E_n  -s\\cdot\\rho \\cdot \\frac{dE}{ds}\n\\] where,\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(L\\)\nFree flight length\n\n\n\\(E\\)\nEnergy of the particle,\n\n\n\\(\\Delta E\\)\nTotal energy lost in traversing L\n\n\n$ $\nRate of energy loss with path length,\n\n\n\n\\[\n\\dfrac{dE}{dS} = -78500 \\dfrac{Z}{AE}\\ln\\left[\\dfrac{1.166(E+0.85I)}{I}\\right]\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(Z\\)\nAtomic number\n\n\n\\(A\\)\nAtomic Mass\n\n\n\\(I\\)\nMean ionisation energy\n\n\n\n\\[\nI = \\left[9.67Z + \\dfrac{58.5}{Z^{0.19}}\\right]\\times 10^{-3} \\qquad\\text{(keV)}\n\\]\n\n\n\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleI}\n\\begin{array}{ccc}\n\\displaystyle R =  \\frac{\\displaystyle \\int_{0}^{\\theta}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}\n{\\displaystyle \\int_{0}^{\\pi}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleII}\n\\begin{array}{ccc}\n\\displaystyle \\cos \\phi  = 1 - \\frac{2 \\alpha R}{1 + \\alpha - R}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\psi=2\\pi.RND\n\\]\n\n\n\n\n\n\\[\n\\begin{align*}\nR_{x} &= (R_{x0} \\cdot \\cos \\phi) + (V1 \\cdot V3) + (R_{y0}\\cdot\nV2 \\cdot V4) \\\\\n\\\\\nR_{y} &= (R_{y0} \\cdot \\cos \\phi) + [V4 \\cdot (R_{z0} \\cdot V1 - R_{x0} \\cdot V2) ] \\\\\n\\\\\nR_{z} &= (R_{z0} \\cdot \\cos \\phi) + (V2 \\cdot V3) - (R_{y0}\\cdot\nV1 \\cdot V4) \\\\\n\\end{align*}\n\\] where\n\\[\n\\begin{align*}\n    V1 &= AN \\cdot \\sin \\phi \\\\\n    \\\\\n    V2 &= AN \\cdot AM \\cdot \\sin \\phi \\\\\n    \\\\\n    V3 &= \\cos \\psi \\\\\n    \\\\\n    V4 &= \\sin \\psi\n\\end{align*}\n\\] \\[\n\\begin{align*}\n    \\\\\n    \\\\\n    AM &= - \\frac{R_{x0}}{R_{z0}}\n    \\\\\n    AN &= \\frac{1}{\\sqrt{1+ AM \\cdot AM}} \\\\\n    \\\\\n    \\\\\n\\end{align*}\n\\]\n\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_n + step\\cdot R_x\\\\\ny_{n+1} &= y_n + step\\cdot R_y\\\\\nz_{n+1} &= z_n + step\\cdot R_z\\\\\n\\end{align}\n\\]\n\n\n\n\nSimulate 1 particle in 2D (Brownian motion)\nSimulate 1 particle in 3D (Brownian motion)\n\nStarting direction cosines [0,0, 1] (vertically in)\n\nChange path length based just on a random number and \\(s = -\\lambda\\ln(1-RND)\\).\n\nLet \\(\\lambda\\) be 1\n\nIncorporate Energy loss (\\(\\dfrac{dE}{ds}\\))\nGet \\(\\lambda working\\)."
-  },
-  {
-    "objectID": "docs/problems/about-plotting.html",
-    "href": "docs/problems/about-plotting.html",
-    "title": "About Plotting*",
-    "section": "",
-    "text": "This challenge involves two mini-challenges related to plotting. Enjoy",
+    "text": "Introduction\nYou are the lead researcher in an international collaboration involving five countries (Singapore, US, UK, Australia New Zealand). The research project consists of measuring the height of an adult macaque species. The project is at its end, and you are collating all the data measured by your collaborators.\nUpon trying to combine the data files from your collaborators, you realise (in incredulous frustration) that each of your collaborators has made their measurements using a different unit! Here are the units that were used.\n\n\n\n\nCountry\nUnit\n\n\n\n\nSingapore\nmetres\n\n\nUK\ninches\n\n\nUS\nfeet\n\n\nAustralia\ncentimetres\n\n\nNew Zealand\nmillimeters\n\n\n\n\nYou can download the data here\n\n\nTasks\nWrite some Python code to:\n\nProduce a copy of the data that is ‘corrected’ to SI units.\n\nName these files with an ‘_si’ at the end.\n\nOrganise your data files in the following file structure\n\n\n\n\n\n\ngraph TB\nA(All Data)    --&gt;B(SIN) \n         A --&gt;C(AUS)\n         A --&gt;D(UK)\n         A --&gt;E(US)\n         A --&gt;F(NZ)\n         B --&gt;G(SI)\n         C --&gt;I(SI)\n         C --&gt;J(ORIGINAL)\n         D --&gt;K(SI)\n         D --&gt;L(ORIGINAL)\n         E --&gt;M(SI)\n         E --&gt;N(ORIGINAL)\n         F --&gt;O(SI)\n         F --&gt;P(ORIGINAL)\n\n\n\n\n\n\n\nPlot histograms of the data.\n\nPlot a histogram for each of the countries as a separate plot,\nPlot histograms of the countries as a grid of plots,\nPlot a histogram for the combined data. \n\n\n\n\n\n\n Back to top",
     "crumbs": [
       "What to expect?",
       "<strong>Day 1</strong>",
       "(D) Exercises & Problems",
       "2. Simpler Problems",
-      "About Plotting*"
+      "A Researcher’s Frustration"
     ]
   },
   {
-    "objectID": "docs/problems/about-plotting.html#introduction-1",
-    "href": "docs/problems/about-plotting.html#introduction-1",
-    "title": "About Plotting*",
-    "section": "Introduction",
-    "text": "Introduction\nA simple model for the interaction potential between two atoms as a function of their distance, \\(r\\), is the Lennard-Jones potential given by:\n\\[\nU(r) = \\dfrac{B}{ r^{12}} − \\dfrac{A}{r^{6}}\n\\tag{1}\\]\nWhere \\(A\\) and \\(B\\) are positive constants.\nThis was popular in the early days of computing because \\(r^{−12}\\) is easy to compute as the square of \\(r^{−6}\\). So, it was also sometimes called the 6-12 potential.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "About Plotting*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/about-plotting.html#tasks",
-    "href": "docs/problems/about-plotting.html#tasks",
-    "title": "About Plotting*",
-    "section": "Tasks",
-    "text": "Tasks\n\nPlot \\(U(r)\\) for Argon atoms where \\(A = 1.024 \\times 10^{−23}\\) J nm\\(^6\\) and \\(B = 1.582 \\times 10^{−26}\\) J nm\\(^{12}\\).\n\nYour plot should show the ‘interesting’ part of this curve, which tends rapidly to infinity for small values of \\(r\\) and zero for large \\(r\\).\nConsider swapping units by dividing \\(A\\) and \\(B\\) by the Boltzmann’s constant to measure \\(U(r)\\) in units of K.\n\nWhat is the depth, \\(\\epsilon\\), and location, \\(r_0\\), of the potential minimum for this system? Remember to think like a scientist, not a programmer! Indicate these values by drawing horizontal and vertical lines at these locations.\nOn the same figure show the interatomic force given by: \\[\nF(r) = −\\dfrac{dU}{dr} = \\dfrac{12 B}{ r^{13}} − \\dfrac{6 A}{r^{7}}\n  \\tag{2}\\]\nFor small displacements from the equilibrium interatomic separation (where \\(F = 0\\)), the potential may be approximated to the harmonic oscillator function,\n\\[\nV(r) = \\dfrac{1}{2}k(r-r_0)^2+ \\epsilon\n  \\tag{3}\\]\nwhere\n\\[\nk = \\left|\\dfrac{d^2U}{dr^2}\\right|_{r_0}= \\dfrac{156 B}{ {r_0}^{14}} − \\dfrac{42 A}{{r_0}^{8}}\n  \\tag{4}\\]\nPlot \\(U(r)\\) and \\(V(r)\\) on the same figure but as a separate subplot.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "About Plotting*"
-    ]
-  },
-  {
-    "objectID": "docs/problems/yz-streamplots.html",
-    "href": "docs/problems/yz-streamplots.html",
-    "title": "All about plotting",
-    "section": "",
-    "text": "This challenge is about visualizing mathematical functions and vectors.\n\n\n\n\nIn case you need a reminder, we begin this problem with a recap on vectors. To put it simply, a vector is a physical quantity which consists of both magnitude and direction. Pictorially, vectors are represented by arrows, where the length of the arrow represents the magnitude and the arrowhead represents the direction. Mathematically, a vector can be represented through a combination of numbers and unit vectors (mathematical objects used to represent directions). For example, a vector \\(\\vec{v}\\) can be written as: \\[\n\\vec{v} = 2\\hat{i} - 3\\hat{j}\n\\] where \\(\\hat{i}\\) and \\(\\hat{j}\\) are unit vectors in the \\(x\\)- and \\(y\\)-axes, respectively. Physically, we can interpret \\(\\vec{v}\\) as an arrow which is equivalent to 2 steps in the direction of the positive x-axis, 3 steps in the direction of the negative y-axis. We say that 2 is the \\(x\\)-component of \\(\\vec{v}\\) while -3 is the \\(y\\)-component of \\(\\vec{v}\\). The figure below illustrates this physical picture.\n\n\n\n\n\n\n\n\nOne way to visualise vectors using Python is streamplot(). streamplot() is a function in matplotlib that draws the streamlines of a vector field. In simple terms, streamplot gives us the directions of vectors at different coordinates. It allows us to visualise many real-life phenomena including river flow, neural network, molecular velocity, and many others. This problem serves as an introduction to streamplot.\nFamiliarise yourself with streamplot(). You may read the write-up on streamplot on the matplotlib website as a start. Note that the write-up assumes that the vectors to be plotted are velocities, but all other vectors can be plotted the same way.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "All about plotting"
-    ]
-  },
-  {
-    "objectID": "docs/problems/yz-streamplots.html#a-quick-primer-in-vectors",
-    "href": "docs/problems/yz-streamplots.html#a-quick-primer-in-vectors",
-    "title": "All about plotting",
-    "section": "",
-    "text": "In case you need a reminder, we begin this problem with a recap on vectors. To put it simply, a vector is a physical quantity which consists of both magnitude and direction. Pictorially, vectors are represented by arrows, where the length of the arrow represents the magnitude and the arrowhead represents the direction. Mathematically, a vector can be represented through a combination of numbers and unit vectors (mathematical objects used to represent directions). For example, a vector \\(\\vec{v}\\) can be written as: \\[\n\\vec{v} = 2\\hat{i} - 3\\hat{j}\n\\] where \\(\\hat{i}\\) and \\(\\hat{j}\\) are unit vectors in the \\(x\\)- and \\(y\\)-axes, respectively. Physically, we can interpret \\(\\vec{v}\\) as an arrow which is equivalent to 2 steps in the direction of the positive x-axis, 3 steps in the direction of the negative y-axis. We say that 2 is the \\(x\\)-component of \\(\\vec{v}\\) while -3 is the \\(y\\)-component of \\(\\vec{v}\\). The figure below illustrates this physical picture.\n\n\n\n\n\n\n\n\nOne way to visualise vectors using Python is streamplot(). streamplot() is a function in matplotlib that draws the streamlines of a vector field. In simple terms, streamplot gives us the directions of vectors at different coordinates. It allows us to visualise many real-life phenomena including river flow, neural network, molecular velocity, and many others. This problem serves as an introduction to streamplot.\nFamiliarise yourself with streamplot(). You may read the write-up on streamplot on the matplotlib website as a start. Note that the write-up assumes that the vectors to be plotted are velocities, but all other vectors can be plotted the same way.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "All about plotting"
-    ]
-  },
-  {
-    "objectID": "docs/problems/monte-carlo-error-propgation.html",
-    "href": "docs/problems/monte-carlo-error-propgation.html",
-    "title": "MC Error Propagation",
+    "objectID": "docs/problems/monte-carlo-statistics.html",
+    "href": "docs/problems/monte-carlo-statistics.html",
+    "title": "MC Statistics",
     "section": "",
     "text": "Introduction\nIn this problem, we will use random numbers to create a simple simulation of radioactive decay. Let’s start with some basic observations:\n\nA given (unstable) nucleus has a fixed probability of decaying in a given time interval. This probability is different for nuclei of different elements. For example the probability of decaying (for a fixed time interval) for a U nucleus is (much) smaller than for a Th nucleus. This is characterized by the decay constant(\\(\\tau\\)) or half-life (\\(\\lambda\\)).\nSo the longer we have a sample, the greater the probability of its nuclei decaying. For example, the probability of decaying within 2s is greater than within 1s.\nThese probabilities do not scale linearly (i.e., the likelihood for 2s is not twice that for 1 s).\n\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\nIt has been observed that the probability of nuclei decaying in a given time interval \\(\\Delta t\\) is \\(\\dfrac{1}{6}\\). This means after a time \\(\\Delta t\\)=1, about one-sixth of the nuclei would have disintegrated.\nSimulate and plot the change in the number of nuclei with time. Start with a 10000 nuclei. You should see a plot like the one below.\n\n\nRedo the previous task but this time adjust your parameteres so that you are simulation the decay of Th.\n\n\nThoroum decays into a daught nuclide X who is also unstable with a half-life of x. Simulate\n\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "docs/problems/jacobi-relaxation.html",
-    "href": "docs/problems/jacobi-relaxation.html",
-    "title": "Laplace Numerically",
-    "section": "",
-    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 3</strong>",
-      "Differential Equations",
-      "4. Laplace Numerically"
-    ]
-  },
-  {
-    "objectID": "docs/problems/jacobi-relaxation.html#jacobi-relaxation",
-    "href": "docs/problems/jacobi-relaxation.html#jacobi-relaxation",
-    "title": "Laplace Numerically",
-    "section": "1.1 Jacobi Relaxation",
-    "text": "1.1 Jacobi Relaxation\n\\[\n\\paa{V}{x} + \\paa{V}{y} + \\paa{V}{z} = 0\n\\]\nWe start by recasting Laplace’s equation numerically. For this, we discretize space into voxels of size \\(\\Delta x \\times \\Delta y \\times \\Delta z\\) that we reference using integers \\(i, j, k\\).\nFirst, let’s look at the first partial derivative in the \\(x\\) dimension.\n\\[\n\\begin{align}\n\\text{Centered around $i+\\frac{1}{2}$:}\\qquad\\pa{V}{x} &\\approx\\dfrac{V(i+1,j,k)-V(i,j,k)}{\\Delta x}\\\\[1.5em]\n\\text{Centered around $i-\\frac{1}{2}$:}\\qquad\\pa{V}{x} &\\approx\\dfrac{V(i,j,k)-V(i-1,j,k)}{\\Delta x}\\\\[1.5em]\n\\end{align}\n\\]\nWe can now determine the second partial derivative as,\n\\[\n\\begin{align}\n\\paa{V}{x}\\approx&\\dfrac{1}{\\Delta x}\\left[\\left.\\pa{V}{x}\\right|_{i+\\frac{1}{2}}-\\quad\\left.\\pa{V}{x}\\right|_{i-\\frac{1}{2}}\\right] \\\\[1.5em]\n\\approx& \\dfrac{V(i+1,j,k)-2V(i,j,k)+V(i-1,j,k)}{(\\Delta x)^2}\n\\end{align}\n\\]\nWe can make similar approximations for the other dimensions.\n\\[\n\\begin{align}\n\\paa{V}{y}\\approx&\\dfrac{V(i,j+1,k)-2V(i,j,k)+V(i,j-1,k)}{(\\Delta y)^2}\\\\[1.25em]\n\\paa{V}{z}\\approx&\\dfrac{V(i,j,k+1)-2V(i,j,k)+V(i,j,k-1)}{(\\Delta z)^2}\n\\end{align}\n\\]\nThen, taking \\(\\Delta x = \\Delta y = \\Delta z\\) we can rewrite Laplace’s equation as:\n\\[\n\\begin{align}\nV(i,j,k) \\approx \\dfrac{1}{6}[\\quad&V(i+1,j,k) + V(i-1,j,k)\\\\[1em]\n                                   +&\\;V(i,j+1,k)+ V(i,j-1,k)\\\\[1.1em]\n                                   +&\\;V(i,j,k+1)+ V(i,j,k-1)\\quad]\n\\end{align}\n\\tag{1}\\]\nThe relaxation method uses this approximation iteratively until the values of \\(V\\) over the whole grid stabilise. I.e. we start with some approximate state of the grid (\\(V_0\\)) and reuse the equation over and over again until the values stop changing.",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 3</strong>",
-      "Differential Equations",
-      "4. Laplace Numerically"
-    ]
-  },
-  {
-    "objectID": "docs/problems/jacobi-relaxation.html#tasks-2-speed-up",
-    "href": "docs/problems/jacobi-relaxation.html#tasks-2-speed-up",
-    "title": "Laplace Numerically",
-    "section": "2.1 Tasks 2: Speed up",
-    "text": "2.1 Tasks 2: Speed up\nProfile your code to look for bottlenecks. Then implment changes to speed up. You might want to look at replacing your for loops with purely Numpy operations. np.roll() might be useful…",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 3</strong>",
-      "Differential Equations",
-      "4. Laplace Numerically"
-    ]
-  },
-  {
-    "objectID": "docs/problems/jacobi-relaxation.html#tasks-3-different-geometries",
-    "href": "docs/problems/jacobi-relaxation.html#tasks-3-different-geometries",
-    "title": "Laplace Numerically",
-    "section": "2.2 Tasks 3: Different Geometries",
-    "text": "2.2 Tasks 3: Different Geometries\nApply the Relaxation technique to determine the electric field for the geometries shown below.\n\nA finite capacitorA PrismAn infinite cylinder",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 3</strong>",
-      "Differential Equations",
-      "4. Laplace Numerically"
-    ]
-  },
-  {
-    "objectID": "docs/problems/roberts-gray-golgi_question_v02.html",
-    "href": "docs/problems/roberts-gray-golgi_question_v02.html",
-    "title": "A picture is worth thousands of data points",
-    "section": "",
-    "text": "Introduction\nA lot of data goes into creating an image. Or, put another way, we can extract many details by analysing an image. matplotlib allows you to do this quite easily. In this question, we will use matplotlib to quickly explore the topic of image analysis. For this, please download the zip file golgi-movie_robert_frames_gray.zip, which contains 17 fluorescence images collected by Dr Robert Lieu. The 17 images are a time series of the variation of a fluorescence marker protein.\nThe original images have been converted to grayscale (black & white) images to simplify this discussion.\n\n\nTasks\n\nTask 1Task 2Task 3Task 4Task 5\n\n\n\nLock and Load\n\nUse the following code to import and display one of the images. The cmap specifies the false-colour, colour scheme used to display the data.\nimg_data = plt.imread(file-name)\nplt.imshow(img_data, cmap='jet')\nplt.colorbar()\n\n\n\n\nHow is the data stored?\nHow is the image information stored by matplotlib? Let’s find out.\nDetermine the following:\n\nType of img_data.\nShape of img_data.\nValues of maximum, minimum and sum of img_data. What do these numbers represent?\nA histogram of all the values of img_data. \n\nHints:\n\nflatten() might be useful.\n\n\n\n\n\nPlotting a trend\nWrite a snippet of Python code to produce the following plot that shows the variation of the total fluorescence intensity over time for the images provided.\n\n\n\n\n\n\n\n\n\nAdjustments\nOne of the advantages of having access to raw data is the ability to enhance images. However, this process must be carried out with caution and transparency to avoid the risk of scientific misconduct due to data manipulation.\nUse your knowledge of Numpy slicing to achieve the following adjustments.\n\nPlease use Frame 17 for all your adjustments.\nShow your results using a plot like the following.\n\n\nIncrease the value of those pixels above a value of 50 by 150%.\nCrop your image so that you only have the central region.\nTake your cropped data and invert them. I.e subtract the maximum from the data so that bright becomes dark and dark becomes bright.\n\n\n\n\n\n\n\n\n\n\nExplanations\n\nPlot the histogram for the data corresponding to the inverted image from the previous task.\nWhy are there no negative numbers?\n\n\n\n\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 2</strong>",
-      "Optional Problems",
-      "A picture is worth thousands of data points"
-    ]
-  },
-  {
-    "objectID": "docs/problems/bisection_question.html",
-    "href": "docs/problems/bisection_question.html",
-    "title": "Bisection Method*",
-    "section": "",
-    "text": "Introduction\nThe values of \\(x\\) that satisfy \\(f(x) = 0\\) are called the roots of \\(f(x)\\). Finding the roots of equations is important in science and engineering, but some equations, such as \\(\\cos x - x = 0\\) (called transcendental equations), cannot be solved analytically. In such cases, numerical methods are needed. One such method is the Bisection method.\nTo understand how the Bisection method works, notice that the function has opposite signs on either side of the root. The Bisection method uses this fact to ‘box in’ the root. Here’s how it works:\n\nPick two values of \\(x\\) (let’s call them \\(x_\\text{left}\\) and \\(x_\\text{right}\\)) that we know lie on opposite sides of the root.\nDetermine the midpoint \\(x_\\text{mid}\\) of \\(x_\\text{left}\\) and \\(x_\\text{right}\\), and evaluate the function at this point.\nIf the sign of \\(f(x_\\text{mid})\\) is the same as the sign \\(f(x_\\text{left})\\), then replace \\(x_\\text{left}\\) with \\(x_\\text{mid}\\). Else, replace \\(x_\\text{right}\\) with the midpoint.\nNow you have narrowed the range of the root to \\((x_\\text{left}, x_\\text{mid})\\) or \\((x_\\text{mid}, x_\\text{right})\\). Continue steps 2-4 until you have achieved the desired accuracy for the root.\n\nThe Bisection method is a simple but effective root-finding algorithm that can be implemented using only basic Python programming.\n\n\nTasks\n\nPlot for an estimate\nGet an estimate for the root of \\(\\cos x - x =0\\) by plotting the functions \\(\\cos x\\) and \\(x\\).\nUse bisection\nUse the bisection method to determine the root of \\(\\cos x - x =0\\) to 10 decimal places.\n(Answer = 0.739_085_133_2)\n\n\n\n\n\n Back to top",
-    "crumbs": [
-      "What to expect?",
-      "<strong>Day 1</strong>",
-      "(D) Exercises & Problems",
-      "2. Simpler Problems",
-      "Bisection Method*"
-    ]
   },
   {
     "objectID": "docs/problems/boltzmann.html",
@@ -2727,32 +2184,588 @@
     ]
   },
   {
-    "objectID": "docs/problems/monte-carlo-statistics.html",
-    "href": "docs/problems/monte-carlo-statistics.html",
-    "title": "MC Statistics",
+    "objectID": "docs/problems/bisection_question.html",
+    "href": "docs/problems/bisection_question.html",
+    "title": "Bisection Method*",
     "section": "",
-    "text": "Introduction\nIn this problem, we will use random numbers to create a simple simulation of radioactive decay. Let’s start with some basic observations:\n\nA given (unstable) nucleus has a fixed probability of decaying in a given time interval. This probability is different for nuclei of different elements. For example the probability of decaying (for a fixed time interval) for a U nucleus is (much) smaller than for a Th nucleus. This is characterized by the decay constant(\\(\\tau\\)) or half-life (\\(\\lambda\\)).\nSo the longer we have a sample, the greater the probability of its nuclei decaying. For example, the probability of decaying within 2s is greater than within 1s.\nThese probabilities do not scale linearly (i.e., the likelihood for 2s is not twice that for 1 s).\n\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\nIt has been observed that the probability of nuclei decaying in a given time interval \\(\\Delta t\\) is \\(\\dfrac{1}{6}\\). This means after a time \\(\\Delta t\\)=1, about one-sixth of the nuclei would have disintegrated.\nSimulate and plot the change in the number of nuclei with time. Start with a 10000 nuclei. You should see a plot like the one below.\n\n\nRedo the previous task but this time adjust your parameteres so that you are simulation the decay of Th.\n\n\nThoroum decays into a daught nuclide X who is also unstable with a half-life of x. Simulate\n\n\n\n\n\n\n\n Back to top"
-  },
-  {
-    "objectID": "docs/problems/researchers-frustration.html",
-    "href": "docs/problems/researchers-frustration.html",
-    "title": "A Researcher’s Frustration",
-    "section": "",
-    "text": "Introduction\nYou are the lead researcher in an international collaboration involving five countries (Singapore, US, UK, Australia New Zealand). The research project consists of measuring the height of an adult macaque species. The project is at its end, and you are collating all the data measured by your collaborators.\nUpon trying to combine the data files from your collaborators, you realise (in incredulous frustration) that each of your collaborators has made their measurements using a different unit! Here are the units that were used.\n\n\n\n\nCountry\nUnit\n\n\n\n\nSingapore\nmetres\n\n\nUK\ninches\n\n\nUS\nfeet\n\n\nAustralia\ncentimetres\n\n\nNew Zealand\nmillimeters\n\n\n\n\nYou can download the data here\n\n\nTasks\nWrite some Python code to:\n\nProduce a copy of the data that is ‘corrected’ to SI units.\n\nName these files with an ‘_si’ at the end.\n\nOrganise your data files in the following file structure\n\n\n\n\n\n\ngraph TB\nA(All Data)    --&gt;B(SIN) \n         A --&gt;C(AUS)\n         A --&gt;D(UK)\n         A --&gt;E(US)\n         A --&gt;F(NZ)\n         B --&gt;G(SI)\n         C --&gt;I(SI)\n         C --&gt;J(ORIGINAL)\n         D --&gt;K(SI)\n         D --&gt;L(ORIGINAL)\n         E --&gt;M(SI)\n         E --&gt;N(ORIGINAL)\n         F --&gt;O(SI)\n         F --&gt;P(ORIGINAL)\n\n\n\n\n\n\n\nPlot histograms of the data.\n\nPlot a histogram for each of the countries as a separate plot,\nPlot histograms of the countries as a grid of plots,\nPlot a histogram for the combined data. \n\n\n\n\n\n\n Back to top",
+    "text": "Introduction\nThe values of \\(x\\) that satisfy \\(f(x) = 0\\) are called the roots of \\(f(x)\\). Finding the roots of equations is important in science and engineering, but some equations, such as \\(\\cos x - x = 0\\) (called transcendental equations), cannot be solved analytically. In such cases, numerical methods are needed. One such method is the Bisection method.\nTo understand how the Bisection method works, notice that the function has opposite signs on either side of the root. The Bisection method uses this fact to ‘box in’ the root. Here’s how it works:\n\nPick two values of \\(x\\) (let’s call them \\(x_\\text{left}\\) and \\(x_\\text{right}\\)) that we know lie on opposite sides of the root.\nDetermine the midpoint \\(x_\\text{mid}\\) of \\(x_\\text{left}\\) and \\(x_\\text{right}\\), and evaluate the function at this point.\nIf the sign of \\(f(x_\\text{mid})\\) is the same as the sign \\(f(x_\\text{left})\\), then replace \\(x_\\text{left}\\) with \\(x_\\text{mid}\\). Else, replace \\(x_\\text{right}\\) with the midpoint.\nNow you have narrowed the range of the root to \\((x_\\text{left}, x_\\text{mid})\\) or \\((x_\\text{mid}, x_\\text{right})\\). Continue steps 2-4 until you have achieved the desired accuracy for the root.\n\nThe Bisection method is a simple but effective root-finding algorithm that can be implemented using only basic Python programming.\n\n\nTasks\n\nPlot for an estimate\nGet an estimate for the root of \\(\\cos x - x =0\\) by plotting the functions \\(\\cos x\\) and \\(x\\).\nUse bisection\nUse the bisection method to determine the root of \\(\\cos x - x =0\\) to 10 decimal places.\n(Answer = 0.739_085_133_2)\n\n\n\n\n\n Back to top",
     "crumbs": [
       "What to expect?",
       "<strong>Day 1</strong>",
       "(D) Exercises & Problems",
       "2. Simpler Problems",
-      "A Researcher’s Frustration"
+      "Bisection Method*"
     ]
   },
   {
-    "objectID": "docs/problems/monte-carlo-ising.html",
-    "href": "docs/problems/monte-carlo-ising.html",
+    "objectID": "docs/problems/roberts-gray-golgi_question_v02.html",
+    "href": "docs/problems/roberts-gray-golgi_question_v02.html",
+    "title": "A picture is worth thousands of data points",
+    "section": "",
+    "text": "Introduction\nA lot of data goes into creating an image. Or, put another way, we can extract many details by analysing an image. matplotlib allows you to do this quite easily. In this question, we will use matplotlib to quickly explore the topic of image analysis. For this, please download the zip file golgi-movie_robert_frames_gray.zip, which contains 17 fluorescence images collected by Dr Robert Lieu. The 17 images are a time series of the variation of a fluorescence marker protein.\nThe original images have been converted to grayscale (black & white) images to simplify this discussion.\n\n\nTasks\n\nTask 1Task 2Task 3Task 4Task 5\n\n\n\nLock and Load\n\nUse the following code to import and display one of the images. The cmap specifies the false-colour, colour scheme used to display the data.\nimg_data = plt.imread(file-name)\nplt.imshow(img_data, cmap='jet')\nplt.colorbar()\n\n\n\n\nHow is the data stored?\nHow is the image information stored by matplotlib? Let’s find out.\nDetermine the following:\n\nType of img_data.\nShape of img_data.\nValues of maximum, minimum and sum of img_data. What do these numbers represent?\nA histogram of all the values of img_data. \n\nHints:\n\nflatten() might be useful.\n\n\n\n\n\nPlotting a trend\nWrite a snippet of Python code to produce the following plot that shows the variation of the total fluorescence intensity over time for the images provided.\n\n\n\n\n\n\n\n\n\nAdjustments\nOne of the advantages of having access to raw data is the ability to enhance images. However, this process must be carried out with caution and transparency to avoid the risk of scientific misconduct due to data manipulation.\nUse your knowledge of Numpy slicing to achieve the following adjustments.\n\nPlease use Frame 17 for all your adjustments.\nShow your results using a plot like the following.\n\n\nIncrease the value of those pixels above a value of 50 by 150%.\nCrop your image so that you only have the central region.\nTake your cropped data and invert them. I.e subtract the maximum from the data so that bright becomes dark and dark becomes bright.\n\n\n\n\n\n\n\n\n\n\nExplanations\n\nPlot the histogram for the data corresponding to the inverted image from the previous task.\nWhy are there no negative numbers?\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 2</strong>",
+      "Optional Problems",
+      "A picture is worth thousands of data points"
+    ]
+  },
+  {
+    "objectID": "docs/problems/jacobi-relaxation.html",
+    "href": "docs/problems/jacobi-relaxation.html",
+    "title": "Laplace Numerically",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 3</strong>",
+      "Differential Equations",
+      "4. Laplace Numerically"
+    ]
+  },
+  {
+    "objectID": "docs/problems/jacobi-relaxation.html#jacobi-relaxation",
+    "href": "docs/problems/jacobi-relaxation.html#jacobi-relaxation",
+    "title": "Laplace Numerically",
+    "section": "1.1 Jacobi Relaxation",
+    "text": "1.1 Jacobi Relaxation\n\\[\n\\paa{V}{x} + \\paa{V}{y} + \\paa{V}{z} = 0\n\\]\nWe start by recasting Laplace’s equation numerically. For this, we discretize space into voxels of size \\(\\Delta x \\times \\Delta y \\times \\Delta z\\) that we reference using integers \\(i, j, k\\).\nFirst, let’s look at the first partial derivative in the \\(x\\) dimension.\n\\[\n\\begin{align}\n\\text{Centered around $i+\\frac{1}{2}$:}\\qquad\\pa{V}{x} &\\approx\\dfrac{V(i+1,j,k)-V(i,j,k)}{\\Delta x}\\\\[1.5em]\n\\text{Centered around $i-\\frac{1}{2}$:}\\qquad\\pa{V}{x} &\\approx\\dfrac{V(i,j,k)-V(i-1,j,k)}{\\Delta x}\\\\[1.5em]\n\\end{align}\n\\]\nWe can now determine the second partial derivative as,\n\\[\n\\begin{align}\n\\paa{V}{x}\\approx&\\dfrac{1}{\\Delta x}\\left[\\left.\\pa{V}{x}\\right|_{i+\\frac{1}{2}}-\\quad\\left.\\pa{V}{x}\\right|_{i-\\frac{1}{2}}\\right] \\\\[1.5em]\n\\approx& \\dfrac{V(i+1,j,k)-2V(i,j,k)+V(i-1,j,k)}{(\\Delta x)^2}\n\\end{align}\n\\]\nWe can make similar approximations for the other dimensions.\n\\[\n\\begin{align}\n\\paa{V}{y}\\approx&\\dfrac{V(i,j+1,k)-2V(i,j,k)+V(i,j-1,k)}{(\\Delta y)^2}\\\\[1.25em]\n\\paa{V}{z}\\approx&\\dfrac{V(i,j,k+1)-2V(i,j,k)+V(i,j,k-1)}{(\\Delta z)^2}\n\\end{align}\n\\]\nThen, taking \\(\\Delta x = \\Delta y = \\Delta z\\) we can rewrite Laplace’s equation as:\n\\[\n\\begin{align}\nV(i,j,k) \\approx \\dfrac{1}{6}[\\quad&V(i+1,j,k) + V(i-1,j,k)\\\\[1em]\n                                   +&\\;V(i,j+1,k)+ V(i,j-1,k)\\\\[1.1em]\n                                   +&\\;V(i,j,k+1)+ V(i,j,k-1)\\quad]\n\\end{align}\n\\tag{1}\\]\nThe relaxation method uses this approximation iteratively until the values of \\(V\\) over the whole grid stabilise. I.e. we start with some approximate state of the grid (\\(V_0\\)) and reuse the equation over and over again until the values stop changing.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 3</strong>",
+      "Differential Equations",
+      "4. Laplace Numerically"
+    ]
+  },
+  {
+    "objectID": "docs/problems/jacobi-relaxation.html#tasks-2-speed-up",
+    "href": "docs/problems/jacobi-relaxation.html#tasks-2-speed-up",
+    "title": "Laplace Numerically",
+    "section": "2.1 Tasks 2: Speed up",
+    "text": "2.1 Tasks 2: Speed up\nProfile your code to look for bottlenecks. Then implment changes to speed up. You might want to look at replacing your for loops with purely Numpy operations. np.roll() might be useful…",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 3</strong>",
+      "Differential Equations",
+      "4. Laplace Numerically"
+    ]
+  },
+  {
+    "objectID": "docs/problems/jacobi-relaxation.html#tasks-3-different-geometries",
+    "href": "docs/problems/jacobi-relaxation.html#tasks-3-different-geometries",
+    "title": "Laplace Numerically",
+    "section": "2.2 Tasks 3: Different Geometries",
+    "text": "2.2 Tasks 3: Different Geometries\nApply the Relaxation technique to determine the electric field for the geometries shown below.\n\nA finite capacitorA PrismAn infinite cylinder",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 3</strong>",
+      "Differential Equations",
+      "4. Laplace Numerically"
+    ]
+  },
+  {
+    "objectID": "docs/problems/monte-carlo-error-propgation.html",
+    "href": "docs/problems/monte-carlo-error-propgation.html",
+    "title": "MC Error Propagation",
+    "section": "",
+    "text": "Introduction\nIn this problem, we will use random numbers to create a simple simulation of radioactive decay. Let’s start with some basic observations:\n\nA given (unstable) nucleus has a fixed probability of decaying in a given time interval. This probability is different for nuclei of different elements. For example the probability of decaying (for a fixed time interval) for a U nucleus is (much) smaller than for a Th nucleus. This is characterized by the decay constant(\\(\\tau\\)) or half-life (\\(\\lambda\\)).\nSo the longer we have a sample, the greater the probability of its nuclei decaying. For example, the probability of decaying within 2s is greater than within 1s.\nThese probabilities do not scale linearly (i.e., the likelihood for 2s is not twice that for 1 s).\n\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\nIt has been observed that the probability of nuclei decaying in a given time interval \\(\\Delta t\\) is \\(\\dfrac{1}{6}\\). This means after a time \\(\\Delta t\\)=1, about one-sixth of the nuclei would have disintegrated.\nSimulate and plot the change in the number of nuclei with time. Start with a 10000 nuclei. You should see a plot like the one below.\n\n\nRedo the previous task but this time adjust your parameteres so that you are simulation the decay of Th.\n\n\nThoroum decays into a daught nuclide X who is also unstable with a half-life of x. Simulate\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "docs/problems/yz-streamplots.html",
+    "href": "docs/problems/yz-streamplots.html",
+    "title": "All about plotting",
+    "section": "",
+    "text": "This challenge is about visualizing mathematical functions and vectors.\n\n\n\n\nIn case you need a reminder, we begin this problem with a recap on vectors. To put it simply, a vector is a physical quantity which consists of both magnitude and direction. Pictorially, vectors are represented by arrows, where the length of the arrow represents the magnitude and the arrowhead represents the direction. Mathematically, a vector can be represented through a combination of numbers and unit vectors (mathematical objects used to represent directions). For example, a vector \\(\\vec{v}\\) can be written as: \\[\n\\vec{v} = 2\\hat{i} - 3\\hat{j}\n\\] where \\(\\hat{i}\\) and \\(\\hat{j}\\) are unit vectors in the \\(x\\)- and \\(y\\)-axes, respectively. Physically, we can interpret \\(\\vec{v}\\) as an arrow which is equivalent to 2 steps in the direction of the positive x-axis, 3 steps in the direction of the negative y-axis. We say that 2 is the \\(x\\)-component of \\(\\vec{v}\\) while -3 is the \\(y\\)-component of \\(\\vec{v}\\). The figure below illustrates this physical picture.\n\n\n\n\n\n\n\n\nOne way to visualise vectors using Python is streamplot(). streamplot() is a function in matplotlib that draws the streamlines of a vector field. In simple terms, streamplot gives us the directions of vectors at different coordinates. It allows us to visualise many real-life phenomena including river flow, neural network, molecular velocity, and many others. This problem serves as an introduction to streamplot.\nFamiliarise yourself with streamplot(). You may read the write-up on streamplot on the matplotlib website as a start. Note that the write-up assumes that the vectors to be plotted are velocities, but all other vectors can be plotted the same way.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "All about plotting"
+    ]
+  },
+  {
+    "objectID": "docs/problems/yz-streamplots.html#a-quick-primer-in-vectors",
+    "href": "docs/problems/yz-streamplots.html#a-quick-primer-in-vectors",
+    "title": "All about plotting",
+    "section": "",
+    "text": "In case you need a reminder, we begin this problem with a recap on vectors. To put it simply, a vector is a physical quantity which consists of both magnitude and direction. Pictorially, vectors are represented by arrows, where the length of the arrow represents the magnitude and the arrowhead represents the direction. Mathematically, a vector can be represented through a combination of numbers and unit vectors (mathematical objects used to represent directions). For example, a vector \\(\\vec{v}\\) can be written as: \\[\n\\vec{v} = 2\\hat{i} - 3\\hat{j}\n\\] where \\(\\hat{i}\\) and \\(\\hat{j}\\) are unit vectors in the \\(x\\)- and \\(y\\)-axes, respectively. Physically, we can interpret \\(\\vec{v}\\) as an arrow which is equivalent to 2 steps in the direction of the positive x-axis, 3 steps in the direction of the negative y-axis. We say that 2 is the \\(x\\)-component of \\(\\vec{v}\\) while -3 is the \\(y\\)-component of \\(\\vec{v}\\). The figure below illustrates this physical picture.\n\n\n\n\n\n\n\n\nOne way to visualise vectors using Python is streamplot(). streamplot() is a function in matplotlib that draws the streamlines of a vector field. In simple terms, streamplot gives us the directions of vectors at different coordinates. It allows us to visualise many real-life phenomena including river flow, neural network, molecular velocity, and many others. This problem serves as an introduction to streamplot.\nFamiliarise yourself with streamplot(). You may read the write-up on streamplot on the matplotlib website as a start. Note that the write-up assumes that the vectors to be plotted are velocities, but all other vectors can be plotted the same way.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "All about plotting"
+    ]
+  },
+  {
+    "objectID": "docs/problems/about-plotting.html",
+    "href": "docs/problems/about-plotting.html",
+    "title": "About Plotting*",
+    "section": "",
+    "text": "This challenge involves two mini-challenges related to plotting. Enjoy",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "About Plotting*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/about-plotting.html#introduction-1",
+    "href": "docs/problems/about-plotting.html#introduction-1",
+    "title": "About Plotting*",
+    "section": "Introduction",
+    "text": "Introduction\nA simple model for the interaction potential between two atoms as a function of their distance, \\(r\\), is the Lennard-Jones potential given by:\n\\[\nU(r) = \\dfrac{B}{ r^{12}} − \\dfrac{A}{r^{6}}\n\\tag{1}\\]\nWhere \\(A\\) and \\(B\\) are positive constants.\nThis was popular in the early days of computing because \\(r^{−12}\\) is easy to compute as the square of \\(r^{−6}\\). So, it was also sometimes called the 6-12 potential.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "About Plotting*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/about-plotting.html#tasks",
+    "href": "docs/problems/about-plotting.html#tasks",
+    "title": "About Plotting*",
+    "section": "Tasks",
+    "text": "Tasks\n\nPlot \\(U(r)\\) for Argon atoms where \\(A = 1.024 \\times 10^{−23}\\) J nm\\(^6\\) and \\(B = 1.582 \\times 10^{−26}\\) J nm\\(^{12}\\).\n\nYour plot should show the ‘interesting’ part of this curve, which tends rapidly to infinity for small values of \\(r\\) and zero for large \\(r\\).\nConsider swapping units by dividing \\(A\\) and \\(B\\) by the Boltzmann’s constant to measure \\(U(r)\\) in units of K.\n\nWhat is the depth, \\(\\epsilon\\), and location, \\(r_0\\), of the potential minimum for this system? Remember to think like a scientist, not a programmer! Indicate these values by drawing horizontal and vertical lines at these locations.\nOn the same figure show the interatomic force given by: \\[\nF(r) = −\\dfrac{dU}{dr} = \\dfrac{12 B}{ r^{13}} − \\dfrac{6 A}{r^{7}}\n  \\tag{2}\\]\nFor small displacements from the equilibrium interatomic separation (where \\(F = 0\\)), the potential may be approximated to the harmonic oscillator function,\n\\[\nV(r) = \\dfrac{1}{2}k(r-r_0)^2+ \\epsilon\n  \\tag{3}\\]\nwhere\n\\[\nk = \\left|\\dfrac{d^2U}{dr^2}\\right|_{r_0}= \\dfrac{156 B}{ {r_0}^{14}} − \\dfrac{42 A}{{r_0}^{8}}\n  \\tag{4}\\]\nPlot \\(U(r)\\) and \\(V(r)\\) on the same figure but as a separate subplot.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "About Plotting*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/monte-carlo-electrons.html",
+    "href": "docs/problems/monte-carlo-electrons.html",
+    "title": "MC Electron Propagation",
+    "section": "",
+    "text": "The problem involves implementing a Monte Carlo simulation of electrons travling into matter using the recipe provided in Chapter 3: ‘The Single Scattering Model’ of the book ‘Monte Carlo modeling for electron microscopy and microanalysis’ by David C. Joy. You can find the chapter here.\nNote: I like to highlight that I am not infringing any copyright of the author by sharing this content as it is within the single chapter/10% allowance that is legally allowed.\nYou should present the simulation results for 10 and 100 keV electrons into carbon (C, density= 1.70 g/cm22) and PMMA (polymethyl methacrylate, C5O2H8C5O2H8, density= 1.18 g/cm22), including the spatial plots of electron trajectories.\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_{n} + step \\cos(\\alpha)\\\\\ny_{n+1} &= y_{n} + step \\cos\\left(\\frac{\\pi}{2}-A\\right)\n\\end{align}\n\\]\n\n\n\n\n\n\\[\n\\sigma_E = 5.21\\times10^{-21}\\dfrac{Z^2}{E^2}\\dfrac{4\\pi}{\\alpha(1+\\alpha)}\\left(\\dfrac{E+511}{E+1024}\\right)^2   \\qquad\\text{cm$^2$/atom}\n\\]\n\\[\n\\alpha = 3.4\\times10^{-3}\\dfrac{Z^{0.67}}{E}\n\\]\n\n\n\n\\[\n\\lambda = \\dfrac{A}{N_a\\rho\\,\\sigma_E}\\qquad{\\text{(cm)}}\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(N_a\\)\nAvogardro number\n\n\n\\(\\rho\\)\nDensity (g/cm\\(^3\\))\n\n\n\\(A\\)\nAtomic weight in g/mole\n\n\n\n\n\n\\[\ns = -\\lambda\\ln(1-RND)\n\\]\n\n\n\n\n\\[\nE_{n+1} = E_n  -s\\cdot\\rho \\cdot \\frac{dE}{ds}\n\\] where,\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(L\\)\nFree flight length\n\n\n\\(E\\)\nEnergy of the particle,\n\n\n\\(\\Delta E\\)\nTotal energy lost in traversing L\n\n\n$ $\nRate of energy loss with path length,\n\n\n\n\\[\n\\dfrac{dE}{dS} = -78500 \\dfrac{Z}{AE}\\ln\\left[\\dfrac{1.166(E+0.85I)}{I}\\right]\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(Z\\)\nAtomic number\n\n\n\\(A\\)\nAtomic Mass\n\n\n\\(I\\)\nMean ionisation energy\n\n\n\n\\[\nI = \\left[9.67Z + \\dfrac{58.5}{Z^{0.19}}\\right]\\times 10^{-3} \\qquad\\text{(keV)}\n\\]\n\n\n\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleI}\n\\begin{array}{ccc}\n\\displaystyle R =  \\frac{\\displaystyle \\int_{0}^{\\theta}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}\n{\\displaystyle \\int_{0}^{\\pi}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleII}\n\\begin{array}{ccc}\n\\displaystyle \\cos \\phi  = 1 - \\frac{2 \\alpha R}{1 + \\alpha - R}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\psi=2\\pi.RND\n\\]\n\n\n\n\n\n\\[\n\\begin{align*}\nR_{x} &= (R_{x0} \\cdot \\cos \\phi) + (V1 \\cdot V3) + (R_{y0}\\cdot\nV2 \\cdot V4) \\\\\n\\\\\nR_{y} &= (R_{y0} \\cdot \\cos \\phi) + [V4 \\cdot (R_{z0} \\cdot V1 - R_{x0} \\cdot V2) ] \\\\\n\\\\\nR_{z} &= (R_{z0} \\cdot \\cos \\phi) + (V2 \\cdot V3) - (R_{y0}\\cdot\nV1 \\cdot V4) \\\\\n\\end{align*}\n\\] where\n\\[\n\\begin{align*}\n    V1 &= AN \\cdot \\sin \\phi \\\\\n    \\\\\n    V2 &= AN \\cdot AM \\cdot \\sin \\phi \\\\\n    \\\\\n    V3 &= \\cos \\psi \\\\\n    \\\\\n    V4 &= \\sin \\psi\n\\end{align*}\n\\] \\[\n\\begin{align*}\n    \\\\\n    \\\\\n    AM &= - \\frac{R_{x0}}{R_{z0}}\n    \\\\\n    AN &= \\frac{1}{\\sqrt{1+ AM \\cdot AM}} \\\\\n    \\\\\n    \\\\\n\\end{align*}\n\\]\n\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_n + step\\cdot R_x\\\\\ny_{n+1} &= y_n + step\\cdot R_y\\\\\nz_{n+1} &= z_n + step\\cdot R_z\\\\\n\\end{align}\n\\]\n\n\n\n\nSimulate 1 particle in 2D (Brownian motion)\nSimulate 1 particle in 3D (Brownian motion)\n\nStarting direction cosines [0,0, 1] (vertically in)\n\nChange path length based just on a random number and \\(s = -\\lambda\\ln(1-RND)\\).\n\nLet \\(\\lambda\\) be 1\n\nIncorporate Energy loss (\\(\\dfrac{dE}{ds}\\))\nGet \\(\\lambda working\\)."
+  },
+  {
+    "objectID": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-2d",
+    "href": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-2d",
+    "title": "MC Electron Propagation",
+    "section": "",
+    "text": "\\[\n\\begin{align}\nx_{n+1} &= x_{n} + step \\cos(\\alpha)\\\\\ny_{n+1} &= y_{n} + step \\cos\\left(\\frac{\\pi}{2}-A\\right)\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-3d",
+    "href": "docs/problems/monte-carlo-electrons.html#how-to-simulate-a-particle-in-3d",
+    "title": "MC Electron Propagation",
+    "section": "",
+    "text": "\\[\n\\sigma_E = 5.21\\times10^{-21}\\dfrac{Z^2}{E^2}\\dfrac{4\\pi}{\\alpha(1+\\alpha)}\\left(\\dfrac{E+511}{E+1024}\\right)^2   \\qquad\\text{cm$^2$/atom}\n\\]\n\\[\n\\alpha = 3.4\\times10^{-3}\\dfrac{Z^{0.67}}{E}\n\\]\n\n\n\n\\[\n\\lambda = \\dfrac{A}{N_a\\rho\\,\\sigma_E}\\qquad{\\text{(cm)}}\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(N_a\\)\nAvogardro number\n\n\n\\(\\rho\\)\nDensity (g/cm\\(^3\\))\n\n\n\\(A\\)\nAtomic weight in g/mole\n\n\n\n\n\n\\[\ns = -\\lambda\\ln(1-RND)\n\\]\n\n\n\n\n\\[\nE_{n+1} = E_n  -s\\cdot\\rho \\cdot \\frac{dE}{ds}\n\\] where,\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(L\\)\nFree flight length\n\n\n\\(E\\)\nEnergy of the particle,\n\n\n\\(\\Delta E\\)\nTotal energy lost in traversing L\n\n\n$ $\nRate of energy loss with path length,\n\n\n\n\\[\n\\dfrac{dE}{dS} = -78500 \\dfrac{Z}{AE}\\ln\\left[\\dfrac{1.166(E+0.85I)}{I}\\right]\n\\]\n\n\n\nSymbol\nMeaning\n\n\n\n\n\\(Z\\)\nAtomic number\n\n\n\\(A\\)\nAtomic Mass\n\n\n\\(I\\)\nMean ionisation energy\n\n\n\n\\[\nI = \\left[9.67Z + \\dfrac{58.5}{Z^{0.19}}\\right]\\times 10^{-3} \\qquad\\text{(keV)}\n\\]\n\n\n\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleI}\n\\begin{array}{ccc}\n\\displaystyle R =  \\frac{\\displaystyle \\int_{0}^{\\theta}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}\n{\\displaystyle \\int_{0}^{\\pi}\\left (\\frac{d\\sigma}{d\\Omega}\\right) d\\theta}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\begin{equation}\\label{for:ElasticScatteringAngleII}\n\\begin{array}{ccc}\n\\displaystyle \\cos \\phi  = 1 - \\frac{2 \\alpha R}{1 + \\alpha - R}&  &\n\\end{array}\n\\end{equation}\n\\]\n\\[\n\\psi=2\\pi.RND\n\\]\n\n\n\n\n\n\\[\n\\begin{align*}\nR_{x} &= (R_{x0} \\cdot \\cos \\phi) + (V1 \\cdot V3) + (R_{y0}\\cdot\nV2 \\cdot V4) \\\\\n\\\\\nR_{y} &= (R_{y0} \\cdot \\cos \\phi) + [V4 \\cdot (R_{z0} \\cdot V1 - R_{x0} \\cdot V2) ] \\\\\n\\\\\nR_{z} &= (R_{z0} \\cdot \\cos \\phi) + (V2 \\cdot V3) - (R_{y0}\\cdot\nV1 \\cdot V4) \\\\\n\\end{align*}\n\\] where\n\\[\n\\begin{align*}\n    V1 &= AN \\cdot \\sin \\phi \\\\\n    \\\\\n    V2 &= AN \\cdot AM \\cdot \\sin \\phi \\\\\n    \\\\\n    V3 &= \\cos \\psi \\\\\n    \\\\\n    V4 &= \\sin \\psi\n\\end{align*}\n\\] \\[\n\\begin{align*}\n    \\\\\n    \\\\\n    AM &= - \\frac{R_{x0}}{R_{z0}}\n    \\\\\n    AN &= \\frac{1}{\\sqrt{1+ AM \\cdot AM}} \\\\\n    \\\\\n    \\\\\n\\end{align*}\n\\]\n\n\n\n\\[\n\\begin{align}\nx_{n+1} &= x_n + step\\cdot R_x\\\\\ny_{n+1} &= y_n + step\\cdot R_y\\\\\nz_{n+1} &= z_n + step\\cdot R_z\\\\\n\\end{align}\n\\]\n\n\n\n\nSimulate 1 particle in 2D (Brownian motion)\nSimulate 1 particle in 3D (Brownian motion)\n\nStarting direction cosines [0,0, 1] (vertically in)\n\nChange path length based just on a random number and \\(s = -\\lambda\\ln(1-RND)\\).\n\nLet \\(\\lambda\\) be 1\n\nIncorporate Energy loss (\\(\\dfrac{dE}{ds}\\))\nGet \\(\\lambda working\\)."
+  },
+  {
+    "objectID": "docs/problems/daisyworld.html",
+    "href": "docs/problems/daisyworld.html",
+    "title": "Daisyworld",
+    "section": "",
+    "text": "Introduction\n\n\\[\n\\newcommand\\a[1]{\\alpha_{#1}}\n\\]\n\nIn this problem we will work on the Daisyworld model that highlights the interdisciplinary nature of our world. This is a nice, simple example of how the principles of Physics can be used to understand how biological systems react to changes in their environment.\nThe following instructions are based on the article:\n\nWatson, A. J., & Lovelock, J. E. (1983). Biological homoeostasis of the global environment: the parable of Daisyworld. Tellus Ser. B–Chem. Phys. Meteorol., 35(4), 284–289.\n\n\n\n1 What is Daisyworld?\nDaisyworld is a flatland that has two types of daisies (black and white). Not all the area is covered by daisies; there is non-fertile ground (where no daisies can grow) so there is bare, fertile ground where they can grow. The growth and death of the daisies are governed by the following equations:\n\nDifferential equations\n\\[\n\\begin{align}\n  \\begin{split}\n  \\dfrac{d\\a{w}}{dt} &= \\a{w}(x\\beta - \\gamma)\\\\\n  \\dfrac{d\\a{b}}{dt} &= \\a{b}(x\\beta - \\gamma)\n  \\end{split}\n\\end{align}\n\\tag{1}\\]\n\n\nArea\n\\[\n\\a{w} + \\a{b} + x = p\n\\tag{2}\\]\n\n\nGrowth rates\n\\[\n\\beta_{b,w} = 1 - 0.003265\\,(22.5 - T_{b,w})^2\n\\tag{3}\\]\n\n\nAlbedo\n\\[\nA = \\sum_i A_i = \\a{g}A_{g}+\\a{b}A_{b}+\\a{w}A_{w}\n\\tag{4}\\]\n\\[\n\\a{g} = 1 - (\\a{b} + \\a{w})\n\\tag{5}\\]\n\n\nEnergy balance of the planet\n\\[\n\\sigma(T_e + 273)^4 = SL(1-A)\n\\tag{6}\\]\n\n\nLocal Temperature\n\\[\n(T_i+273)^4 = q(A-A_i) + (T_e+273)^4\n\\]\n\n\\(q\\) here represents the transfer of energy between the various daisies and daisies and the ground. It is set up to preserve the energy balance between the sun and Daisyworld while making the white daises cooler and the black daises warmer!\nIf \\(q=0\\) there is perfect conduction and all local temperatures are the same as the mean temperature.\nIf \\(q=\\dfrac{SL}{\\sigma}\\) there is perfect insulation causing the local temperatures to be different and independently in balance with the solar radiation.\n\nSince everyday temperatures are usually small compared to 273, we linearise the above equation, to arrive at \\[\nT_i = q'(A-A_i) + T_e\n\\tag{7}\\]\nwhere \\[\nq' = \\dfrac{q}{4}(273+22.5)^3\n\\tag{8}\\]\n\n\n\n\n\n\n\n\n\nVariable\nMeaning\nNote\n\n\n\n\n\\(\\a{w}, \\a{b}\\)\nFraction of the planetary area covered by white (black) daisies\n\n\n\n\\(x\\)\nFraction of the planetary area not covered by daisies\n\n\n\n\\(\\beta\\)\nGrowth rate of daisies\nSee Equation 3\n\n\n\\(\\gamma\\)\nDeath rate of daisies\n\\(0.3\\)\n\n\n\\(p\\)\nFraction of the planetary area that is fertile\n\n\n\n\\(T_{b, w, g}\\)\nLocal temperature of the white (w), black (b), ground (g) or the radiative temperature of the planet (e).\n\n\n\n\\(\\sigma\\)\nStefan’s constant\n\\(5.670367\\times 10^{-8}\\)\n\n\n\\(L\\)\nDimensionless measure of the luminosity of the daisyworld’s sun\n\n\n\n\\(A_{b, w, g}\\)\nAlbedo of the white (w), black (b) daises or ground (g)\n\n\n\n\\(A\\)\nAlbedo of the planet\n\n\n\n\\(S\\)\nSolar constant\n917\n\n\n\\(q\\)\nRepresents the efficiency of the flow of energy across the planet\n\\(0.2\\times\\dfrac{SL}{\\sigma}\\)\n\n\n\n\n\n\n\n2 Tasks\n\nSteady states of DaisyworldDaisyworld’s response to increasing \\(L\\)Hysteresis of Daisyworld\n\n\nStarting with areas \\(\\a{w}=.7\\) and \\(\\a{b} = .3\\) simulate the dynamics of Daisyworld for \\(L = 1.2\\). Run your simulation until the temperatures stabalise and then produce the following plots.\nJust use Euler; you can use RK4 later, if there is a need.\n\n\n\n\n\n\n\nWe want to simulate the sun increasing in brightness. So, run your simulation of Daisyworld for increasing values of \\(L\\) to produce the following plots.\n\n\n\n\n\nNotice how the biota is ‘fighting’ to keep the planet’s temperature stable.\n\n\nRun your simulation for a situation where the luminosity first increases and then decreases to its original state. Your simulation should show hysteresis as shown in the plots below:\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 3</strong>",
+      "Differential Equations",
+      "3. Daisyworld"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_01.html",
+    "href": "docs/classes/classes_01.html",
+    "title": "Classes 1",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 1"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_01.html#setting-up-a-simple-class",
+    "href": "docs/classes/classes_01.html#setting-up-a-simple-class",
+    "title": "Classes 1",
+    "section": "2.1 Setting up a simple class",
+    "text": "2.1 Setting up a simple class\nLet’s create a class to represent a particle. We will use this later to simulate it bouncing off a wall. To keep things simple, I will start with a 1D geometry. A particle typically has a mass, a radius (assuming it’s spherical) and a velocity. So, I can do the following.\n\nclass CParticle1D:\n    mass=None\n    position=None\n    radius=None",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 1"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_01.html#using-the-class",
+    "href": "docs/classes/classes_01.html#using-the-class",
+    "title": "Classes 1",
+    "section": "2.2 Using the class",
+    "text": "2.2 Using the class\nNow, let me use this class to create two particles.\n\nparticle_0=CParticle1D()        # Create a new particle\nparticle_0.mass=10             # Set mass for particle 0 \nparticle_0.position=.5         # Set position of particle 0\nparticle_0.radius=.01          # Set the radius of particle 0\n\nparticle_1=CParticle1D()        # Create another particle\nparticle_1.mass=20             # Set mass for particle 1 \nparticle_1.position=.1         # Set position of particle 1\nparticle_1.radius=.01          # Set the radius of particle 1\n\nIn the above snippet, particle_0 and particle_1 are instances of the class CParticle1D. particle_0 and particle_1 are also called objects of the type CParticle1D. This is similar to 1 being an object of the class int.\n\n\n\n\n\n\nRemember\n\n\n\nRemember that objects are instances of a class.\n\n\nOnce you have created your objects, you can use them in your other code. A trivial example is:\n\nprint(f'Particle 0 has mass {particle_0.mass} and is at position {particle_0.position}.')\n\nParticle 0 has mass 10 and is at position 0.5.\n\nprint(f'Particle 1 has mass {particle_1.mass} and is at position {particle_1.position}.')\n\nParticle 1 has mass 20 and is at position 0.1.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 1"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_01.html#class-vs-object-variables",
+    "href": "docs/classes/classes_01.html#class-vs-object-variables",
+    "title": "Classes 1",
+    "section": "2.3 Class vs Object variables",
+    "text": "2.3 Class vs Object variables\nLet’s say we want all the particles we create to be identical (i.e., same mass and size). Classes allow us to quickly implement this by adjusting the variable at the class level. These adjustments will then be visible to all the objects that are created.\nLet’s see this in action.\n\nCParticle1D.mass = 99           # Set the class variable mass\nCParticle1D.radius = .01        # Set the class variable radius\n\nparticle_0=CParticle1D()        # Create a new particle\nparticle_0.position=.5         # Set position of particle 0\n                               # This is the position variable\n                               # of object 0\n\nparticle_1=CParticle1D()        # Create another particle\nparticle_1.position=.1         # Set position of particle 1\n                               # This is the position variable\n                               # of object 1\n\nNow, let’s redo our trivial usage:\n\nprint(f'Particle 0 has mass {particle_0.mass} and is at position {particle_0.position}.')\n\nParticle 0 has mass 99 and is at position 0.5.\n\nprint(f'Particle 1 has mass {particle_1.mass} and is at position {particle_1.position}.')\n\nParticle 1 has mass 99 and is at position 0.1.\n\n\nNotice the distinction between class variables and object variables. When you want to access the class variable, you use the . with the class name. Instead, if you wish to use the object variable, use the . with the object. What you do with the object does not affect the class or other objects (particles, in our case). However, there are subtleties to this that I don’t want to go into now. Let’s discover them later.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 1"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_01.html#making-it-more-scalable",
+    "href": "docs/classes/classes_01.html#making-it-more-scalable",
+    "title": "Classes 1",
+    "section": "2.4 Making it more scalable",
+    "text": "2.4 Making it more scalable\nTypically we want to be able to expand a simulation to a more significant number of particles. Unfortunately, the previous way of creating particles is not very scalable. Here is a slightly better way.\n\n# Make all the particles identical\nCParticle1D.mass=99\nCParticle1D.radius=.01\n\n# Create a list of particles\nall_particles=[CParticle1D()]\nall_particles+=[CParticle1D()]\nall_particles+=[CParticle1D()]\n\n# Initialise with a random position\ni = 0\nall_particles[i].position=np.random.rand()\n\ni += 1\nall_particles[i].position=np.random.rand()\n\ni += 1\nall_particles[i].position=np.random.rand()\n\nHere, I have used NumPy to create a random position.\nLet’s see if it worked:\n\ni = 0\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 0: mass=99, position= 0.715.\n\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 1: mass=99, position= 0.885.\n\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n\nParticle 2: mass=99, position= 0.469.\n\n\nThis is still grossly inefficient for a lazy person like me because it requires lots of typing. It can be made a lot simpler and less error-prone by using loops. I will show this to you later.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 1"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_03.html",
+    "href": "docs/classes/classes_03.html",
+    "title": "Classes 3",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")\n\n\n\n\n1 __init()__ Method\nA better way to setup your class is by including an __init()__ method that will be called whenever you create an instance. This way you can update or add features that apply only to the instance.\n\nclass CParticle1D:\n    # Class variables\n    mass=None\n    position=None\n    radius=None\n\n    def __init__(self, position) -&gt; None:\n        # Object variables\n        self.position = position\n        pass\n\nThings can get a bit confusing here because there is a distinction between class and object variables. - mass, position and radius are class variables. There is another variable position that belongs only to the object. - When you want to access the object variable position use self.position. There are also variables mass and radius avaialbe to the object. If you change these (e.g. self.mass=10) then the class variable and object variables will have different values.\n\n\n2 Methods\nYou can also create functions (technically called methods) that operate on your objects.\nIn the code below I have included a method called move().\n\nclass CParticle1D:\n    # Class variables\n    mass = None\n    position = None\n    radius = None\n\n    def __init__(self, position) -&gt; None:\n        # Object variables\n        self.position = position\n        pass\n\n    def move(self, displacement):\n        self.position += displacement\n\nYou use move() like:\n\nparticle = CParticle1D(position=10)\nparticle.move(3)\nprint(f'{particle.position=}')\n\nparticle.position=13\n\n\nPlease note that the definition of move() must contain self. This will be automatically supplied by Python when you call the method.\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 3"
+    ]
+  },
+  {
+    "objectID": "docs/classes/classes_02.html",
+    "href": "docs/classes/classes_02.html",
+    "title": "Classes 2",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")\n\n\n\n\n1 Cleaning up with Loops\nIn my previous discussion on classes, I introduced a class called CParticle1D. I also mentioned how inefficient some of the code was. Now that we know loops, I can quickly clean up my code. Here is a comparison.\n\nBefore (No Loops)Now (With Loops)\n\n\n\n\n\n\nclass CParticle1D:\n    mass = None\n    position = None\n    radius = None\n\n\n# Make all the particles identical\nCParticle1D.mass = 99\nCParticle1D.radius = .01\n\n# Create a list of particles\nall_particles = [CParticle1D()]\nall_particles += [CParticle1D()]\nall_particles += [CParticle1D()]\n\n# Initialise with a random position\ni = 0\nall_particles[i].position = np.random.rand()\n\ni += 1\nall_particles[i].position = np.random.rand()\n\ni += 1\nall_particles[i].position = np.random.rand()\n\n\ni = 0\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 0: mass=99, position= 0.715.\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 1: mass=99, position= 0.885.\ni += 1\nprint(f'Particle {i}: mass={all_particles[i].mass}, position= {all_particles[i].position:.3f}.')\n## Particle 2: mass=99, position= 0.469.\n\n\n\n\n\n\n\nclass CParticle1D:\n    mass = None\n    position = None\n    radius = None\n\n\n# Make all the particles identical\nCParticle1D.mass = 99\nCParticle1D.radius = .01\n\n# Create a list of particles\nno_of_particles = 3\nall_particles = [CParticle1D() for _ in range(no_of_particles)]\n\n# Initialise with a random position\nfor particle in all_particles:\n    particle.position = np.random.rand()\n\n# Print stuff to check\nfor count, particle in enumerate(all_particles):\n    print(f'Particle {count}: mass={particle.mass}, position= {particle.position:.3f}.')\n\nParticle 0: mass=99, position= 0.715.\nParticle 1: mass=99, position= 0.885.\nParticle 2: mass=99, position= 0.469.\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(C) Python (Basics+)",
+      "3. OOPS",
+      "Classes 2"
+    ]
+  },
+  {
+    "objectID": "docs/problems/grid-laplace.html",
+    "href": "docs/problems/grid-laplace.html",
     "title": "12| Monte Carlo Integration",
     "section": "",
     "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "docs/problems/roberts-gray-golgi_question.html",
+    "href": "docs/problems/roberts-gray-golgi_question.html",
+    "title": "2. A picture is worth thousands of data points",
+    "section": "",
+    "text": "Introduction\nA lot of data goes into creating an image. Or, put another way, we can extract many details by analysing an image. matplotlib allows you to do this quite easily. In this question, we will use matplotlib to quickly explore the topic of image analysis. For this, please download the zip file golgi-movie_robert_frames_gray.zip, which contains 17 fluorescence images collected by Dr Robert Lieu. The 17 images are a time series of the variation of a fluorescence marker protein.\nThe original images have been converted to grayscale (black & white) images to simplify this discussion.\n\n\nTasks\n\nTask 1Task 2Task 3\n\n\n\nLock and Load\n\nUse the following code to import and display one of the images. The cmap specifies the false-colour, colour scheme used to display the data.\nimg_data = plt.imread(file-name)\nplt.imshow(img_data, cmap='jet')\nplt.colorbar()\n\n\n\n\nHow is the data stored?\nHow is the image information stored by matplotlib? Let’s find out.\nDetermine the following:\n\nType of img_data.\nShape of img_data.\nValues of maximum, minimum and sum of img_data. What do these numbers represent?\nA histogram of all the values of img_data.\nThe total counts of the image.\n\nHints:\n\nflatten() might be useful.\n\n\n\n\n\nPlotting a trend\nWrite a snippet of Python code to produce the following plot that shows the variation of the total fluorescence intensity over time for the images provided.\n\n\n\n\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "docs/problems/random-problems.html",
+    "href": "docs/problems/random-problems.html",
+    "title": "Random Problems",
+    "section": "",
+    "text": "I am sure you would have heard of the ‘butterfly effect’. This term is related to a phenomenon called (deterministic) chaos, where some systems exhibit strong variations in behaviour despite only minute changes in the outputs. In other words, chaotic systems are super sensitive to their input parameters.\nThe first chaotic system discovered is the Lorentz Attractor, which is related to a simple weather model created by Edward Lorentz. The system is governed by three coupled differential equations:\n\\[\n\\begin{align}\n\\dfrac{dx}{dt}&=\\sigma(y-x)\\\\\n\\dfrac{dy}{dt}&=x(\\rho-z)-y\\\\\n\\dfrac{dz}{dt}&=xy-\\beta z\\\\\n\\end{align}\n\\] Lorentz had used the values \\(\\sigma=10\\), \\(\\beta=8/3\\) and \\(\\rho=28\\).\n\n\n\nSolve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method, RK4 and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect."
+  },
+  {
+    "objectID": "docs/problems/random-problems.html#tasks",
+    "href": "docs/problems/random-problems.html#tasks",
+    "title": "Random Problems",
+    "section": "",
+    "text": "Solve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method, RK4 and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect."
+  },
+  {
+    "objectID": "docs/problems/random-problems.html#task",
+    "href": "docs/problems/random-problems.html#task",
+    "title": "Random Problems",
+    "section": "2.1 Task",
+    "text": "2.1 Task\nSolve the Predator-Prey model for the values shown below and generate the plots shown above.\n\n\n\n\n\\(\\alpha\\)\n2\n\n\n\\(\\beta\\)\n2\n\n\n\\(\\delta\\)\n3\n\n\n\\(\\gamma\\)\n3"
+  },
+  {
+    "objectID": "docs/problems/butterfly.html",
+    "href": "docs/problems/butterfly.html",
+    "title": "The Butterfly Effect",
+    "section": "",
+    "text": "Introduction\n\n\n\n\n\nI am sure you would have heard of the ‘butterfly effect’. This term is related to a phenomenon called (deterministic) chaos, where some systems exhibit strong variations in behaviour despite only minute changes in the outputs. In other words, chaotic systems are super sensitive to their input parameters.\nThe first chaotic system discovered is the Lorentz Attractor, which is related to a simple weather model created by Edward Lorentz. The system is governed by three coupled differential equations:\n\\[\n\\begin{align}\n\\dfrac{dx}{dt}&=\\sigma(y-x)\\\\\n\\dfrac{dy}{dt}&=x(\\rho-z)-y\\\\\n\\dfrac{dz}{dt}&=xy-\\beta z\\\\\n\\end{align}\n\\] Lorentz had used the values \\(\\sigma=10\\), \\(\\beta=8/3\\) and \\(\\rho=28\\).\n\n\nTasks\n\nSolve the differential equations of this system for the initial conditions \\((x,y,z) = (0,1,0)\\) from \\(t=0\\) to \\(t=50\\) using the Euler method and the SciPy’s odeint().\nUse your solutions \\((x,y,z)\\) values with the following code to get the the Lorentz’s Butterfly shown above.\nax = plt.axes(projection='3d')\nax.plot3D(x, y, z)\nplt.show()\nThis system is considered to be chaotic (i.e., highly sensitive to the initial conditions). Use your code to demonstrate this effect.\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html",
+    "href": "docs/problems/vibrot-spectrum_question.html",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "We know from our basic chemistry lessons that atoms have energy levels. For example, the hydrogen atom’s ground state (\\(n=1\\)) has an energy of -13.6 eV, and the next excited state (\\(n=2\\)) has an energy of -3.4 eV. We also know that electrons can get excited to higher energy levels and spontaneously decay to a lower energy level. In this process, the electron will emit energy corresponding to the difference in energy levels. So, an electron making the transition \\(n=2 \\rightarrow 1\\) will emit a photon of energy 10.2 eV. This corresponds to a wavelength of 121.6 nm. These electronic transitions lead to what we refer to as atomic spectra.\nMolecules, too, have electronic energy levels. However, they also have rotational and vibrational energy levels. However, the energy levels corresponding to these types of motions are lower than electronic levels. Hence, the corresponding emissions are related to the infrared and microwave parts of the electromagnetic spectrum.\nYou can obtain the wavelength corresponding to a photon using the formula \\(E = \\dfrac{hc}{\\lambda}\\). \\(h\\) is Planck’s constant, \\(6.626 \\times 10^{-34}\\) Js and \\(c\\) is \\(2.998\\times 10^8\\) m/s, the speed of light in vacuum.\n\n\n\nThe rotational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{ROT,$J$} = BJ(J+1)  \n\\tag{1}\\]\n\\(J = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(B\\) is called the Rotational constant and is given by:\n\\[\nB = \\dfrac{h^2}{8\\pi^2 I}   \n\\tag{2}\\]\nWhere \\(I\\) is the moment of inertia of the molecule about its centre-of-mass given by:\n\\[\nI = \\mu r^2_\\text{bond length}  \n\\tag{3}\\]\nWhere:\n\\[\n\\mu = \\dfrac{m_1 m_2}{m_1 + m_2}\n\\tag{4}\\]\nand \\(m_1\\) and \\(m_2\\) are the massess of the atoms and \\(r_\\text{bond length}\\) is the bond length.\nThe rules of quantum mechanics restrict the transitions between rotational energy levels in a molecule, which are specified by selection rules. The selection rule is a consequence of the conservation of angular momentum in the molecule. The selection rule for rotational transitions for a diatomic system is:\n\\[\n\\Delta J = \\pm 1\n\\tag{5}\\]\nThis means that the change in the rotational quantum number (\\(J\\)) between the initial and final states of the transition can only be plus or minus one.\n\n\n\nThere are multiple ways for a molecule to rotate. This is reflected in quantum mechanics by a concept called degeneracy, meaning that a given energy state can exist in multiple ways. The number of ways is called the degeneracy of the system.\nRotational states have a degeneracy given by:\n\\[\n\\text{Rotational degeneracy} = 2J +1\n\\]{#eq-x)\n\n\n\nA photon will be emitted whenever there is a transition between two allowed \\(J\\) values. The more transitions there are, the greater the number of photons emitted. Therefore, the intensity or brightness of the corresponding spectral line depends on how many transitions occur. Two factors determine this number of transitions.\nOne is how many molecules are in the initial and final energy (\\(J\\)) states. This is determined by the temperature of the system and is given by the famous Boltzmann distribution:\n\\[\n\\dfrac{N_m}{N_n} = e^{-\\left(\\dfrac{E_m - E_n}{k_b T}\\right)}   \n\\tag{6}\\]\nThe second is the degeneracy of the states.\n\n\n\nThe vibrational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{VIB,$\\nu$} = \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}\n\\tag{7}\\]\n\\(\\nu = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(\\omega_\\text{osc}\\) is the natural angular frequency (radians/second) of the oscillations and is given by:\n\\[\n\\omega_\\text{osc}   = \\dfrac{1}{2\\pi}\\sqrt{\\dfrac{k}{\\mu}}  \n\\tag{8}\\]\n\\(k\\) represents the strength of the bond.\nThe selection rules for vibrational transitions are:\n\\[\n\\Delta \\nu = \\pm 1, \\pm 2, \\pm 3, \\ldots    \n\\tag{9}\\]\n\n\n\nIn reality, a molecule both rotates and vibrates. So, the energy levels of a molecule are more accurately described by:\n\\[\nE_\\text{VIB-ROT,$J, \\nu$} = BJ(J+1) + \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}  \n\\tag{10}\\]\nThe energy transitions follow both transition rules:\n\\[\\begin{align}\n\\Delta J &= \\pm 1 \\\\\n\\Delta \\nu &= \\pm 1, \\pm 2, \\pm 3, \\ldots   \n\\end{align}\\]\n\n\n\n\n\n\nQuantity\nValue\n\n\n\n\nMass of \\(^{1}\\)H\n\\(1.673 \\times 10^{−27}\\) kg\n\n\nMass of \\(^{35}\\)Cl\n\\(58.06 \\times 10^{−27}\\) kg\n\n\nBond length (\\(r_\\text{bond length}\\))\n\\(0.127\\) nm\n\n\nBond strength (\\(k\\))\n\\(516\\) Nm\\(^{-1}\\)",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#energy-levels",
+    "href": "docs/problems/vibrot-spectrum_question.html#energy-levels",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "We know from our basic chemistry lessons that atoms have energy levels. For example, the hydrogen atom’s ground state (\\(n=1\\)) has an energy of -13.6 eV, and the next excited state (\\(n=2\\)) has an energy of -3.4 eV. We also know that electrons can get excited to higher energy levels and spontaneously decay to a lower energy level. In this process, the electron will emit energy corresponding to the difference in energy levels. So, an electron making the transition \\(n=2 \\rightarrow 1\\) will emit a photon of energy 10.2 eV. This corresponds to a wavelength of 121.6 nm. These electronic transitions lead to what we refer to as atomic spectra.\nMolecules, too, have electronic energy levels. However, they also have rotational and vibrational energy levels. However, the energy levels corresponding to these types of motions are lower than electronic levels. Hence, the corresponding emissions are related to the infrared and microwave parts of the electromagnetic spectrum.\nYou can obtain the wavelength corresponding to a photon using the formula \\(E = \\dfrac{hc}{\\lambda}\\). \\(h\\) is Planck’s constant, \\(6.626 \\times 10^{-34}\\) Js and \\(c\\) is \\(2.998\\times 10^8\\) m/s, the speed of light in vacuum.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#rotational-energy-levels",
+    "href": "docs/problems/vibrot-spectrum_question.html#rotational-energy-levels",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "The rotational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{ROT,$J$} = BJ(J+1)  \n\\tag{1}\\]\n\\(J = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(B\\) is called the Rotational constant and is given by:\n\\[\nB = \\dfrac{h^2}{8\\pi^2 I}   \n\\tag{2}\\]\nWhere \\(I\\) is the moment of inertia of the molecule about its centre-of-mass given by:\n\\[\nI = \\mu r^2_\\text{bond length}  \n\\tag{3}\\]\nWhere:\n\\[\n\\mu = \\dfrac{m_1 m_2}{m_1 + m_2}\n\\tag{4}\\]\nand \\(m_1\\) and \\(m_2\\) are the massess of the atoms and \\(r_\\text{bond length}\\) is the bond length.\nThe rules of quantum mechanics restrict the transitions between rotational energy levels in a molecule, which are specified by selection rules. The selection rule is a consequence of the conservation of angular momentum in the molecule. The selection rule for rotational transitions for a diatomic system is:\n\\[\n\\Delta J = \\pm 1\n\\tag{5}\\]\nThis means that the change in the rotational quantum number (\\(J\\)) between the initial and final states of the transition can only be plus or minus one.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#degeneracy-of-states",
+    "href": "docs/problems/vibrot-spectrum_question.html#degeneracy-of-states",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "There are multiple ways for a molecule to rotate. This is reflected in quantum mechanics by a concept called degeneracy, meaning that a given energy state can exist in multiple ways. The number of ways is called the degeneracy of the system.\nRotational states have a degeneracy given by:\n\\[\n\\text{Rotational degeneracy} = 2J +1\n\\]{#eq-x)",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#intensity-of-the-spectrums",
+    "href": "docs/problems/vibrot-spectrum_question.html#intensity-of-the-spectrums",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "A photon will be emitted whenever there is a transition between two allowed \\(J\\) values. The more transitions there are, the greater the number of photons emitted. Therefore, the intensity or brightness of the corresponding spectral line depends on how many transitions occur. Two factors determine this number of transitions.\nOne is how many molecules are in the initial and final energy (\\(J\\)) states. This is determined by the temperature of the system and is given by the famous Boltzmann distribution:\n\\[\n\\dfrac{N_m}{N_n} = e^{-\\left(\\dfrac{E_m - E_n}{k_b T}\\right)}   \n\\tag{6}\\]\nThe second is the degeneracy of the states.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#vibrational-energy-levels",
+    "href": "docs/problems/vibrot-spectrum_question.html#vibrational-energy-levels",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "The vibrational energy levels of a diatomic molecule (like HCl or CO) is given by:\n\\[\nE_\\text{VIB,$\\nu$} = \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}\n\\tag{7}\\]\n\\(\\nu = 0, 1, 2,3,\\ldots\\) is the quantum number associated with the rotational motion. \\(\\omega_\\text{osc}\\) is the natural angular frequency (radians/second) of the oscillations and is given by:\n\\[\n\\omega_\\text{osc}   = \\dfrac{1}{2\\pi}\\sqrt{\\dfrac{k}{\\mu}}  \n\\tag{8}\\]\n\\(k\\) represents the strength of the bond.\nThe selection rules for vibrational transitions are:\n\\[\n\\Delta \\nu = \\pm 1, \\pm 2, \\pm 3, \\ldots    \n\\tag{9}\\]",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#rotational-vibrational-energy-levels",
+    "href": "docs/problems/vibrot-spectrum_question.html#rotational-vibrational-energy-levels",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "In reality, a molecule both rotates and vibrates. So, the energy levels of a molecule are more accurately described by:\n\\[\nE_\\text{VIB-ROT,$J, \\nu$} = BJ(J+1) + \\left(\\nu+\\dfrac{1}{2}\\right) h\\omega_\\text{osc}  \n\\tag{10}\\]\nThe energy transitions follow both transition rules:\n\\[\\begin{align}\n\\Delta J &= \\pm 1 \\\\\n\\Delta \\nu &= \\pm 1, \\pm 2, \\pm 3, \\ldots   \n\\end{align}\\]",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/vibrot-spectrum_question.html#data-for-hcl",
+    "href": "docs/problems/vibrot-spectrum_question.html#data-for-hcl",
+    "title": "Vibrational Rotational Spectrum of HCl*",
+    "section": "",
+    "text": "Quantity\nValue\n\n\n\n\nMass of \\(^{1}\\)H\n\\(1.673 \\times 10^{−27}\\) kg\n\n\nMass of \\(^{35}\\)Cl\n\\(58.06 \\times 10^{−27}\\) kg\n\n\nBond length (\\(r_\\text{bond length}\\))\n\\(0.127\\) nm\n\n\nBond strength (\\(k\\))\n\\(516\\) Nm\\(^{-1}\\)",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Vibrational Rotational Spectrum of HCl*"
+    ]
+  },
+  {
+    "objectID": "docs/problems/about-a-pendulum.html",
+    "href": "docs/problems/about-a-pendulum.html",
+    "title": "About a Pendulum",
+    "section": "",
+    "text": "Introduction\nIn this question, we will use our knowledge of segmentation analysis to develop tools for tracking motion. We will work with a simple video of a pendulum (pendulum.mp4) captured using my handphone. Once we track (i.e., extract its position-time information) the pendulum’s motion, we can plot and apply a more mathematical analysis to understand the motion better.\n\nOops: As you can see, the orientation of the video is wrong, sorry. Guess you will have to do something about that.\n\n\nTasks\n\nFigure out a way to extract the individual frames of the video.There are many ways (e.g., Python, ImageJ, ImageMagick, …) to do this so pick one that you like.Please indicate what you used.\nUsing either a ‘low-level’ approach using basic Numpy arrays or a ‘high-level’ approach using a package (e.g., scikit-image) extract the \\((t,x,y)\\) information of the pendulum bob and plot them.\nUse the SciPy functioncurve_fit() to fit a function of the form \\(A \\sin(2\\pi f t + \\alpha)\\) to your tracking data. The results should look like the red line of the plot shown below.\n\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "About a Pendulum"
+    ]
+  },
+  {
+    "objectID": "docs/problems/humpty-dumpty-ir-spectra_question.html",
+    "href": "docs/problems/humpty-dumpty-ir-spectra_question.html",
+    "title": "Humpty Dumpty IR Spectra",
+    "section": "",
+    "text": "Scenario\nYou are part of a large team of (idiosyncratic) scientists whose passion is to measure IR spectra of chemical compounds. They have just finished collecting the data for Toluene, 1-Octene and Ethanol. Unfortunately, in their abundant enthusiasm, many factions have used the same instrument to make multiple measurements. You can access a zip file of all the data collected at humpty-dumpty-ir-data.zip.\n\n\nTasks\n\nTask 1Task 2\n\n\n\nConsolidate the data\nYour role in the team is to consolidate all the data. Here are some things you need to be aware of:\n\nEach file name starts with a random number.\nDifferent files may have different delimiters.\nDifferent files for a given compound can contain overlapping data, so you must ensure that each data point is only included once.\nFor a given compound, measured values of transmittance for a given wavenumber are consistent across all files.\nFor some weird reason, the scientists thought it was neat to write the names of the compounds using a mixture of uppercase and lowercase letters!\n\nNote:\n\nYou can only use basic Python and the packages Numpy, glob, and os. You cannot use any other specialised packages or software.\nDo not modify the original files.\n\n\n\n\n\nTime to plot\nOnce you have consolidated your data, generate a plot similar to the following.\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Humpty Dumpty IR Spectra"
+    ]
+  },
+  {
+    "objectID": "docs/problems/pool-sampling_question.html",
+    "href": "docs/problems/pool-sampling_question.html",
+    "title": "Pool Sampling",
+    "section": "",
+    "text": "Introduction\nLet’s investigate a medical testing strategy that proved invaluable in coping with the huge number of COVID-19 tests required in the past pandemic. Specifically, we will be studying the strategy called Group or Pool sampling (Wikipedia). It was first proposed by the economist Robert Dorfman in 1943 to test syphilis in soldiers!\nTo get started, please download the following two files:\n\ntest_kit.py\n\nThis file contains a python function test(genome) that accepts a genome as a string (e.g., ATGAGAAT…) and returns True if there is an infection or False if not.\nThis function can only test one sample at a time.\nThere are no false positives.\nThe test is 100% accurate.\n\nperson-files.zip\n\nThis file contains (simulated ) genomics data for 500 people.\nThe files are named in the format person_###.txt where ### is a identifying number.\nJust for your information, each person’s file contains a million bases.\n\n\n\n\nTasks\n\nTask 1Task 2Task 3Task 4Task 5\n\n\n\nGetting started\n\nTo get started, import the function test() from test_kit.py.\ntest() is a straightforward function. However, you are not meant to understand how this function works. You just need to be able to use it. So, you can treat the function test() as a black-box.\nConfirm that Person 27 is infected and that person 17 and 37 are not infected. To use test() on a person, you need to:\n\nRead the person’s genomics data from her file and\nPass this genomics data into test()\n\n\n\n\n\n\nCreate a function\n\nCreate a function get_genome(person_id) that will take an (integer) person_id as input and return the corresponding genome data as output.\nUse get_genome() to apply test() to the first 100 people. (I.e. from person_00000.txt to person_00099.txt) You should see persons 1, 7, 8, 27, 47, 57, 62, 63, and 78 show infections.\n\n\n\n\n\nRandom testing\n\nUse test() on 100 random people to estimate the infection rate in this population. Print your result as a percentage.\n\n\n\n\n\nPool Sampling\n\nWrite some Python code to join/combine the genomics data of person 1 and person 2. I.e. given genome_1 and genome_2, you should end up with genome_1genome_2 What we are trying to simulate here is the mixing of blood samples.\nWrite a function called pool(list_of_id) that accepts a list of integers and returns (a string) of the joined genomes of the people identified by the integers.\nApply test() to the combined genomes of 20 and 21 and 21 and 22. Are the results as expected?\nFor the first 100 persons, use pool and test in groups of 10 to determine those infected. Please keep track of the number of tests you have performed and print it at the end.\nRepeat the previous part with groups of 5.\n\n\n\n\n\nOptimisation\nLet’s try to detect as many infections as possible using the least number of tests. Pick any grouping you like, and apply pool sampling to determine the number of infected people in the population of 500. Keep track of the number of tests you have performed.\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Pool Sampling"
+    ]
+  },
+  {
+    "objectID": "docs/problems/monte-carlo-integration.html",
+    "href": "docs/problems/monte-carlo-integration.html",
+    "title": "MC Integration",
+    "section": "",
+    "text": "Introduction\nEvaluating integrals is necessary for most scientific modelling. So, many different integration methods have been developed. The Monte Carlo(MC) integration method is one of the most versatile. One of its charms is its ability to be scaled up to higher dimensions without much fuss. In this question, you will develop code to realise Monte Carlo integration.\n\n\nTasks\n\nTask 1Task 2Some theoryTask 3\n\n\n\nArea first\n\nThe image shows a plot of the function \\(f(x)=x^2\\sin^2(2x)\\). Let’s try to estimate the area of the region shaded in blue.\nHere is what you should do:\n\nGenerate \\((x,y)\\) coordinates for a large number (\\(n_\\text{all}\\)) of random points to evenly cover the area shaded in grey.\n\nAs you can see, this region is defined by \\(2 \\le x \\le 3\\) and \\(0 \\le y\\le 6\\).\nConsider using uniform() for this.\n\nAsk how many points you generated are below the curve (and therefore in the blue region). Let’s call this number \\(n_\\text{below}\\).\n\nNotice that all random points in the blue region satisfy \\(y_i \\leq f(x_i)\\)\n\nNow we can calculate the area of the blue region because: \\[\n  \\dfrac{\\text{Blue Area}}{\\text{Grey Area}} \\approx \\dfrac{n_\\text{below}}{n_\\text{all}}\\Rightarrow \\text{Blue Area}=\\dfrac{n_\\text{below}}{n_\\text{all}}\\times\\text{Grey Area}\n  \\]\n\n\n\n\n\nIntegration\nSince you now know the blue area, you also know the value of the following integral \\(\\displaystyle\\int_{x=2}^{x=3}f(x)dx\\)! So, what you have done in this exercise is develop a numerical technique for evaluating integrals.\n\nCheck how good your estimate is by comparing it to the actual value of the integral, which is \\(4.0647\\). (I used Wolfram Alpha).\nCheck if your accuracy improves by increasing \\(n_\\text{all}\\).\n\n\n\n\n\nA Monte Carlo Estimator\n\\[\n\\newcommand\\ex[1]{\\left\\langle #1 \\right\\rangle}\n\\]\nThere is another way! Let’s play with some maths to see how.\nConsider a function \\(f(x)\\) that we want to integrate over \\([a,b]\\). If \\(\\ex{f(x)}\\) is the expectation value of \\(f(x)\\) over \\([a,b]\\), it follows that:\n\\[\n\\ex{f(x)}= \\dfrac{1}{b-a}\\int_a^bf(x)dx\n\\] But, \\[\n\\ex{f(x)}\\approx \\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\] Where \\(X_i\\) are \\(N\\) points in the interval \\([a,b]\\).\nWhence, for \\(X_i\\) drawn uniformly,\n\\[\n\\begin{equation}\n\\int_a^bf(x)dx \\approx (b-a)\\dfrac{1}{N}\\sum_{i=0}^{N-1}f(X_i)\n\\end{equation}\n\\]\nThe term on the right-hand side is called a Monte Carlo estimator. Notice that the Law of Large Numbers tells us that this approximation improves with large values of \\(N\\)\n\n\n\n\nUsing an estimator\nEvaluate the following integral using an MC estimator based on a Uniform probability distribution.\n\\[\n\\int_{x=2}^{x=3} x^2\\sin^2(2x)\\,dx\n\\]\n\nCompare your answer with your previous MC algorithm.\nCompare the speed of the two algorithms.\n\n\n\n\n\n\n\n\n\n Back to top",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "3. Integration"
+    ]
+  },
+  {
+    "objectID": "docs/problems/analysing-graduate-data.html",
+    "href": "docs/problems/analysing-graduate-data.html",
+    "title": "Graduate Data",
+    "section": "",
+    "text": "The Singapore government maintains and publicly shares various datasets at Data.gov.sg. In this question, we will analyse the median salaries of graduates from the different universities in Singapore.\n\n\nThis question heavily utilises the package called Pandas. Pandas is the de facto package for all things related to data analysis. You must familiarise yourself (see the Knowledge Lake) with how to use Pandas to work on this problem.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Graduate Data"
+    ]
+  },
+  {
+    "objectID": "docs/problems/analysing-graduate-data.html#you-need-pandas",
+    "href": "docs/problems/analysing-graduate-data.html#you-need-pandas",
+    "title": "Graduate Data",
+    "section": "",
+    "text": "This question heavily utilises the package called Pandas. Pandas is the de facto package for all things related to data analysis. You must familiarise yourself (see the Knowledge Lake) with how to use Pandas to work on this problem.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 1</strong>",
+      "(D) Exercises & Problems",
+      "2. Simpler Problems",
+      "Graduate Data"
+    ]
+  },
+  {
+    "objectID": "docs/problems/temp-html-text.html",
+    "href": "docs/problems/temp-html-text.html",
+    "title": "Python in Physics",
+    "section": "",
+    "text": "basic_monthly_median\n\n\n\n\n\n\n\n\ncount\n\n\nmin\n\n\nmax\n\n\nmean\n\n\nstd\n\n\n\n\nyear\n\n\nuniversity\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2021\n\n\nSIT\n\n\n33\n\n\n2500.0\n\n\n5000.0\n\n\n3556.061\n\n\n499.337\n\n\n\n\nSMU\n\n\n12\n\n\n3400.0\n\n\n5600.0\n\n\n4369.417\n\n\n783.333\n\n\n\n\nSUSS\n\n\n8\n\n\n3000.0\n\n\n3800.0\n\n\n3328.750\n\n\n258.094\n\n\n\n\nSUTD\n\n\n4\n\n\n3801.0\n\n\n4800.0\n\n\n4275.250\n\n\n457.001\n\n\n\n\n2022\n\n\nNTU\n\n\n41\n\n\n3100.0\n\n\n6000.0\n\n\n4110.439\n\n\n689.419\n\n\n\n\nNUS\n\n\n38\n\n\n3350.0\n\n\n6500.0\n\n\n4404.842\n\n\n827.763\n\n\n\n\nSIT\n\n\n35\n\n\n2450.0\n\n\n5500.0\n\n\n3914.086\n\n\n593.001\n\n\n\n\nSMU\n\n\n12\n\n\n3800.0\n\n\n6338.0\n\n\n4711.000\n\n\n860.401\n\n\n\n\nSUSS\n\n\n8\n\n\n3100.0\n\n\n4500.0\n\n\n3670.625\n\n\n415.301\n\n\n\n\nSUTD\n\n\n4\n\n\n4100.0\n\n\n5000.0\n\n\n4437.500\n\n\n415.080\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "docs/problems/ising-model.html",
+    "href": "docs/problems/ising-model.html",
+    "title": "Ising Model for Ferromagnetism",
+    "section": "",
+    "text": "Almost everyone has heard of the famous Ising Model, used to model ferromagnetism. It also allows you to see how a system of interacting particles responds to a change in temperature and leads to the observation of collective phenomena like phase transitions.\nIn this problem, we use a Monte Carlo method called the Metropolis-Hastings algorithm to see how a 2D Ising system achieves equilibrium. We then calculate various parameters to observe the phase transitions.\n\n\nThe Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.\n\n\n\n\n\n\nWhen an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
+  },
+  {
+    "objectID": "docs/problems/ising-model.html#what-is-the-ising-model",
+    "href": "docs/problems/ising-model.html#what-is-the-ising-model",
+    "title": "Ising Model for Ferromagnetism",
+    "section": "",
+    "text": "The Ising model consists of spins (\\(s\\)) arranged on a lattice (grid), with each spin allowed to interact with only its nearest neighbours. The spins can either be spin-up(\\(+1\\)) or spin-down(\\(-1\\)). Based on this scenario, the total interaction energy of the system is given by:\n\\[\nE = -J \\sum_\\text{all unique pairs} s_i s_j - \\mu H \\sum_i s_i\n\\]{eq-main}\nWhere:\n\n‘all unique pairs’ refers to ‘all unique nearest neighbour pairs’.\n\\(J\\) is the exchange constant interaction energy , \\(s_i\\) and \\(s_j\\) are spins,\n\\(H\\) is an external magnetic field.\n\\(\\mu\\) is the magnetic moment associated with each spin.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
+  },
+  {
+    "objectID": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
+    "href": "docs/problems/ising-model.html#metropolis-hasting-algorithm",
+    "title": "Ising Model for Ferromagnetism",
+    "section": "",
+    "text": "When an Ising system is in contact with a temperature bath, the exchange of thermal energy with the reservoir will cause some spins to flip. This flipping is influenced by both the thermal energy (related to \\(k_B T\\)) and the lattice energy \\(E\\). The Metropolis-Hastings algorithm is a Markov Chain Monte Carlo (MCMC) method used to simulate the behaviour of spin flips in the Ising model when it is in contact with a temperature bath. The term ‘Markov Chain’ indicates that the simulation has no memory and each iteration is based only on the current state of the system. The term ‘Monte Carlo’ indicates that the simulation uses random numbers to make decisions.\n\n\n\n\nTemperature: Set your temperature \\(T\\).\n\nTake \\(J/k_b=1\\) so that \\(T\\) becomes unitless.\n\nInitialize Create a \\(N\\times N\\) made up of a random distribution of \\(\\pm 1\\).\nMetropolis Step\n\nSelect: Choose a random spin and flip it.\nCalculate Energy Change: Compute the change in energy, \\(\\Delta E\\), due to the flip.\nAccept or Reject:\n\nIf \\(\\Delta E \\leq 0\\), accept the new configuration.\nIf \\(\\Delta E &gt; 0\\), accept the new configuration only if \\(r \\leq e^{-\\Delta E / k_B T}\\) where \\(r\\) is a uniform random number in \\([0,1)\\)\n\nUpdate the energy of the system with \\(\\Delta E\\) if necessary.\n\nSweep: Repeat Metropolis Step for at least \\(N^2\\) times.\nRecord: Keep track of the energy(\\(E\\)), and magnetisation (\\(M\\)) after each sweep of \\(N^2\\)\nRepeat: Repeat the sweeps to allow the system to reach equilibrium.\n\nNote: - You can loop through your lattice instead of picking random sites. - There is only a finite set of values \\(\\Delta E\\) can take.\n\n\n\nLet’s quickly try to understand why the Metropolis-Hasting recipe works.\nConsider two microstates \\(A\\) and \\(B\\) of the system with energies \\(E_A\\) and \\(E_B\\). Let’s take \\(E_A \\gt E_B\\).\nSince \\(E_A \\gt E_B\\) the recipe guarantees the transition \\(A\\rightarrow B\\). So, as far as transition rates are concerned \\(A\\rightarrow B\\) will be 1 per step. Let’s write this as:\n\\[\nW(A\\rightarrow B) = 1\n\\]\nIn the next step, we will need to consider the transition \\(B\\rightarrow A\\). The recipe gives this a transition rate of:\n\\[\nW(B\\rightarrow A) =e ^{-(E_A-E_B)/k_B T}\n\\]\nAt steady-state of the simulation, the \\(A\\rightarrow B\\) transitions should be equal to the \\(B\\rightarrow A\\) transitions. Since you need to be in states \\(A\\) or \\(B\\) for such a transition to occur the number of \\(B\\leftrightarrow A\\) transitions depends on the probabilities \\(P_A\\) and \\(P_B\\) of the system being found in these states. We can then write:\n\\[\nP_A\\,W(A\\rightarrow B)=P_B\\,W(B\\rightarrow A) \\Rightarrow \\dfrac{P_A}{P_B} = e ^{-(E_A-E_B)/k_B T}\n\\]\nBut, this ratio of probabilities is exactly what the Boltzmann distribution demands for a system in equilibrium at a temperature \\(T\\)! So, the Metropolis-Hasting algorithm nicely reproduces the thermal equilibrium distribution.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "4. Ising Model"
+    ]
+  },
+  {
+    "objectID": "docs/problems/monte_carlo_simulation.html",
+    "href": "docs/problems/monte_carlo_simulation.html",
+    "title": "Monte Carlo Simulation of Electron Propagation",
+    "section": "",
+    "text": "library(reticulate)\nuse_python(\"/Users/chammika/miniconda3/envs/quarto/bin/python3\")\n\n\n\nIntroduction\nMonte Carlo techniques were first developed during the Manhattan Project to model complex physical processes such as neutron transport in nuclear reactions. In this problem, you will explore a simple yet realistic simulation of electron propagation through matter.\n\n\n1 Simulating particles\nPlease refer to this chapter from (Joy 1995). It gives the recepie to create a realistic MC simulation. USe this information to reproduce the single sxcattering model. Once you get it to work you will have a system in place similar to research software such as CASINO (see below).\n\n\n\n\n\n\n\n\n\n\n\n Back to topReferences\n\nJoy, David C. 1995. Monte Carlo Modeling for Electron Microscopy and Microanalysis. Oxford Series in Optical and Imaging Sciences 9. New York: Oxford University Press.",
+    "crumbs": [
+      "What to expect?",
+      "<strong>Day 4</strong>",
+      "Random Numbers",
+      "5. Electron Propagation in Matter"
+    ]
   },
   {
     "objectID": "docs/problems/simple-odes.html",

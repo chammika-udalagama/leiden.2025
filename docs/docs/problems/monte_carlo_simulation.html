@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Random Numbers (Good) – Python in Physics</title>
+<title>Monte Carlo Simulation of Electron Propagation – Python in Physics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,25 +54,45 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../../">
-<script src="../../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ecbb83ea65c36e1ef082844efddfd387.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,41 +121,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../../../../styles/specific-optimisations.css">
+<link rel="stylesheet" href="../../styles/specific-optimisations.css">
 <link rel="stylesheet" href="styles/styles.css">
-<link rel="stylesheet" href="../../../../styles/styles_quarto.css">
-<link rel="stylesheet" href="../../../../styles/py_css.css">
-<link rel="stylesheet" href="../../../../styles/styles-tables.css">
+<link rel="stylesheet" href="../../styles/styles_quarto.css">
+<link rel="stylesheet" href="../../styles/py_css.css">
+<link rel="stylesheet" href="../../styles/styles-tables.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -145,10 +136,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../imgs/sp2273_logo_gray.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../../../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Python in Physics</span>
     </a>
   </div>
@@ -159,11 +150,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../../../docs/about/overview.html" aria-current="page"> 
+    <a class="nav-link active" href="../../docs/about/overview.html" aria-current="page"> 
 <span class="menu-text">What to expect?</span></a>
   </li>  
 </ul>
@@ -177,7 +168,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 4</strong></li><li class="breadcrumb-item">Random Numbers</li><li class="breadcrumb-item"><a href="../../../../docs/knowledge-lake/random_numbers/need/1_random_need.html">1. Introduction</a></li><li class="breadcrumb-item"><a href="../../../../docs/knowledge-lake/random_numbers/good/2_random_good.html">Random Numbers (Good)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 4</strong></li><li class="breadcrumb-item">Random Numbers</li><li class="breadcrumb-item"><a href="../../docs/problems/monte_carlo_simulation.html">5. Electron Propagation in Matter</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -208,19 +199,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/about/overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/about/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">What to expect?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/about/project.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/about/project.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Group Mini Project</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/resources.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Resources</span></a>
   </div>
 </li>
@@ -246,19 +237,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/setting-up/setup_jupyter.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_jupyter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, Jupyter! (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/setting-up/setup_environments.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_environments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vir. Environments (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/setting-up/setup_github.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/setting-up/setup_github.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hello, GitHub! (Nice)</span></a>
   </div>
 </li>
@@ -284,25 +275,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/1_using-jupyter_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using Jupyter (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/01_using_jupyter/1_using-jupyter_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/1_using-jupyter_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/2_using-jupyter_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using Jupyter (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/01_using_jupyter/2_using-jupyter_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/01_using_jupyter/2_using-jupyter_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
@@ -319,31 +310,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/02_basics/1_basics_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/1_basics_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/02_basics/1_basics_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/1_basics_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/02_basics/2_basics_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/2_basics_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/02_basics/2_basics_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/2_basics_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercises (Simple)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/02_basics/3_basics_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/02_basics/3_basics_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fundamentals (Nice)</span></a>
   </div>
 </li>
@@ -360,25 +351,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/03_storing-data/1_storing-data_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/1_storing-data_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storing Data (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/03_storing-data/1_storing-data_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/1_storing-data_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/03_storing-data/2_storing-data_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/2_storing-data_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storing Data (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/03_storing-data/2_storing-data_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
@@ -395,31 +386,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/04_loops/1_loops_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/1_loops_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/04_loops/1_loops_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/1_loops_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/04_loops/2_loops_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/2_loops_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/04_loops/2_loops_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/2_loops_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/04_loops/3_loops_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/04_loops/3_loops_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Loops (Nice)</span></a>
   </div>
 </li>
@@ -436,31 +427,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/05_functions/1_functions_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/1_functions_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/05_functions/1_functions_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/1_functions_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/05_functions/2_functions_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/2_functions_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/05_functions/2_functions_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/2_functions_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/05_functions/3_functions_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/05_functions/3_functions_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Functions (Nice)</span></a>
   </div>
 </li>
@@ -477,13 +468,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/06_this-n-that/1_os_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/06_this-n-that/1_os_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Files, Folders &amp; OS (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/06_this-n-that/1_os_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/06_this-n-that/1_os_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
@@ -500,25 +491,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/07_plotting/1_plotting_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/1_plotting_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/07_plotting/1_plotting_need_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/1_plotting_need_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/07_plotting/2_plotting_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/2_plotting_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plotting (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-basics/07_plotting/2_plotting_good_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-basics/07_plotting/2_plotting_good_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><img src="exerise_icon.png" class="exercise-icon-in-toc img-fluid">Exercise (Good)</span></a>
   </div>
 </li>
@@ -537,13 +528,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-optimised/efficiency.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-optimised/efficiency.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. All About Efficiency</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/python-optimised/concurrency.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/python-optimised/concurrency.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Concurrent Proccessing</span></a>
   </div>
 </li>
@@ -558,19 +549,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/classes/classes_01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/classes/classes_02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/classes/classes_03.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/classes/classes_03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Classes 3</span></a>
   </div>
 </li>
@@ -587,13 +578,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/image_analysis/1_images_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/image_analysis/1_images_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Image Analysis (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/image_analysis/2_images_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/image_analysis/2_images_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Image Analysis (Good)</span></a>
   </div>
 </li>
@@ -610,19 +601,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/pandas/1_pandas_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/1_pandas_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/pandas/2_pandas_good.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/2_pandas_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Good)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/pandas/3_pandas_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/pandas/3_pandas_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pandas (Nice)</span></a>
   </div>
 </li>
@@ -641,7 +632,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/exercises_not-so-simple.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/exercises_not-so-simple.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Seven Not So Simple Exercises</span></a>
   </div>
 </li>
@@ -656,67 +647,67 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/about-plotting.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/about-plotting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About Plotting*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/bisection_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/bisection_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bisection Method*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/vibrot-spectrum_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/vibrot-spectrum_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vibrational Rotational Spectrum of HCl*</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/researchers-frustration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/researchers-frustration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A Researcher’s Frustration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/humpty-dumpty-ir-spectra_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/humpty-dumpty-ir-spectra_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Humpty Dumpty IR Spectra</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/pool-sampling_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/pool-sampling_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pool Sampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/jcamp-jdx_question.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/jcamp-jdx_question.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Parsing JCAMP-JDX files</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/yz-trapezium.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/yz-trapezium.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrals &amp; Areas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/yz-streamplots.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/yz-streamplots.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">All about plotting</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/analysing-graduate-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/analysing-graduate-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Graduate Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/about-a-pendulum.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/about-a-pendulum.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About a Pendulum</span></a>
   </div>
 </li>
@@ -746,7 +737,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/boltzmann.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/boltzmann.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Maxwell-Boltzmann</span></a>
   </div>
 </li>
@@ -763,13 +754,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/roberts-gray-golgi_question_v02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/roberts-gray-golgi_question_v02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A picture is worth thousands of data points</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/brownian_motion.mp4" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/brownian_motion.mp4" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Brownian Motion Video</span></a>
   </div>
 </li>
@@ -797,25 +788,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/numerical/3_numerical_nice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/numerical/3_numerical_nice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/simple-odes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/simple-odes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Simple ODEs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/daisyworld.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/daisyworld.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. Daisyworld</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/jacobi-relaxation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/jacobi-relaxation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. Laplace Numerically</span></a>
   </div>
 </li>
@@ -843,22 +834,22 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false">
  <span class="menu-text">1. Introduction</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth3 show">  
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/random_numbers/need/1_random_need.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/knowledge-lake/random_numbers/need/1_random_need.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Random Numbers (Need)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/knowledge-lake/random_numbers/good/2_random_good.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../docs/knowledge-lake/random_numbers/good/2_random_good.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Random Numbers (Good)</span></a>
   </div>
 </li>
@@ -866,25 +857,25 @@ window.Quarto = {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/monte-carlo-radioactivity.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/monte-carlo-radioactivity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Radioactivity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/monte-carlo-integration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/monte-carlo-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. Integration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/ising-model.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/ising-model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. Ising Model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../../docs/problems/monte_carlo_simulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/problems/monte_carlo_simulation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">5. Electron Propagation in Matter</span></a>
   </div>
 </li>
@@ -902,35 +893,17 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-to-expect-in-this-chapter" id="toc-what-to-expect-in-this-chapter" class="nav-link active" data-scroll-target="#what-to-expect-in-this-chapter"><span class="header-section-number">1</span> What to expect in this chapter</a></li>
-  <li><a href="#random-numbers-from-other-distributions" id="toc-random-numbers-from-other-distributions" class="nav-link" data-scroll-target="#random-numbers-from-other-distributions"><span class="header-section-number">2</span> Random numbers from other distributions</a>
-  <ul class="collapse">
-  <li><a href="#random-numbers-from-the-normal-distribution" id="toc-random-numbers-from-the-normal-distribution" class="nav-link" data-scroll-target="#random-numbers-from-the-normal-distribution"><span class="header-section-number">2.1</span> Random numbers from the Normal distribution</a></li>
-  <li><a href="#visualising-the-random-numbers" id="toc-visualising-the-random-numbers" class="nav-link" data-scroll-target="#visualising-the-random-numbers"><span class="header-section-number">2.2</span> Visualising the random numbers</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.3</span> 68%?</a></li>
-  </ul></li>
-  <li><a href="#example-brownian-motion-in-1d" id="toc-example-brownian-motion-in-1d" class="nav-link" data-scroll-target="#example-brownian-motion-in-1d"><span class="header-section-number">3</span> Example: Brownian Motion in 1D</a>
-  <ul class="collapse">
-  <li><a href="#the-scenario" id="toc-the-scenario" class="nav-link" data-scroll-target="#the-scenario"><span class="header-section-number">3.1</span> The scenario</a></li>
-  <li><a href="#the-simulation" id="toc-the-simulation" class="nav-link" data-scroll-target="#the-simulation"><span class="header-section-number">3.2</span> The simulation</a></li>
-  <li><a href="#what-does-theory-say" id="toc-what-does-theory-say" class="nav-link" data-scroll-target="#what-does-theory-say"><span class="header-section-number">3.3</span> What does theory say?</a></li>
-  </ul></li>
-  <li><a href="#example-estimating-pi" id="toc-example-estimating-pi" class="nav-link" data-scroll-target="#example-estimating-pi"><span class="header-section-number">4</span> Example: Estimating <span class="math inline">\(\pi\)</span></a>
-  <ul class="collapse">
-  <li><a href="#the-method" id="toc-the-method" class="nav-link" data-scroll-target="#the-method"><span class="header-section-number">4.1</span> The method</a></li>
-  <li><a href="#a-poor-but-intuitive-solution" id="toc-a-poor-but-intuitive-solution" class="nav-link" data-scroll-target="#a-poor-but-intuitive-solution"><span class="header-section-number">4.2</span> A poor but intuitive solution</a></li>
-  <li><a href="#a-better-solution" id="toc-a-better-solution" class="nav-link" data-scroll-target="#a-better-solution"><span class="header-section-number">4.3</span> A better solution</a></li>
-  <li><a href="#a-smarter-solution" id="toc-a-smarter-solution" class="nav-link" data-scroll-target="#a-smarter-solution"><span class="header-section-number">4.4</span> A smarter solution</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#simulating-particles" id="toc-simulating-particles" class="nav-link" data-scroll-target="#simulating-particles"><span class="header-section-number">1</span> Simulating particles</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 4</strong></li><li class="breadcrumb-item">Random Numbers</li><li class="breadcrumb-item"><a href="../../../../docs/knowledge-lake/random_numbers/need/1_random_need.html">1. Introduction</a></li><li class="breadcrumb-item"><a href="../../../../docs/knowledge-lake/random_numbers/good/2_random_good.html">Random Numbers (Good)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Day 4</strong></li><li class="breadcrumb-item">Random Numbers</li><li class="breadcrumb-item"><a href="../../docs/problems/monte_carlo_simulation.html">5. Electron Propagation in Matter</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Random Numbers (Good)</h1>
+<h1 class="title">Monte Carlo Simulation of Electron Propagation</h1>
 </div>
 
 
@@ -953,244 +926,162 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/Users/chammika/miniconda3/envs/quarto/bin/python3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<section id="what-to-expect-in-this-chapter" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> What to expect in this chapter</h1>
-<p>In this chapter, I will show you how to use random numbers to simulate real experiments. There are many, many examples that I can draw on, but I will keep it ‘simple’ and only talk about Brownian motion and estimating the value of <span class="math inline">\(\pi\)</span>. I will also show you what it means to draw random numbers from a non-uniform distribution.</p>
+<section id="introduction" class="level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<p>Monte Carlo techniques were first developed during the Manhattan Project to model complex physical processes such as neutron transport in nuclear reactions. In this problem, you will explore a simple yet realistic simulation of electron propagation through matter.</p>
 </section>
-<section id="random-numbers-from-other-distributions" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Random numbers from other distributions</h1>
-<p>So far, we have used random numbers that were uniformly distributed. However, there are many instances where we need numbers from other distributions, such as the Normal distribution. Numpy already has functions in place for this. Let me show you how it works. It is also a quick, neat application.</p>
-<section id="random-numbers-from-the-normal-distribution" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="random-numbers-from-the-normal-distribution"><span class="header-section-number">2.1</span> Random numbers from the Normal distribution</h2>
+<section id="simulating-particles" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Simulating particles</h1>
+<p>Please refer to <a href="https://drive.google.com/file/d/1XXhhQpSsczPM8Rfrr8D27DGCBMnjK4lZ/view?usp=drive_link">this chapter</a> from <span class="citation" data-cites="joy1995">(<a href="#ref-joy1995" role="doc-biblioref">Joy 1995</a>)</span>. It gives the recepie to create a realistic MC simulation. USe this information to reproduce the single sxcattering model. Once you get it to work you will have a system in place similar to research software such as CASINO (see below).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Standard_deviation_diagram_micro.svg/1280px-Standard_deviation_diagram_micro.svg.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+<p><img src="https://www.researchgate.net/profile/Romaneh-Jalilian-2/publication/237509571/figure/fig2/AS:298941200519188@1448284544934/Monte-Carlo-using-CASINO-simulation-of-possible-paths-of-secondary-electrons-ionized-by.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
 </figure>
 </div>
-<p>Before we draw random numbers from a Normal distribution (also known as a Gaussian distribution), let’s remind ourselves what the Normal distribution is. With the characteristic shape shown in the plots above (that I borrowed from Wikipedia), the Normal distribution is defined by two parameters. The mean <span class="math inline">\(\mu\)</span> and the standard deviation <span class="math inline">\(\sigma\)</span>. The mean decides the centre’s location and the standard deviation decides the chubbiness. A feature of the Normal distribution (as indicated in the image above) is that 68% of the points lie between <span class="math inline">\(\mu\pm\sigma\)</span>. The mathematical form of this distribution is:</p>
-<p><span class="math display">\[
-f(x)=\dfrac{1}{\sigma \sqrt{2\pi}}{\large e}^{-\dfrac{1}{2}\left(\dfrac{x-\mu}{\sigma}\right)^2}
-\]</span></p>
-<p>The function we need to draw normal random samples is <code>np.random.normal(loc=, scale=, size=)</code>. <code>loc</code> is used to specify the mean and <code>scale</code> the standard deviation. For example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>np.random.normal(loc<span class="op">=</span><span class="dv">5</span>, scale<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>array([6.23467679, 5.69110152, 6.2548526 , 4.91412283, 5.26087859,
-       6.01631475, 3.54998986, 3.3420698 , 7.65130615, 6.00569723])</code></pre>
-</div>
-</div>
-</section>
-<section id="visualising-the-random-numbers" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="visualising-the-random-numbers"><span class="header-section-number">2.2</span> Visualising the random numbers</h2>
-<p>It isn’t easy to see that the above numbers are from a Normal distribution. However, it is easier if we plot the data, as we did before.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img_tmp/random_good_graphical-test-for-normal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
-</figure>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1_000_0</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>random_numbers <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">5</span>, scale<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span>n)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>axis <span class="op">=</span> ax[<span class="dv">0</span>]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>axis.hist(random_numbers, bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">.25</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>axis.set_xlabel(<span class="st">"Value of random number"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>axis.set_ylabel(<span class="st">"Frequency"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>axis <span class="op">=</span> ax[<span class="dv">1</span>]</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>axis.scatter(<span class="bu">range</span>(n), random_numbers, alpha<span class="op">=</span><span class="fl">.25</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>axis.set_xlabel(<span class="st">"Position in the random number list"</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>axis.set_ylabel(<span class="st">"Value of random number"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>I hope this visualisation will help you understand what I meant by drawing a number from a Normal distribution.</p>
-</section>
-<section id="section" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="section"><span class="header-section-number">2.3</span> 68%?</h2>
-<p>Let’s check if the Normal random numbers given to us satisfy the 68% condition?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10_000</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean, sd <span class="op">=</span> <span class="dv">5</span>, <span class="dv">2</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>random_numbers <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mean, scale<span class="op">=</span>sd, size<span class="op">=</span>n)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (random_numbers <span class="op">&gt;=</span> mean <span class="op">-</span> sd) <span class="op">&amp;</span> (random_numbers <span class="op">&lt;=</span> mean <span class="op">+</span> sd)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'% of points between 1 std.dev. from the mean: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(mask)<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>% of points between 1 std.dev. from the mean: 68.43%</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="example-brownian-motion-in-1d" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Example: Brownian Motion in 1D</h1>
-<section id="the-scenario" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-scenario"><span class="header-section-number">3.1</span> The scenario</h2>
-<p>Let’s simulate a simple <em>random walk</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in 1D. The scenario is such that a particle is restricted to moving in 1D (i.e.&nbsp;only along a line). It moves in steps, either one unit to the left or one to the right. The choice of left or right is selected randomly. Let’s take the probability of going right as <span class="math inline">\(p\)</span>, and going left is <span class="math inline">\(q\)</span> (<span class="math inline">\(=1-p\)</span>).</p>
-</section>
-<section id="the-simulation" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="the-simulation"><span class="header-section-number">3.2</span> The simulation</h2>
-<p>I can encapsulate the above information as a function as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> brown_1d(prob_right<span class="op">=</span><span class="fl">.5</span>, no_of_steps<span class="op">=</span><span class="dv">10000</span>):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">        This function returns the final position of the particle </span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">        after the number of steps.</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">        prob_right is the probability of going right.</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    step_size <span class="op">=</span> <span class="dv">1</span>    </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">0</span>                               <span class="co"># starting x position</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(no_of_steps):</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rnd.random() <span class="op">&lt;</span> prob_right:   <span class="co"># Go right?</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            x <span class="op">+=</span> step_size</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            x <span class="op">-=</span> step_size</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Before going ahead, I am tired of having to type <code>np.random.</code>! Time to get lazy by:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy.random <span class="im">as</span> rnd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now I can just use <code>rnd</code>! So, back to the main story…</p>
-<p>Each time I run this function, I will get a different value. However, I like to see if there is a pattern. Let me repeat an experiment of 1000 steps 10,000 times to see what I get.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>no_of_steps, p <span class="op">=</span> <span class="dv">1_000</span>, <span class="fl">.5</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">10_000</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> [brown_1d(prob_right<span class="op">=</span>p, no_of_steps<span class="op">=</span>no_of_steps)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(repeats)]</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.hist(results, bins<span class="op">=</span><span class="dv">25</span>, density<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="ss">f'Distance from the origin after </span><span class="sc">{</span>no_of_steps<span class="sc">}</span><span class="ss"> steps'</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Probability distribution for 1D Random walk with p=</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that I have put <code>density=True</code> to ask Matplotlib to normalise the area under the curve to 1.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img_tmp/random_good_brownian-motion_0.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
-</figure>
-</div>
-<p>Interesting; the distribution looks familiar since <span class="math inline">\(p=.5\)</span> is symmetrical about the starting position. I am curious to see what happens if I increase the probability <span class="math inline">\(p\)</span> to 0.6. Then, the curve should shift to the right. Let’s see if this happens. I will not show the code because it is the same as above.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img_tmp/random_good_brownian-motion_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="500"></p>
-</figure>
-</div>
-</section>
-<section id="what-does-theory-say" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="what-does-theory-say"><span class="header-section-number">3.3</span> What does theory say?</h2>
-<p>A theoretical analysis of 1D random walks predicts that the distribution of positions should have a mean of <span class="math inline">\(N(p - q)\)</span> and a standard deviation of <span class="math inline">\(\sqrt{4N pq}\)</span> (where <span class="math inline">\(N\)</span> is the total number of steps). The distribution is actually Binomial, but since we have a large number of steps, it approximates a Gaussian. So, let’s overlay a Normal distribution over our previous plots to see how well our simulation agrees with the theory.</p>
-<p>Here is the function I used for the Normal distribution, which is the equation I showed you earlier.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normal(x, m<span class="op">=</span><span class="dv">0</span>, s<span class="op">=</span><span class="dv">1</span>):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Probability density function for the</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Gaussian distribution.</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    s2 <span class="op">=</span> s<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> np.exp(<span class="op">-</span>(x<span class="op">-</span>m)<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>s2))</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    output <span class="op">/=</span> np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>s2)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>I can use the following code to overlay this on my histogram:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prob_left <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> prob_right                       <span class="co"># q = 1 -p</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> no_of_steps <span class="op">*</span> (prob_right <span class="op">-</span> prob_left)    <span class="co"># mean = N(p - q)</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sd <span class="op">=</span> np.sqrt(<span class="dv">4</span><span class="op">*</span>no_of_steps<span class="op">*</span>prob_right<span class="op">*</span>prob_left) <span class="co"># sd = sqrt(4 N p q)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.unique(results)                           <span class="co"># Numbers that form </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                                 <span class="co"># the x-axis</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, normal(x, mean, sd), label<span class="op">=</span><span class="st">'Theoretical'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here is what I got.</p>
-<p><img src="img_tmp/random_good_brownian-motion_2.png" class="img-fluid quarto-figure quarto-figure-center" width="500"> <img src="img_tmp/random_good_brownian-motion_3.png" class="img-fluid quarto-figure quarto-figure-center" width="500"></p>
-<p>Neat!</p>
-<p>By the way, techniques such as the above that involve random numbers are called <span class="glossary">Monte Carlo</span> methods. This is because random numbers are associated with gambling, and the city of Monte Carlo is famous for the latter.</p>
-</section>
-</section>
-<section id="example-estimating-pi" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Example: Estimating <span class="math inline">\(\pi\)</span></h1>
-<p>I will now show you a way to estimate the value of <span class="math inline">\(\pi\)</span> by using random numbers to simulate an old experiment.</p>
-<section id="the-method" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="the-method"><span class="header-section-number">4.1</span> The method</h2>
-<p><img src="http://sps.nus.edu.sg/~chammika/sp2171/2019_python/local-figures/circle-in-square.jpg" class="external-images resize65 img-fluid"></p>
-<p>Consider a circle inscribed on a square surface, as shown above. Let’s take the radius of the circle to be 1. Then, if we throw a large number (<span class="math inline">\(N_{total}\)</span>) of grains of sand <strong>randomly</strong> onto this surface, the number of grains landing on the green, the circular area will be related to the number on the total area by:</p>
-<p><span class="math display">\[
-\begin{align*}\frac{N_{green}}{N_{total}}\approx \frac{\text{Area of green region}}{\text{Area of square}}
-\end{align*}
-\]</span></p>
-<p>But we know the formulae for the areas! So,</p>
-<p><span class="math display">\[
+<!-- ## How to simulate a particle in 2D
+
+$$
+\begin{align}
+x_{n+1} &= x_{n} + step \cos(\alpha)\\
+y_{n+1} &= y_{n} + step \cos\left(\frac{\pi}{2}-A\right)
+\end{align}
+$$
+
+## How to simulate a particle in 3D
+
+### Total scattering Cross-section
+
+$$
+\sigma_E = 5.21\times10^{-21}\dfrac{Z^2}{E^2}\dfrac{4\pi}{\alpha(1+\alpha)}\left(\dfrac{E+511}{E+1024}\right)^2 \qquad\text{cm$^2$/atom}
+$$
+
+$$
+\alpha = 3.4\times10^{-3}\dfrac{Z^{0.67}}{E}
+$$
+
+### Mean Free Path
+
+$$
+\lambda = \dfrac{A}{N_a\rho\,\sigma_E}\qquad{\text{(cm)}}
+$$
+
+| Symbol | Meaning                 |
+| ------ | ----------------------- |
+| $N_a$  | Avogadro number         |
+| $\rho$ | Density (g/cm$^3$)      |
+| $A$    | Atomic weight in g/mole |
+
+#### For the simulation
+
+$$
+s = -\lambda\ln(1-RND)
+$$
+
+### Energy Loss function
+
+$$
+E_{n+1} = E_n  -s\cdot\rho \cdot \frac{dE}{ds}
+$$
+
+| Symbol     | Meaning                           |
+|:----------:|-----------------------------------|
+| $L$        | Free flight length                |
+| $E$        | Energy of the particle            |
+| $\Delta E$| Total energy lost in traversing L |
+| $\frac{dE}{dS}$ | Rate of energy loss with path length |
+
+$$
+\dfrac{dE}{dS} = -78500 \dfrac{Z}{AE}\ln\left[\dfrac{1.166(E+0.85I)}{I}\right]
+$$
+
+| Symbol | Meaning                |
+| ------ | ---------------------- |
+| $Z$    | Atomic number          |
+| $A$    | Atomic Mass            |
+| $I$    | Mean ionisation energy |
+
+$$
+I = \left[9.67Z + \dfrac{58.5}{Z^{0.19}}\right]\times 10^{-3} \qquad\text{(keV)}
+$$
+
+### Scattering Angle
+
+$$
+\begin{equation}
+R = \frac{\int_{0}^{\theta}\left (\frac{d\sigma}{d\Omega}\right) d\theta}
+{\int_{0}^{\pi}\left (\frac{d\sigma}{d\Omega}\right) d\theta}
+\end{equation}
+$$
+
+$$
+\begin{equation}
+\cos \phi  = 1 - \frac{2 \alpha R}{1 + \alpha - R}
+\end{equation}
+$$
+
+$$
+\psi=2\pi.RND
+$$
+
+### Direction Cosines
+
+![](https://sps.nus.edu.sg/sp2273/images/angles.png)
+
+![](https://sps.nus.edu.sg/sp2273/images/n-to-n+1.png)
+
+$$
 \begin{align*}
-\frac{\text{Area of green region}}{\text{Area of square}}&amp;= \frac{\pi (1)^2}{2\times 2}=\frac{1}{4}\pi \quad\Rightarrow \quad\pi  = 4\left(\frac{\text{Area of green region}}{\text{Area of square}}\right)
+R_{x} &= (R_{x0} \cdot \cos \phi) + (V1 \cdot V3) + (R_{y0}\cdot V2 \cdot V4) \\
+R_{y} &= (R_{y0} \cdot \cos \phi) + [V4 \cdot (R_{z0} \cdot V1 - R_{x0} \cdot V2) ] \\
+R_{z} &= (R_{z0} \cdot \cos \phi) + (V2 \cdot V3) - (R_{y0}\cdot V1 \cdot V4) \\
 \end{align*}
-\]</span></p>
-<p><span class="math display">\[
-\text{i.e.}\qquad\pi  \approx 4\left(\frac{N_{green}}{N_{total}}\right)
-\]</span></p>
-<p>We can simulate this experiment by randomly ‘creating’ points (to represent where a grain of sand will land) by using NumPy’s PRNG. We can then decide if this grain of sand is inside or outside to get <span class="math inline">\(N_{green}\)</span> and then go on to get an estimate for <span class="math inline">\(\pi\)</span>!</p>
-</section>
-<section id="a-poor-but-intuitive-solution" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="a-poor-but-intuitive-solution"><span class="header-section-number">4.2</span> A poor but intuitive solution</h2>
-<p>Let me start with a (poor) but intuitive solution by throwing one grain at a time.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>N_total <span class="op">=</span> <span class="dv">100_000</span>                             <span class="co"># Yes, Python allows the _</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>N_green <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(N_total):</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> rnd.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1</span>)     </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> rnd.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>)                   <span class="co"># Distance from the origin</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> r <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        N_green <span class="op">+=</span> <span class="dv">1</span>                           <span class="co"># In or out of the circle</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">*</span> N_green <span class="op">/</span> N_total                          <span class="co"># Estimate for pi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>3.13552</code></pre>
-</div>
-</div>
-<p>This solution is slow because of the way we are drawing out the random number, one at a time</p>
-</section>
-<section id="a-better-solution" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="a-better-solution"><span class="header-section-number">4.3</span> A better solution</h2>
-<p>Here is a better solution that generates multiple random numbers at once.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>N_total<span class="op">=</span><span class="dv">1_000_000</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>rnd.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>rnd.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>N_green<span class="op">=</span> np.<span class="bu">sum</span>((x<span class="op">**</span><span class="dv">2</span><span class="op">+</span>y<span class="op">**</span><span class="dv">2</span>) <span class="op">&lt;=</span> <span class="dv">1</span>)                <span class="co"># Oh! the ease of NumPy!</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">*</span> (N_green <span class="op">/</span> N_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>np.float64(3.145332)</code></pre>
-</div>
-</div>
-</section>
-<section id="a-smarter-solution" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="a-smarter-solution"><span class="header-section-number">4.4</span> A smarter solution</h2>
-<p>There is room to improve our algorithm. Notice that if we limit our experiment to only the first quadrant of the circle and the related square, our equation remains the same!</p>
-<p><span class="math display">\[\begin{align*}
-\frac{\text{Area of green region}}{\text{Area of square}}&amp;= \frac{\pi (1)^2\color{darkorange}{/4}}{2\times 2\color{darkorange}{/4}}=\frac{1}{4}\pi \quad\Rightarrow \quad\pi  = 4\left(\frac{\text{Area of green region}}{\text{Area of square}}\right)
-\end{align*}\]</span></p>
-<p>However, the range for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> becomes <span class="math inline">\([0,1)\)</span>. So, our statistics have improved drastically! We can now use the faster, simpler <code>rand()</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>N_total<span class="op">=</span><span class="dv">1_000_000</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>rnd.rand(N_total)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>rnd.rand(N_total)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>N_green<span class="op">=</span>np.<span class="bu">sum</span>((x<span class="op">**</span><span class="dv">2</span><span class="op">+</span>y<span class="op">**</span><span class="dv">2</span>) <span class="op">&lt;=</span> <span class="dv">1</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="op">*</span> (N_green <span class="op">/</span> N_total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>np.float64(3.140268)</code></pre>
-</div>
-</div>
+$$
+
+$$
+\begin{align*}
+V1 &= AN \cdot \sin \phi \\
+V2 &= AN \cdot AM \cdot \sin \phi \\
+V3 &= \cos \psi \\
+V4 &= \sin \psi
+\end{align*}
+$$
+
+$$
+\begin{align*}
+AM &= - \frac{R_{x0}}{R_{z0}} \\
+AN &= \frac{1}{\sqrt{1+ AM \cdot AM}}
+\end{align*}
+$$
+
+### Positions
+
+$$
+\begin{align}
+x_{n+1} &= x_n + step\cdot R_x\\
+y_{n+1} &= y_n + step\cdot R_y\\
+z_{n+1} &= z_n + step\cdot R_z\\
+\end{align}
+$$
+
+### Recipe
+
+1. Simulate 1 particle in 2D (Brownian motion)
+2. Simulate 1 particle in 3D (Brownian motion)
+   - Starting direction cosines [0, 0, 1] (vertically in)
+3. Change path length based just on a random number and $s = -\lambda\ln(1-RND)$
+   - Let $\lambda$ be 1  
+4. Incorporate Energy loss ($\dfrac{dE}{ds}$)
+5. Get $\lambda$ working -->
+
 
 
 </section>
-</section>
 
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Random walks are important in many branches of science. For example, see <a href="http://www.jstor.org/stable/27851819">here</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-joy1995" class="csl-entry" role="listitem">
+Joy, David C. 1995. <em>Monte <span>Carlo</span> Modeling for Electron Microscopy and Microanalysis</em>. Oxford Series in Optical and Imaging Sciences 9. New York: Oxford University Press.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
